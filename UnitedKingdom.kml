@@ -1,0 +1,2803 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>United Kingdom</name>
+    <Style id="icon-1899-0288D1-normal">
+      <IconStyle>
+        <color>ffd18802</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-1899-0288D1-highlight">
+      <IconStyle>
+        <color>ffd18802</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-1899-0288D1">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1899-0288D1-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1899-0288D1-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-1899-0288D1-nodesc-normal">
+      <IconStyle>
+        <color>ffd18802</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="icon-1899-0288D1-nodesc-highlight">
+      <IconStyle>
+        <color>ffd18802</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="icon-1899-0288D1-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1899-0288D1-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1899-0288D1-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Placemark>
+      <name>(B26) Dolwyddelan Castle </name>
+      <description>B26.001-4</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.9082012,53.0529548,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Harlech Castle</name>
+      <description>B26.015</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -4.1089014,52.8599986,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Conwy Castle</name>
+      <description>B26.16-21</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.8256186,53.280059,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>St Giles Church</name>
+      <description>B26.022</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.9925288,53.0442415,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Valle Crucis Abbey / Abaty Glyn Y Groes</name>
+      <description>B26.026-32, B44.172-76</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.1867851,52.9886871,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Chirk Castle</name>
+      <description>B26.023</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.0896841,52.9353756,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Chirk Aqueduct</name>
+      <description>B26.024</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.0621429,52.9282651,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Whittington Castle</name>
+      <description>B26.025, B44.169-71</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.0026929,52.8731677,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Stokesay Castle</name>
+      <description>B26.033-41</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.8309413,52.4302758,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Ludlow</name>
+      <description>B26.042-56</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.7139129,52.367749,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>The Iron Bridge</name>
+      <description>B26.054</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.4854576,52.6272982,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Tintern Abbey / Abaty Tyndryn</name>
+      <description>B26.056-63</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.677023,51.696862,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>St Davids</name>
+      <description>B26.064-79</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -5.265995,51.881227,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Tegrinnis Farm, Pembrokeshire</name>
+      <description>B.26.080-82</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -4.9184137,51.6762352,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>(B26) Hampton Court Palace </name>
+      <description>B26.090-99</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -0.3377623,51.4036128,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>(B27) St. John the Baptist Church, Broadclyst</name>
+      <description>B27.001</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.4451667,50.7660481,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Broadclyst</name>
+      <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+      <Point>
+        <coordinates>
+          -3.4402746,50.7613592,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Manor of Holcombe Rogus</name>
+      <description>B27.004</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.3462061,50.9628721,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Dartington Trust</name>
+      <description>B27.008</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.6934738,50.4521825,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Staverton Bridge</name>
+      <description>B27.009, 10,11 nearby maybe</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.7135184,50.4607177,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Two Bridges, Dartmoor</name>
+      <description>B27.016-18, B44.035-36</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.9665457,50.5580289,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Dartmoor National Park</name>
+      <description>B27.012-15, B45.905-06, B47.654-63, 716-18</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.9206884,50.5718857,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Littaford Tors</name>
+      <description>B27.020</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.9564794,50.5795112,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Yar Tor</name>
+      <description>B27.021</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.8669698,50.5504626,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Postbridge Clapper Bridge</name>
+      <description>B27.031</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.911172,50.5940966,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St Pancras' Church]]></name>
+      <description>B27.032</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.8108718,50.5767808,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St Andrew's Church]]></name>
+      <description>B27.033-35</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.3911839,50.8557523,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St. Peter's Church, Tiverton]]></name>
+      <description>B26.036-39</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.4889136,50.9054348,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Holy Cross, Crediton</name>
+      <description>B27.040-41</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.6522011,50.7896532,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>The Moretonhampstead Almshouses</name>
+      <description>B27.042-43</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.76208333333333,50.6605833333333,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Pencoed Castle</name>
+      <description>B27.044-45</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.859109,51.600364,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Berry Pomeroy Castle</name>
+      <description>B26.046-48</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.636467,50.4491988,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>South Molton</name>
+      <description>B27.050 and possibly surrounding slides</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.832119,51.016818,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Gunnislake New Bridge</name>
+      <description>B27.075</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -4.2119809,50.5285557,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Tamar Estuary</name>
+      <description>Near Precise location for B27.076</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -4.1983,50.4070611111111,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Tamar Bridge</name>
+      <description>B27.077</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -4.1992433,50.4056713,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>The Royal Albert Bridge</name>
+      <description>B26.078</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -4.2035637,50.4076703,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>National Trust - Cotehele</name>
+      <description>B27.079-82</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -4.2252701,50.4951147,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Boscastle Harbour</name>
+      <description>B27.083-85 and likely the following ocean scenes are from nearby</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -4.6954305,50.6906842,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Newlyn Harbour</name>
+      <description>B27.089-90</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -5.5467303,50.1020934,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>(B27) Mousehole Harbour</name>
+      <description>B27.091-093, likely 94,95 nearby</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -5.5383908,50.0828213,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>(B28) Malmesbury Abbey</name>
+      <description>B28.001-12</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.0983567,51.5846682,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Malmesbury Market Cross</name>
+      <description>B28.013</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.0980507,51.5838751,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>St. John Baptist Cirencester</name>
+      <description>B28.014-032</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.967913,51.7175407,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>St John Evangelist Hospital</name>
+      <description>B28.033</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.970195,51.7196914,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Barton House</name>
+      <description>B28.034-36</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.976067,51.7205409,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Bathurst Estate</name>
+      <description>B28.037-39</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.9844013,51.7315122,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St Kenelm's Church]]></name>
+      <description>B28.040-44</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.0774547,51.7293736,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Bibury</name>
+      <description>B28.045-48, 65</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.8307755,51.7588076,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Winson</name>
+      <description>B28.047</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.871494,51.775642,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Coln Rogers</name>
+      <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+      <Point>
+        <coordinates>
+          -1.876703,51.782715,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St Andrew's Church]]></name>
+      <description>B28.051-53</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.8746178,51.7857817,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Coln Saint Dennis</name>
+      <description>B28.054-55</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.873632,51.79681,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Church of St Peter and St Paul, Northleach</name>
+      <description>B28.057-62</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.8390449,51.8296145,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>The Daneway Inn</name>
+      <description>B28.064 Possibly also 63</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.090041,51.729515,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St Peter's Church]]></name>
+      <description>B28.065-67</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.9512256,51.7003921,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>North Cerney</name>
+      <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+      <Point>
+        <coordinates>
+          -1.9713171,51.772318,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St Andrew's Church]]></name>
+      <description>B28.070</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.9264765,51.8076807,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Chedworth Village Hall</name>
+      <description>B28.071-77</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.9235041,51.8012619,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Footbridge near Bourton-on-the-Water</name>
+      <description>B28.078</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.7575423,51.8842224,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Historic Sundial</name>
+      <description>B28.079</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.9012775,52.0066996,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Stanton</name>
+      <description>B28.080-81</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.9019285,52.0068303,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St Mary's Church]]></name>
+      <description>B28.082-83,89</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.7821031,51.7090626,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Broadway</name>
+      <description>B28.085</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.854492,52.035467,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St James' Church]]></name>
+      <description>B28.086-88</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.7758322,52.0532116,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Worcester</name>
+      <description>B28.090-97, B44.012-14</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.221575,52.193636,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Cheltenham</name>
+      <description>B28.098 says its near here</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.0782533,51.8993855,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Tewkesbury Abbey</name>
+      <description>B28.099</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.160793,51.990192,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>(B28) Gloucester Cathedral</name>
+      <description>B28.100</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.2466683,51.8673025,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>(B29) The Church of Saint Michael Framlingham</name>
+      <description>B29.001-48, B44.138</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          1.3447783,52.2222361,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Dunkeld Bridge</name>
+      <description>B29.030</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.5852772,56.5640023,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Framlingham Castle</name>
+      <description>B29.049-52</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          1.3467338,52.2237783,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>House in Framlingham</name>
+      <description>B29.053,54</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          1.3441254,52.2225894,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Tomb of Thomas Mills</name>
+      <description>B29.055-56</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          1.3422213,52.2200598,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Mills Almshouses</name>
+      <description>B29.057</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          1.3420105,52.2206708,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[Sir Robert Hitcham's Almshouses]]></name>
+      <description>B29.058</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          1.3407824,52.2223887,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>The Ancient House</name>
+      <description>B29.059</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          1.341068,52.2216597,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Framlingham</name>
+      <description>B29.061</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          1.342105,52.222147,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St Mary's Church, Dennington]]></name>
+      <description>B29.062-75, B44.129-37</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          1.3412491,52.2535972,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Parham</name>
+      <description>B29.076-83</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          1.374499,52.196062,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[All Saints' Church Easton]]></name>
+      <description>B29.084</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          1.33809,52.1799081,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[Stonham Aspal Church, St Mary & St Lambert]]></name>
+      <description>B29.085-89</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          1.1200139,52.1926745,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St Mary's Church Earl Stonham]]></name>
+      <description>B29.091-95</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          1.0820919,52.18752,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>(B29) Glemham Hall</name>
+      <description>B29.096-100</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          1.4308457,52.180527,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>(B30) St. Mary’s Church, Woolpit</name>
+      <description>B30.001-07</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.8894591,52.2250832,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St Edmund King & Martyr Church]]></name>
+      <description>B30.008-015</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          1.6787223,52.3282138,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Orford Castle</name>
+      <description>B30.016-020</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          1.530753,52.094217,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St Bartholomew's Church]]></name>
+      <description>B30.021-28</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          1.5349539,52.0950929,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Rendlesham Hall</name>
+      <description>B30.029,30</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          1.4107036,52.1348886,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Aldeburgh Beach - Ionia Houseboat</name>
+      <description>B30.031</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          1.6013227,52.1511497,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Christchurch Mansion</name>
+      <description>B30.033-34</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          1.1581141,52.060651,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[Saint Margaret's Church]]></name>
+      <description>B30.035-36</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          1.1585077,52.0596609,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Bury St Edmunds</name>
+      <description>B30.037,38</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.7112514,52.2469041,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>St. Michael and All Angels</name>
+      <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+      <Point>
+        <coordinates>
+          -1.4467635,52.2564484,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[Saint Peter's Church]]></name>
+      <description>B30.040</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          1.5737712,52.2653312,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St Andrew's Church, Bramfield]]></name>
+      <description>B30.041</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          1.5178243,52.3097894,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Debenham Parish Church of Saint Mary Magdalene</name>
+      <description>B30.042</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          1.18221,52.224125,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Eye Parish Church of Saint Peter and Saint Paul</name>
+      <description>B30.043</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          1.1515099,52.3202121,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Angel Street</name>
+      <description>B30.049</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.9574834,52.0467833,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Kersey</name>
+      <description>B30.051</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.9169169,52.058535,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[Rougham Church, St Mary's]]></name>
+      <description>B30.052-54</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.798153,52.2283239,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>All Saints Church Laxfield</name>
+      <description>B30.055,56</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          1.3662663,52.302071,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St Peter and St Paul's Church, Fressingfield]]></name>
+      <description>B30.057-60</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          1.3190839,52.3488262,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Moot Hall</name>
+      <description>B30.061</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          1.6029252,52.1549419,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St Peter and St Paul's Church Aldeburgh]]></name>
+      <description>B30.062-065</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          1.6000386,52.1549878,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St Andrew's Church, Westhall]]></name>
+      <description>B30.066,67</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          1.5582286,52.3683143,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>St Margaret Stoven C Of E Church</name>
+      <description>B30.068</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          1.5951154,52.3778496,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Castle Acre Priory</name>
+      <description>B30.069-71</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.6834292,52.7004328,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Narford hall</name>
+      <description>B30.072</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.61253,52.6921757,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[King's Lynn Minster]]></name>
+      <description>B30.073-77</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.3956502,52.751664,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St Nicholas' Chapel]]></name>
+      <description>B30.078-80+</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.3966267,52.7575305,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>(B30) Huntingdon</name>
+      <description>B30.098-100</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -0.182552,52.33146,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>(B42) Start Point Lighthouse</name>
+      <description>B42.601-603</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.6422617,50.2225415,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Noss Mayo</name>
+      <description>B42.604-607</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -4.038136,50.310287,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Slapton Ley Nature Preserve</name>
+      <description>B42.610-11</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.6537888,50.2741174,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Slapton Village</name>
+      <description>B42.613-14</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.652428,50.293149,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Totnes</name>
+      <description>B42.615</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.685797,50.433741,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Totnes Guildhall</name>
+      <description>B42.616</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.6877746,50.4321265,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Week</name>
+      <description>B42.617-32, B44.015-32, B47.666</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.7214562,50.4493325,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Sir Francis Drake Statue</name>
+      <description>B42.633</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -4.1427774,50.3652817,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Britannia Royal Naval College</name>
+      <description>B42.636</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.5822843,50.3570117,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Dartmouth</name>
+      <description>B42.637-43, 100</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.578807,50.352517,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>River Dart</name>
+      <description>B42.645-647, B47.667-8</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.6804019,50.4256047,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Saint John the Baptist, Ashton</name>
+      <description>B42.648-54</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.6194436,50.650561,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Bridford</name>
+      <description>B42.655-58</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.685445,50.665348,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>St Mary’s Church</name>
+      <description>B42.659-63</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.6549403,50.6162572,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Church of St John the Baptist</name>
+      <description>Suspected location of B42.664-66</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.7188127,50.6184743,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St Winifred's Church, Manaton]]></name>
+      <description>B42.667-68</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.7692128,50.6178221,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St Mary's Church]]></name>
+      <description>B42.669-79</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.6878076,50.4318488,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Church of St Peter, St Paul and St Thomas of Canterbury, Bovey Tracey</name>
+      <description>B42.680-87</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.6677045,50.5952162,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St Pancras' Church]]></name>
+      <description>B42.688-91</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.8108718,50.5767808,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>(B42) St Peters Church, Buckland-in-the-Moor</name>
+      <description>B42.692-99</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.8071412,50.5439253,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>(B43) Hexworthy</name>
+      <description>B43.701-2</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.895618,50.537792,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Painswick</name>
+      <description>B43.703-10</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.193556,51.7871669,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Gloucester</name>
+      <description>B43.711-715</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.2412463,51.8884062,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Painswick Beacon</name>
+      <description>B43.716-19</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.1925181,51.8073691,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St Peter's Church]]></name>
+      <description>B43.720-26</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.9679884,51.9524591,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>St Mary’s Church</name>
+      <description>B43.727</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.5879194,52.2822545,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Warwick</name>
+      <description>B43.728-39</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.584927,52.282316,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Dudmaston Hall</name>
+      <description>B43.740-42</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.3679104,52.4956703,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Wenlock Priory</name>
+      <description>B43.743-50</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.5552849,52.5973362,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>National Trust - Erddig</name>
+      <description>B43.751-54</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.0065064,53.0270799,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>(B43) Pontcysyllte Aqueduct</name>
+      <description>B43.758 Baly cottage probably near here</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.0877879,52.9704262,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>(B44) Shottery</name>
+      <description>B44.001</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.7286642,52.1905462,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[Anne Hathaway's Cottage]]></name>
+      <description>B44.002-3</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.731923,52.190746,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Evesham</name>
+      <description>B44.004 near here</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.94677,52.092149,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>All Saints Parish Church, Evesham</name>
+      <description>B44.005</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.9469756,52.091646,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Evesham Bell Tower</name>
+      <description>B44.006</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.9466389,52.0913163,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St Lawrence's Church, Evesham]]></name>
+      <description>B44.007</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.947674,52.0913956,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>The Old Vicarage (Church House)</name>
+      <description>B44.008</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.9470759,52.0918068,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Worcester Cathedral</name>
+      <description>B44.009-11</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.2207065,52.1887259,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Westcombe</name>
+      <description>B44.033-34</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.4654029,51.1509,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>River Tamar Near Bradstone</name>
+      <description>B44.039</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -4.3046628,50.6096347,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>St Germans Priory</name>
+      <description>B44.040-41</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -4.3096366,50.3966614,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Port Eliot Gardens</name>
+      <description>B44.042</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -4.309751,50.397376,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>St Germans Viaduct</name>
+      <description>B44.043-44</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -4.3025179,50.3927069,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Marazion</name>
+      <description>B44.045-49, 63-69</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -5.463955,50.125077,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[Saint Michael's Mount]]></name>
+      <description>B44.050-62</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -5.4778073,50.1171529,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Porthcurno Beach</name>
+      <description>B44.071, possibly also 72,73</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -5.6505279,50.0429229,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>The Minack Theatre</name>
+      <description>B44.074-75</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -5.6510503,50.0408464,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Porthleven</name>
+      <description>B44.080-82</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -5.315853,50.085305,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Lizard</name>
+      <description>B44.083-85,87</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -5.204156,49.96861,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>RNLI The Lizard Lifeboat Station</name>
+      <description>B44.086</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -5.1870529,49.9694832,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Lelant</name>
+      <description>B44.088</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -5.4404009,50.183852,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>National Trust - Carnewas at Bedruthan</name>
+      <description>B44.089-93, B45.910-21 Possibly nearby are B44.094-96</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -5.0319629,50.4812301,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St Nicholas' Church]]></name>
+      <description>B44.097</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.2370699,51.7761188,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Inkpen</name>
+      <description>B44.098-100</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.464228,51.374941,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Regency House</name>
+      <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+      <Point>
+        <coordinates>
+          1.3446659,52.2217916,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>The Crown Hotel Framlingham</name>
+      <description>B44.141</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          1.3441647,52.2216339,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>The Old Guildhouse, Dullingham</name>
+      <description>B44.142</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.3832449,52.1951085,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Holy Trinity Church, Long Melford</name>
+      <description>B44.143-44. B46.132,40,41</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.7206076,52.0877604,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St Peter and St Paul's Church, Lavenham]]></name>
+      <description>B44.145. B46.121-28</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.7916842,52.1064269,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Lincoln Cathedral</name>
+      <description>B44.146-52</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -0.5360156,53.2342968,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Ripon Cathedral</name>
+      <description>B44.153</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.5202787,54.1350784,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Southwell Minster</name>
+      <description>B44.154-158</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -0.9537118,53.0767662,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Sacrista Prebend Retreat House</name>
+      <description>B44.159</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -0.9563644,53.0776851,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Durham Cathedral</name>
+      <description>B44.160</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.5763921,54.7732329,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Durham</name>
+      <description>B44.161</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.584852,54.77525,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Pennines</name>
+      <description>B44.162-63</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.486667,54.702778,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Helwith Bridge Inn, Settle</name>
+      <description>B44.166 Precise location</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.2900358,54.1213879,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Beeston Castle</name>
+      <description>B44.167-68</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.6935647,53.1286044,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[Plas Newydd Historic House & Gardens Llangollen]]></name>
+      <description>B44.177-80</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.1654824,52.9671572,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St Peter's Church, Melverley]]></name>
+      <description>B44.181</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.9901402,52.7425366,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Fitz</name>
+      <description>B44.183-87, B45.946-53,56-60</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.8190236,52.755456,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Warwick Castle</name>
+      <description>B44.188-93</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.5884789,52.2782474,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>(B44) Kenilworth Castle and Elizabethan Garden</name>
+      <description>B44.194-200</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.5922127,52.3480527,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>(B45) North Bovey</name>
+      <description>B45.901-904</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.782536,50.64352,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Exmoor National Park</name>
+      <description>B45.908-09</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.6462346,51.134614,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Shrewsbury Castle</name>
+      <description>B45.935-37</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.7500054,52.711307,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[Offa's Dyke Path]]></name>
+      <description>B45.938-39</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.0632203,52.3636413,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St George's Church]]></name>
+      <description>B45.940</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.030115,52.4185462,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Clun</name>
+      <description>B45.941-45</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.032585,52.419476,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Blenheim Palace</name>
+      <description>B45.961-72</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.360972,51.841365,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Stowe</name>
+      <description>B45.975-81</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.030189,52.030733,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Hatfield House</name>
+      <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+      <Point>
+        <coordinates>
+          -0.2092622,51.7606329,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Christchurch Priory</name>
+      <description>B45.985-7</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.7744716,50.7321222,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Winchester Cathedral</name>
+      <description>B45.988</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.3131538,51.0606892,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Romsey Abbey</name>
+      <description>B45.989-90</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.5013343,50.9896404,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Wimborne Minster, Church of St Cuthburga</name>
+      <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+      <Point>
+        <coordinates>
+          -1.9880523,50.7989634,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>St John the Baptist Church, Bere Regis</name>
+      <description>B45.992-3</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.2168822,50.7529294,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Salisbury</name>
+      <description>B45.994-97</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.794472,51.068785,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>College of Matrons</name>
+      <description>B45.994</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.7976823,51.0666649,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Mompesson House</name>
+      <description>B45.995</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.7980036,51.0666833,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>The Chapter House</name>
+      <description>B45.996</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.793344,51.0660709,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>7A The Cl</name>
+      <description>B45.997</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.7954487,51.0652677,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>(B45) The Eclipse Inn</name>
+      <description>B45.1000</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.3148434,51.0621632,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>(B46) Round Table in The Great Hall</name>
+      <description>B46.001</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.3197716,51.0626719,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>St Swithun-upon-Kingsgate Church</name>
+      <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+      <Point>
+        <coordinates>
+          -1.3144366,51.0592067,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>School at Winchester College</name>
+      <description>B46.003 Precise location at 120 degrees SE</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.3139589,51.0578895,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Winchester College</name>
+      <description>B46.004 Likely location at 310 degrees NW</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.3121483,51.0573957,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Winchester College</name>
+      <description>B46.005 likely location at 30 degrees NE</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.3129159,51.0579436,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>The Hospital of St Cross</name>
+      <description>B46.006-10</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.3221507,51.0476595,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[Crown & Anchor, Ham]]></name>
+      <description>B46.012 likely location at 165 degrees S. B46.011 could also be in Ham but could not be located</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.5258657,51.365822,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Inkpen House Berkshire</name>
+      <description>B46.013 approximate location at 115 degrees SE</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.4875939,51.371642,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Parsonage Farm, Hurstbourne</name>
+      <description>B46.015 likely location at 0 degrees N</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.4501651,51.2747324,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Summerhaugh Cottage, St Mary Bourne</name>
+      <description>B46.015 likely location, 10 degrees N, 16 possibly nearby</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.3965961,51.2509414,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St. Mary's Church]]></name>
+      <description>B46.019-20.  21-23 possibly nearby</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.4540372,51.4760254,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St Michael's & All Angels Church]]></name>
+      <description>B46.024-27</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.5316684,51.508568,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Pond House, Ashmore</name>
+      <description>B46.028. 29 is probably another house in Ashmore</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.1257395,50.9599868,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>The Old Rectory</name>
+      <description>B46.030</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.1253451,50.9590637,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[Bratton Camp & White Horse]]></name>
+      <description>B46.032. Probably also 31-35 nearby</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.1467975,51.2637539,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Corfe Castle</name>
+      <description>B46.036-42</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.056616,50.639539,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Milton Abbey Church</name>
+      <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+      <Point>
+        <coordinates>
+          -2.287948,50.8198153,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Milton Abbas</name>
+      <description>B46.046-49</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.2706499,50.819012,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>West Lavington Manor</name>
+      <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+      <Point>
+        <coordinates>
+          -1.9933268,51.2785288,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St Peter's Church, Shaftesbury]]></name>
+      <description>B46.051</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.1968663,51.0057328,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Ven House, Milborne Port</name>
+      <description>B46.052,53</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.4555333,50.9650385,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Cerne Abbey</name>
+      <description>B46.055</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.4763079,50.8107627,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[Cerne Abbey Abbot's Porch]]></name>
+      <description>B46.057</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.4763079,50.8112483,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Sherborne Abbey</name>
+      <description>B46.058-61</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.5170741,50.9466415,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St Johns' House Residential Home]]></name>
+      <description>B46.062,63</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.5168426,50.9460798,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Bath Abbey</name>
+      <description>B46.064,65</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.3587346,51.3814809,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>The Roman Baths in Bath</name>
+      <description>B46.066</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.359619,51.381072,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St John the Baptist's Church]]></name>
+      <description>B46.067</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.7161126,51.1481618,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Glastonbury Abbey</name>
+      <description>B46.068-71,73,74</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.7152674,51.1460616,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[Abbot's Kitchen, Glastonbury]]></name>
+      <description>B46.072</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.7172058,51.1454039,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>National Trust - Montacute House</name>
+      <description>B46.075-81</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.7137594,50.9518069,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Montacute Post Office</name>
+      <description>B46.082-83</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.71567040084997,50.9499720806489,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[King's College, Cambridge]]></name>
+      <description>B46.085-88</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.1172411,52.2043636,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[King's College Chapel]]></name>
+      <description>B46.089</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.1165663,52.2047966,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Mathematical Bridge</name>
+      <description>B46.090</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.1150702,52.2022201,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[President's Lodge Queens College]]></name>
+      <description>B46.091</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.1151224,52.2023567,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[Queens' College]]></name>
+      <description>B46.092-94</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.1148899,52.2016055,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Trinity College</name>
+      <description>B46.095-99,108</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.116913,52.2069212,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Senate House</name>
+      <description>B46.100</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.1175222,52.2055671,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[Great St Mary's]]></name>
+      <description>B46.101</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.1182291,52.2053154,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St John's College]]></name>
+      <description>B46.102,103</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.117813,52.2078045,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Bridge of Sighs</name>
+      <description>B46.105</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.115802,52.2084102,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>New Court</name>
+      <description>B46.106,07</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.1149883,52.2085963,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Clare College</name>
+      <description>B46.109-112</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.1151955,52.2050655,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Magdalene College</name>
+      <description>B46.113-16</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.1161141,52.2110336,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Jesus College, University of Cambridge</name>
+      <description>B46.117-20</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.1238309,52.2094752,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>National Trust - Lavenham Guildhall</name>
+      <description>B46.129-31</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.7968075,52.1088382,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>The Market Cross</name>
+      <description>B46.133</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.7966212,52.1091168,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Lavenham Wool Hall</name>
+      <description>B46.134</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.7964064,52.1076302,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>De Vere House, Lavenham</name>
+      <description>B46.137</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.7972115,52.1072302,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Street in Lavenham</name>
+      <description>B46.138 approximate location at 95 degrees E</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.7961423,52.1075414,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>National Trust - Melford Hall</name>
+      <description>B46.142-44</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.7226342,52.0825944,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Holy Trinity Church from Afar</name>
+      <description>B46.145 likely location at 345 degrees N</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.7214324,52.0843296,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>The Bull</name>
+      <description>B46.147 likely location at 180 degrees S. B46.146 most likely nearby</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.7198386,52.0801848,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St Mary's Church Cavendish from Afar]]></name>
+      <description>B46.149 likely location at 15 degrees N</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.6330929,52.0868834,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St Mary the Virgin's Church, Cavendish]]></name>
+      <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+      <Point>
+        <coordinates>
+          0.633286,52.0878607,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[Clare Church, St Peter & St Paul's]]></name>
+      <description>B46.154 likely location at 160 degrees S.</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.5807144,52.0797747,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[Clare Church, St Peter & St Paul's]]></name>
+      <description>B46.155-61</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.5809719,52.0791912,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>The Grove, Clare</name>
+      <description>B46.162 likely location at 115 degrees SE</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.5811092,52.0803997,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Clare Ancient House, Clare</name>
+      <description>B46.163 likely location at 135 degrees SE</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.5804884,52.0790925,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[Entrance to St Mary's Church, Boxford]]></name>
+      <description>B46.168 likely location at 45 degrees NE</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.85921,52.0279235,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[Rear Entrance to St Mary's Church, Boxford]]></name>
+      <description>B46.169 likely location at 120 degrees SE</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          0.8592334,52.0282702,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Lichfield Cathedral from Afar</name>
+      <description>B46.857 likely location at 55 degrees NE</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.8324231,52.684748,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>South Door of Lichfield Cathedral</name>
+      <description>B46.858 estimated location at 10 degrees N</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.8302671,52.6851791,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Stained Glass in Lichfield Cathedral</name>
+      <description>B46.859 estimated location at 60 degrees NE</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.8299432,52.6856608,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Coventry Cathedral Ruins</name>
+      <description>B46.860,61</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.5074752,52.4079874,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St. Michael's Victory over the Devil, Coventry]]></name>
+      <description>B46.862 likely location at 0 degrees N</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.5069015,52.408115,0
+        </coordinates>
+      </Point>
+    </Placemark>
+  </Document>
+</kml>
