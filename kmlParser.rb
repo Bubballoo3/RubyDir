@@ -51,6 +51,7 @@ filename="UnitedKingdom.kml"
 
                        
 def stripInfo(kmlFilename)
+  collectioninfo=Array.new
 
   hashkeys=Array.new
 
@@ -63,8 +64,9 @@ def stripInfo(kmlFilename)
 
 #define control variables
   num=0
-  toread=false
+  header=false
   cordsread=false
+  doctitle="Title Field Blank"
 
 #open file
   file=File.open(filename)
@@ -72,10 +74,12 @@ def stripInfo(kmlFilename)
 
 #read file one line at a time (master loop)
   File.readlines(file).each do |line|
+    #we begin by collecting all the important file and collection info and putting it into an array
 
-    #Our first task is to collect the title of each entry
+
+    #Our next task is to collect the title of each entry
     #every title includes "<name>" and ends with "<\name>"
-    if line.include? "<name>"
+    if line.include? "<name>" and header==false
       endline=line.rindex "<"
 
       #titles including special characters have additional identifiers that must be removed 
@@ -94,7 +98,19 @@ def stripInfo(kmlFilename)
       title=splitline
       hashkeys.push title
     end
+    
+    #we now collect the collection name. This will be the first element of the list we return
+    if header==true
+      start=line.index ">"
+      start=start+1
+      finish=line.rindex "<"
+      doctitle=line[start...finish]
+      header=false
+    end 
 
+    if line.include? "<Document>"
+      header=true
+    end
       #with our titles collected, we connect them to descriptions and locations using hashes
 
     #we begin with descriptions
@@ -122,10 +138,90 @@ def stripInfo(kmlFilename)
     end
   end
   file.close()
-  return[hashkeys,descriptions,locations]
+  return[doctitle,hashkeys,descriptions,locations]
 end
-allinfo=stripInfo filename
 
-for i in hashkeys.length
+
+#puts allinfo
+
+=begin
+for i in 1..allinfo[0].length
+
+ if allinfo[1][allinfo[0][i]].class == String
+  #puts "the "+i.to_s+"th description is a string" 
   puts "TITLE "+allinfo[0][i]+" HAS DESCRIPTION "+allinfo[1][allinfo[0][i]]
+ end
 end
+=end 
+def splitLocations (stringLocation)
+  if stringLocation.class != String
+    return ["there has been an error","like actually"]
+  else
+    commaSpot=stringLocation.index ","
+    latitude=stringLocation[...commaSpot]
+    longitude=stringLocation[(commaSpot+1)..]
+    return [latitude,longitude]
+  end
+end 
+
+
+def writeToXls(bigarray, filename="blank")
+  #this function makes heavy use of the spreadsheet package. To install, type "gem install spreadsheet" into your terminal (windows)
+  # or visit the source at https://rubygems.org/gems/spreadsheet/versions/1.3.0?locale=en
+  require "spreadsheet" 
+  #Next we set the encoding. This is the default setting but can be changed here
+  Spreadsheet.client_encoding='UTF-8'
+
+  #we now create our spreadsheet file
+  book=Spreadsheet::Workbook.new
+  mainsheet=book.create_worksheet
+  
+  #we then collect the title of the group and name our sheet after it
+  collectionTitle=bigarray[0]
+  mainsheet.name = collectionTitle
+
+  #we define a disclaimer to populate the top left cell, identifying that it was produced by code
+  disclaimer="This is an automatically generated spreadsheet titled \'" + collectionTitle + ".\' Please review the information before copying into permanent data storage."
+  mainsheet[0,0] = disclaimer
+
+  #then we make titles for each column
+  mainsheet[1,0]="Title"
+  mainsheet[1,1]="Description"
+  mainsheet[1,2]="Latitude"
+  mainsheet[1,3]="Longitude"
+
+  #with our title and disclaimer made, we move into our main loop
+  #the writing will take place one row at a time, and will be based on the list of keys (bigarray[1])
+
+  for i in 2..bigarray[1].length
+    #gather info
+    title = bigarray[1][i]
+    description=bigarray[2][title]
+    location=bigarray[3][title]
+    
+    #while most of the data is ready to input, the locations are still a string tuple.
+    #we must split this into its parts before entry
+
+    locationTuple = splitLocations location
+
+    #populate info
+    mainsheet[i,0]=title
+    mainsheet[i,1]=description
+    mainsheet[i,2]=locationTuple[0]
+    mainsheet[i,3]=locationTuple[1]
+  end 
+
+  if filename != "blank"
+    book.write filename
+  else 
+    time=Time.now
+    minutes=time.min
+    seconds=time.sec
+
+    book.write collectionTitle+minutes.to_s + "." + seconds.to_s+".xls"
+  end
+end
+
+allinfo=stripInfo filename
+writeToXls allinfo
+  
