@@ -126,9 +126,6 @@ def stripInfo(kmlFilename)
 end
 allinfo=stripInfo filename
 
-puts allinfo[0]
-puts allinfo[1]
-puts allinfo[2]
-puts "this is a new line"
-puts allinfo[1]["Dolwyddelan Castle "]
-
+for i in hashkeys.length
+  puts "TITLE "+allinfo[0][i]+" HAS DESCRIPTION "+allinfo[1][allinfo[0][i]]
+end
