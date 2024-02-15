@@ -5,40 +5,10 @@ Include notes and advice in this section
 ----------------------------------------
 =end
 
-=begin
-#This is an attempt to parse kml files into hashs for each item
-
-file=File.open("UnitedKingdom.kml")
-
-text=file.read
-=end
-
-#This is a github script found at https://gist.github.com/eliotk/7744806 that has been modified to interpret a single file from Google MyMaps.
-=begin
-require 'nokogiri'
-require 'csv'
-
-kml_path = '/path/to/Google Drive/My Tracks/'
-
-#def kml_file_paths path
-#  Dir.glob(path + "*.kml")
-#end
-
-csv = CSV.open('mytracks.csv', "wb")
-
-#kml_file_paths(kml_path).each_with_index do |file_path, index|
-file_path="UnitedKingdom.kml"
-kml = File.read(file_path)
-doc = Nokogiri::XML(kml)
-  
-  # summary data is stored as cdata in the last Placemark entity's description child node
-desc_lines = doc.search('description').text.split(/\n/)
-desc_lines.each do |reading|
-  puts reading[1]
-  puts "counting : #{reading.count("")}\n\n"
-  puts "THAT WAS THE END OF THE DESCRIPTION"
- end
-=end
+#load accessory files
+#make sure you're in the right directory when you run this 
+# or it won't be able to find the file
+load 'prettyCommonFunctions.rb'
 
 #a purely original attempt
 
@@ -283,95 +253,7 @@ def writeToXls(bigarray, mode="straight", filename="blank")
   end
 end
 
-def parseSlideRange(string)
-  #this will be our array that we return at the end
-  slidesMentioned=Array.new
 
-  collectionsMentioned=Array.new
-  collectionsToIndex=Hash.new
-
-  #we begin by splitting the ranges. 
-  #Ranges are separated by commas, and common info is not repeated
-  #an especially complicated example of this is 
-  #"B27.012-15, B45.905-06, B47.654-63, 716-18"
-  if string.include? ". "
-      n=string.index ". "
-      string=string[...n]
-  end
-
-  ranges=string.split(",",-1)
-  
-  for i in 0...ranges.length
-      ranges[i] = ranges[i].lstrip
-  end
-  #next we store each B-collection in case the next one reuses it
-  lastcollection="ERROR"
-
-  #we now loop through the ranges and process them
-  for i in 0...ranges.length
-    range=ranges[i]
-    
-    #the following will be a sample range to indicate which parts the code is handling
-    
-    #B22.222-22  
-    #   ^
-    if range.include? "."
-      decimalpoint=range.index "."
-      nextpoint=decimalpoint+1
-      rightside=range[nextpoint..]
-    else
-      #in case it is only 222-22 
-      decimalpoint=0
-      rightside=range
-    end
-    
-    #B22.222-22
-    #^^^
-
-    if range[0]=="B"
-      lastcollection=range[...decimalpoint]
-      unless collectionsMentioned.include? lastcollection
-        collectionsMentioned.push lastcollection
-      end 
-    end
-    
-    #B22.222-22
-    #       ^
-    if rightside.include? "-"
-      dashplace=rightside.index "-"
-    
-      if dashplace < 3
-        rightside="0" + rightside
-        if dashplace < 2
-          rightside="0"+rightside
-        end
-      end
-      dashplace=4
-      hundreds=rightside[0]
-      start=rightside[1..2].to_i
-      last=rightside[dashplace..].to_i
-      for i in start..last
-        slidestem=lastcollection + "." + hundreds
-        if i.to_s.length < 2
-          ending="0"+i.to_s
-        else 
-          ending=i.to_s
-        end
-        slide=slidestem+ending
-        slidesMentioned.push slide
-      end
-    else 
-      slide=lastcollection+"."+rightside
-      slidesMentioned.push slide
-    end
-  end
-
-  slidesMentioned=slidesMentioned.sort
-  minslide=slidesMentioned[0]
-  maxslide=slidesMentioned[-1]
-  return [slidesMentioned,minslide,maxslide]
-  #we begin by splitting our description up by subcollection. 
-end 
 #puts parseSlideRange "B45.321 approximate location at 35 degrees N"
 #"B27.012-15, B47.654-63, 716-18,B45.9-10, B45.63-67. WHat the"
 

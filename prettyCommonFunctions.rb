@@ -89,6 +89,9 @@ def parseSlideRange(string)
           slidesMentioned.push slide
         end
       else 
+        while rightside.length <3
+            rightside="0"+rightside
+        end
         slide=lastcollection+"."+rightside
         slidesMentioned.push slide
       end
