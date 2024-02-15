@@ -5,9 +5,9 @@
 ########################################################
 # If you want to jump to the functions, skip to line 177
 ########################################################
-#Bsorthash allows us to sort a VRC number into the appropriate hash for conversion
+#Bsorthash allows us to sort a VRC number into the appropriate hash for conversion.
 #one day we will have one that reverses this.
-Bsorthash={"B01-41" => BHashNorm, "B42.0-43.9" => BhashRange, "B44.0-44.1" => B44hsh,"B44.2-44.8"=>BhashRange, "B44.9" => B44hsh}
+Bsorthash={"B01-41" => "BHashNorm", "B42.0-43.9" => "BhashRange", "B44.0-44.1" => "B44hsh","B44.2-44.8"=>"BhashRange", "B44.9" => "B44hsh"}
 
 #convertHashNorm contains subcollections that index normally.
 # we can keep everything right of the decimal point and just change
@@ -177,92 +177,125 @@ convertHashIrreg={
 =end
 
 #Once the hashes above are complete, they will be moved to their own file
-def parseSlideRange(string)
-    #this will be our array that we return at the end
-    slidesMentioned=Array.new
-  
-    collectionsMentioned=Array.new
-    collectionsToIndex=Hash.new
-  
-    #we begin by splitting the ranges. 
-    #Ranges are separated by commas, and common info is not repeated
-    #an especially complicated example of this is 
-    #"B27.012-15, B45.905-06, B47.654-63, 716-18"
-    if string.include? ". "
-        n=string.index ". "
-        string=string[...n]
+# Then the real file will start here
+
+#we start by loading some universal functions
+load 'prettyCommonFunctions.rb'
+
+#then we start with our index converter function
+
+#The following component function expands the subcollection ranges found in Bsorthash. 
+# This allows us to search each range for the subcollection we are dealing with
+def expandBhashRange(brange,includeLeadingZeros=true)
+    #initialize return array
+    expandedRange=Array.new
+    #strip the "B" from the start of the range
+    noBrange=brange[1..]
+    #check that we are indeed dealing with a range, if it's a single collection, we return a singleton array
+    unless noBrange.include? "-"
+        return [brange]
     end
-  
-    ranges=string.split(",",-1)
+    #split by the dash to get the starts and ends of our range
+    (start,last) = noBrange.split "-"
     
-    for i in 0...ranges.length
-        ranges[i] = ranges[i].lstrip
-    end
-    #next we store each B-collection in case the next one reuses it
-    lastcollection="ERROR"
-  
-    #we now loop through the ranges and process them
-    for i in 0...ranges.length
-      range=ranges[i]
-      
-      #the following will be a sample range to indicate which parts the code is handling
-      
-      #B22.222-22  
-      #   ^
-      if range.include? "."
-        decimalpoint=range.index "."
-        nextpoint=decimalpoint+1
-        rightside=range[nextpoint..]
-      else
-        #in case it is only 222-22 
-        decimalpoint=0
-        rightside=range
-      end
-      
-      #B22.222-22
-      #^^^
-  
-      if range[0]=="B"
-        lastcollection=range[...decimalpoint]
-        unless collectionsMentioned.include? lastcollection
-          collectionsMentioned.push lastcollection
-        end 
-      end
-      
-      #B22.222-22
-      #       ^
-      if rightside.include? "-"
-        dashplace=rightside.index "-"
-      
-        if dashplace < 3
-          rightside="0" + rightside
-          if dashplace < 2
-            rightside="0"+rightside
-          end
+    # Here we split into cases depending on whether we are looking at subcollections of 100s or 1000s
+    # Subcollections of 1000s look like B43.2 (=B43.200-300) and 100s look like B41 (=B41.001-100)
+    if start.include? "."
+        (startInt,lastInt)=[start.delete(".").to_i,last.delete(".").to_i]
+        for i in startInt..lastInt
+            #by removing the decimal point, we scaled our numbers up by a factor of 10 (in order to make them integers)
+            unscaledNum=i.to_s
+            #to scale it back, we insert it back in its place
+            scaledNum=unscaledNum.insert(2,".")
+            subcollection="B"+scaledNum
+            #we finally push the range element into our return array
+            expandedRange.push subcollection
         end
-        dashplace=4
-        hundreds=rightside[0]
-        start=rightside[1..2].to_i
-        last=rightside[dashplace..].to_i
-        for i in start..last
-          slidestem=lastcollection + "." + hundreds
-          if i.to_s.length < 2
-            ending="0"+i.to_s
-          else 
-            ending=i.to_s
-          end
-          slide=slidestem+ending
-          slidesMentioned.push slide
+
+    else   #if there is no decimal point, we know we are looking at a 100s collection.
+        (startInt,lastInt)=[start.to_i,last.to_i]
+        for i in startInt..lastInt
+            #since it is not consistent whether subcollections before B10 are written as B5 or B05, 
+            # we have an option to put them both in to be safe. 
+            if i<10
+                if includeLeadingZeros==true
+                    expandedRange.push "B"+i.to_s
+                end
+                catnum="0"+i.to_s
+            else
+                catnum=i.to_s
+            end
+            subcollection="B"+catnum
+            expandedRange.push subcollection
         end
-      else 
-        slide=lastcollection+"."+rightside
-        slidesMentioned.push slide
-      end
     end
-  
-    slidesMentioned=slidesMentioned.sort
-    minslide=slidesMentioned[0]
-    maxslide=slidesMentioned[-1]
-    return [slidesMentioned,minslide,maxslide]
-    #we begin by splitting our description up by subcollection. 
-  end
+    return expandedRange
+end
+
+=begin Testing Code for expandBhashRange
+# As Bsorthash grows to include up to B51, this should be run periodically to ensure it still works. 
+# Currently tested up to B44.9
+Bsorthash.keys.each do |key|
+    print [key,expandBhashRange(key)]
+end
+=end
+
+#Our next function uses these expanded ranges to sort a slide into one of them
+def getBsorthashkey(slide)
+    if slide.include? "."
+        ans=""
+        (leftside,rightside)=slide.split "."
+        if leftside[1..].to_i > 41
+            unless rightside [-2..] == "00"
+                hundreds=rightside[0]
+            else 
+                hundreds=(rightside[0].to_i - 1).to_s
+            end
+            leftside=leftside+"."+hundreds
+        end
+        Bsorthash.keys.each do |key|
+            if expandBhashRange(key).include? leftside
+                ans=key
+                return ans
+            end
+        end
+        if ans == ""
+            puts "The slide could not be sorted. Check that it is within the range spanned by Bsorthash"
+        end
+    else
+        puts "This slide has no decimal point. Make sure to include the full indexing"
+    end
+end
+
+=begin Testing Code for getBsorthashkey
+ #test a member of each range in Bsorthash just to be safe
+puts getBsorthashkey "B24.145"
+puts getBsorthashkey "B44.145"
+puts getBsorthashkey "B42.145"
+puts getBsorthashkey "B44.200"
+=end
+
+def indexConverter(slide)
+    if slide[0]=="B"
+        if slide.include? "."
+            (leftside,rightside)=slide.split "."
+            hashtouse=Bsorthash[getBsorthashkey(slide)]
+            if hashtouse=="BHashNorm"
+            ##############################################################################    
+            #this is where we will eventually check an index of inconsistencies in the normal hash.
+            ##############################################################################
+                newleftside=BHashNorm[leftside]
+                newslide=newleftside+"."+rightside
+                return newslide
+            end
+        else 
+            puts "This slide has no decimal point. Make sure to include the full indexing"
+        end
+    else
+        print "we're not ready for that silly"
+    end
+end
+
+#testing code
+testslide="B13.012"
+puts indexConverter(testslide)
