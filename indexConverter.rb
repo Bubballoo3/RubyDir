@@ -68,6 +68,15 @@ BHashNorm={
 "B7"=>"G", 
 "B8"=>"H", 
 "B9"=>"I", 
+"B01"=>"A",
+"B02"=>"B",
+"B03"=>"C",
+"B04"=>"D",
+"B05"=>"E",
+"B06"=>"F", 
+"B07"=>"G", 
+"B08"=>"H", 
+"B09"=>"I", 
 "B10"=>"J", 
 "B11"=>"K", 
 "B12"=>"L", 
@@ -279,6 +288,9 @@ def indexConverter(slide)
     if slide[0]=="B"
         if slide.include? "."
             (leftside,rightside)=slide.split "."
+            while rightside.length <= 3
+                rightside="0"+rightside
+            end
             hashtouse=Bsorthash[getBsorthashkey(slide)]
             if hashtouse=="BHashNorm"
             ##############################################################################    
@@ -297,5 +309,8 @@ def indexConverter(slide)
 end
 
 #testing code
-testslide="B13.012"
-puts indexConverter(testslide)
+testslide="B12.045"
+while testslide != "n"
+    testslide=gets
+    puts indexConverter(testslide)
+end
