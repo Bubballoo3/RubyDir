@@ -9,142 +9,7 @@
 #one day we will have one that reverses this.
 Bsorthash={"B01-41" => "BHashNorm", "B42.0-43.9" => "BhashRange", "B44.0-44.1" => "B44hsh","B44.2-44.8"=>"BhashRange", "B44.9" => "B44hsh"}
 
-#convertHashNorm contains subcollections that index normally.
-# we can keep everything right of the decimal point and just change
-# the beginning
-convertHashNorm={
-"A" => "B01",
-"B" => "B02",
-"C" => "B03",
-"D" => "B04",
-"E" => "B05",
-"F" => "B06",
-"G" => "B07",
-"H" => "B08",
-"I" => "B09",
-"J" => "B10",
-"K" => "B11",
-"L" => "B12",
-"M" => "B13",
-"N" => "B14",
-"O" => "B15",
-"P" => "B16",
-"R" => "B17",
-"S" => "B18",
-"T" => "B19",
-"U" => "B20",
-"V" => "B21",
-"W" => "B22",
-"X" => "B23",
-"Y" => "B24",
-"Z" => "B25",
-"AA" => "B26",
-"AB" => "B27",
-"AC" => "B28",
-"AD" => "B29",
-"AE" => "B30",
-"AF" => "B31",
-"AG" => "B32",
-"AH" => "B33",
-"AI" => "B34",
-"AJ" => "B35",
-"AK" => "B36",
-"AL" => "B37",
-"AM" => "B38",
-"AN" => "B39",
-"AO" => "B40",
-"AP" => "B41",
-"AQ" => "B42"}
-
-
-#this is an exact inversion of the one above
-BHashNorm={
-"B1"=>"A",
-"B2"=>"B",
-"B3"=>"C",
-"B4"=>"D",
-"B5"=>"E",
-"B6"=>"F", 
-"B7"=>"G", 
-"B8"=>"H", 
-"B9"=>"I", 
-"B01"=>"A",
-"B02"=>"B",
-"B03"=>"C",
-"B04"=>"D",
-"B05"=>"E",
-"B06"=>"F", 
-"B07"=>"G", 
-"B08"=>"H", 
-"B09"=>"I", 
-"B10"=>"J", 
-"B11"=>"K", 
-"B12"=>"L", 
-"B13"=>"M", 
-"B14"=>"N", 
-"B15"=>"O", 
-"B16"=>"P", 
-"B17"=>"R", 
-"B18"=>"S", 
-"B19"=>"T", 
-"B20"=>"U", 
-"B21"=>"V", 
-"B22"=>"W", 
-"B23"=>"X", 
-"B24"=>"Y", 
-"B25"=>"Z", 
-"B26"=>"AA", 
-"B27"=>"AB", 
-"B28"=>"AC", 
-"B29"=>"AD", 
-"B30"=>"AE", 
-"B31"=>"AF", 
-"B32"=>"AG", 
-"B33"=>"AH", 
-"B34"=>"AI", 
-"B35"=>"AJ", 
-"B36"=>"AK", 
-"B37"=>"AL", 
-"B38"=>"AM",
-"B39"=>"AN",
-"B40"=>"AO",
-"B41"=>"AP",
-}
-
-BhashRange ={
-"B42.001-100" => "AQ.1-100",
-"B42.101-201" => "CU.1-100",
-"B42.201-300" => "CV.1-100",
-"B42.301-400" => "CW.1-100",
-"B42.401-500" => "CX.1-100",
-"B42.501-600" => "CY.1-100",
-"B42.601-700" => "CZ.1-100",
-"B42.701-800" => "DA.1-100",
-"B42.801-900" => "DB.1-100",
-"B42.901-999" => "DC.1-99",
-"B43.000" => "DC.100",
-"B43.001-100" => "DD.1-100",
-"B43.101-200" => "DE.1-100",
-"B43.201-300" => "DF.1-100",
-"B43.301-400" => "DG.1-100",
-"B43.401-500" => "DQ.1-100",
-"B43.501-600" => "DR.1-100",
-"B43.601-700" => "DS.1-100",
-"B43.701-800" => "EE.1-100",
-"B43.801-900" => "DT.1-100",
-"B43.901-999" => "None",
-"B44.201-300" => "AR.1-100",
-"B44.301-400" => "AS.1-100",
-"B44.401-500" => "AT.1-100",
-"B44.501-600" => "AU.1-100",
-"B44.601-700" => "AV.1-100",
-"B44.701-800" => "AW.1-100",
-"B44.801-900" => "AX.1-100"
-}
 =begin
-  
-
-
 convertHashIrreg={
 "AR" => "B44.2"
 "AS" => "B44.3"
@@ -190,6 +55,8 @@ convertHashIrreg={
 
 #we start by loading some universal functions
 load 'prettyCommonFunctions.rb'
+#Then we load our data 
+load 'classificationData.rb'
 
 #then we start with our index converter function
 
