@@ -212,7 +212,7 @@
     </Placemark>
     <Placemark>
       <name>Tegrinnis Farm, Pembrokeshire</name>
-      <description>B.26.080-82</description>
+      <description>B26.080-82</description>
       <styleUrl>#icon-1899-0288D1</styleUrl>
       <Point>
         <coordinates>
@@ -629,8 +629,8 @@
       </Point>
     </Placemark>
     <Placemark>
-      <name><![CDATA[St Peter's Church]]></name>
-      <description>B28.065-67</description>
+      <name><![CDATA[St Peter's Church, Siddington]]></name>
+      <description>B28.065-67, B46.893-95, possibly also 92</description>
       <styleUrl>#icon-1899-0288D1</styleUrl>
       <Point>
         <coordinates>
@@ -1927,7 +1927,7 @@
     </Placemark>
     <Placemark>
       <name>(B44) Kenilworth Castle and Elizabethan Garden</name>
-      <description>B44.194-200</description>
+      <description>B44.194-200, B46.867-70</description>
       <styleUrl>#icon-1899-0288D1</styleUrl>
       <Point>
         <coordinates>
@@ -2163,7 +2163,7 @@
       </Point>
     </Placemark>
     <Placemark>
-      <name>Winchester College(1)</name>
+      <name>Winchester College</name>
       <description>B46.004 Likely location at 310 degrees NW</description>
       <styleUrl>#icon-1899-0288D1</styleUrl>
       <Point>
@@ -2173,7 +2173,7 @@
       </Point>
     </Placemark>
     <Placemark>
-      <name>Winchester College(2)</name>
+      <name>Winchester College</name>
       <description>B46.005 likely location at 30 degrees NE</description>
       <styleUrl>#icon-1899-0288D1</styleUrl>
       <Point>
@@ -2796,6 +2796,216 @@
       <Point>
         <coordinates>
           -1.5069015,52.408115,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St. Michael's Victory over the Devil, Coventry]]></name>
+      <description>B46.863 likely location at 350 degrees N</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.506873,52.4081424,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Etched Glass Screen at Coventry Cathedral</name>
+      <description>B46.864 estimated location at 190 degrees S</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.5071391,52.4083421,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Baptistry Window, Coventry Cathedral</name>
+      <description>B46.865 likely location at 100 degrees E</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.5069956,52.408396,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Vaulted Ceiling at Holy Trinity Church, Coventry</name>
+      <description>B46.866 likely location facing up</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.5088186,52.4085178,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Lord Leycester Hospital, Warwick</name>
+      <description>B46.871-73</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.5901137,52.2802097,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Mill Street, Warwick</name>
+      <description>B46.874 likely location at 55 degrees NE</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.5838074,52.2797652,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Charlecote</name>
+      <description>B46.875</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.614263,52.208974,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Guys Cliffe</name>
+      <description>B46.876-77</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -1.57478,52.296054,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>The Saxon Church of St Laurence</name>
+      <description>B46.878,80</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.2538111,51.3470278,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Little Chantry, Bradford-on-Avon</name>
+      <description>B46.879 estimated location at 255 degrees W</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.2545777,51.3465556,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[Druce's Hill House, Bradford-on-Avon]]></name>
+      <description>B46.881</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.2528034,51.3477172,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Town Bridge</name>
+      <description>B46.882</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.2510055,51.3469443,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St Aldhelm's Church]]></name>
+      <description>B46.883-85</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.507784,51.1863713,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Church of St Mary the Virgin</name>
+      <description>B46.887-89</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.4444016,51.1496399,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Church of St Lawrence, Rode</name>
+      <description>B46.890-91, possibly 92</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.2765598,51.2792614,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>West Doorway of Church of St. Lawrence, Rode</name>
+      <description>B46.891 estimated location at 70 degrees E</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.27677,51.2792093,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St Petroc's C Of E Church]]></name>
+      <description>B46.896</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -3.9180975,50.4192665,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St Mary's Church, Huish Episcopi]]></name>
+      <description>B46.897-98, B46.901-902. Intervening slides probably nearby but at least 900 is certainly a different church</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.8184257,51.0360791,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[St Mary's Church, Yatton]]></name>
+      <description>B46.903-906</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.8187664,51.3848978,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>High and East St, Lacock, Chippenham</name>
+      <description>B46.907 likely location at 305 degrees NW</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.1209861,51.4147204,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>High and West St, Lacock, Chippenham</name>
+      <description>B46.908 likely location</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          -2.1227403,51.4147805,0
         </coordinates>
       </Point>
     </Placemark>

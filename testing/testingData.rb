@@ -17,8 +17,8 @@
 #function lives here
 load 'prettyCommonFunctions.rb'
 
-file=File.open 'testData.txt'
-output=File.open('testoutput.txt','w')
+file=File.open 'testing/testData.txt'
+output=File.open('testing/testoutput.txt','w')
 file.each_line do |line|
     if line.length > 1
         output.write(line+" is type "+getCatType(line)+"\n")

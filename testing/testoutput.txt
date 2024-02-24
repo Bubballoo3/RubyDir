@@ -4257,205 +4257,205 @@ Z. 60
 Z. 57
  is type Baly
 CH. 1
- is type N/A
+ is type Baly
 CH. 2
- is type N/A
+ is type Baly
 CH. 3
- is type N/A
+ is type Baly
 CH. 4
- is type N/A
+ is type Baly
 CH. 5
- is type N/A
+ is type Baly
 CH. 6
- is type N/A
+ is type Baly
 CH. 7
- is type N/A
+ is type Baly
 CH. 8
- is type N/A
+ is type Baly
 CH. 9
- is type N/A
+ is type Baly
 CH. 10
- is type N/A
+ is type Baly
 CH. 11
- is type N/A
+ is type Baly
 CH. 12
- is type N/A
+ is type Baly
 CH. 13
- is type N/A
+ is type Baly
 CH. 14
- is type N/A
+ is type Baly
 CH. 15
- is type N/A
+ is type Baly
 CH. 16
- is type N/A
+ is type Baly
 CH. 17
- is type N/A
+ is type Baly
 CH. 18
- is type N/A
+ is type Baly
 CH. 19
- is type N/A
+ is type Baly
 CH. 20
- is type N/A
+ is type Baly
 CH. 21
- is type N/A
+ is type Baly
 CH. 22
- is type N/A
+ is type Baly
 CH. 23
- is type N/A
+ is type Baly
 CH. 24
- is type N/A
+ is type Baly
 CH. 25
- is type N/A
+ is type Baly
 CH. 26
- is type N/A
+ is type Baly
 CH. 27
- is type N/A
+ is type Baly
 CH. 28
- is type N/A
+ is type Baly
 CH. 29
- is type N/A
+ is type Baly
 CH. 30
- is type N/A
+ is type Baly
 CH. 31
- is type N/A
+ is type Baly
 CH. 32
- is type N/A
+ is type Baly
 CH. 33
- is type N/A
+ is type Baly
 CH. 34
- is type N/A
+ is type Baly
 CH. 35
- is type N/A
+ is type Baly
 CH. 36
- is type N/A
+ is type Baly
 CH. 37
- is type N/A
+ is type Baly
 CH. 38
- is type N/A
+ is type Baly
 CH. 39
- is type N/A
+ is type Baly
 CH. 40
- is type N/A
+ is type Baly
 CH. 41
- is type N/A
+ is type Baly
 CH. 42
- is type N/A
+ is type Baly
 CH. 43
- is type N/A
+ is type Baly
 CH. 44
- is type N/A
+ is type Baly
 CH. 45
- is type N/A
+ is type Baly
 CH. 46
- is type N/A
+ is type Baly
 CH. 47
- is type N/A
+ is type Baly
 CH. 48
- is type N/A
+ is type Baly
 CH. 49
- is type N/A
+ is type Baly
 CH. 50
- is type N/A
+ is type Baly
 CH. 51
- is type N/A
+ is type Baly
 CH. 52
- is type N/A
+ is type Baly
 CH. 53
- is type N/A
+ is type Baly
 CH. 54
- is type N/A
+ is type Baly
 CH. 55
- is type N/A
+ is type Baly
 CH. 56
- is type N/A
+ is type Baly
 CH. 57
- is type N/A
+ is type Baly
 CH. 58
- is type N/A
+ is type Baly
 CH. 59
- is type N/A
+ is type Baly
 CH. 60
- is type N/A
+ is type Baly
 CH. 61
- is type N/A
+ is type Baly
 CH. 62
- is type N/A
+ is type Baly
 CH. 63
- is type N/A
+ is type Baly
 CH. 64
- is type N/A
+ is type Baly
 CH. 65
- is type N/A
+ is type Baly
 CH. 66
- is type N/A
+ is type Baly
 CH. 67
- is type N/A
+ is type Baly
 CH. 68
- is type N/A
+ is type Baly
 CH. 69
- is type N/A
+ is type Baly
 CH. 70
- is type N/A
+ is type Baly
 CH. 71
- is type N/A
+ is type Baly
 CH. 72
- is type N/A
+ is type Baly
 CH. 73
- is type N/A
+ is type Baly
 CH. 74
- is type N/A
+ is type Baly
 CH. 75
- is type N/A
+ is type Baly
 CH. 76
- is type N/A
+ is type Baly
 CH. 77
- is type N/A
+ is type Baly
 CH. 78
- is type N/A
+ is type Baly
 CH. 79
- is type N/A
+ is type Baly
 CH. 80
- is type N/A
+ is type Baly
 CH. 81
- is type N/A
+ is type Baly
 CH. 82
- is type N/A
+ is type Baly
 CH. 83
- is type N/A
+ is type Baly
 CH. 84
- is type N/A
+ is type Baly
 CH. 85
- is type N/A
+ is type Baly
 CH. 86
- is type N/A
+ is type Baly
 CH. 87
- is type N/A
+ is type Baly
 CH. 88
- is type N/A
+ is type Baly
 CH. 89
- is type N/A
+ is type Baly
 CH. 90
- is type N/A
+ is type Baly
 CH. 91
- is type N/A
+ is type Baly
 CH. 92
- is type N/A
+ is type Baly
 CH. 93
- is type N/A
+ is type Baly
 CH. 94
- is type N/A
+ is type Baly
 CH. 95
- is type N/A
+ is type Baly
 CH. 96
- is type N/A
+ is type Baly
 CH. 97
- is type N/A
+ is type Baly
 CH. 98
- is type N/A
+ is type Baly
 CH. 99
- is type N/A
+ is type Baly
 CH. 100
- is type N/A
+ is type Baly
 CI. 1
  is type Baly
 CI. 2
@@ -4665,7 +4665,7 @@ CJ. 3
 CJ. 4
  is type Baly
 CH. 5
- is type N/A
+ is type Baly
 CJ. 6
  is type Baly
 CJ. 7
@@ -5845,21 +5845,21 @@ DK.108
 DK.109
  is type Baly
 DK.110
- is type N/A
+ is type Baly
 DK.111
- is type N/A
+ is type Baly
 DK.112
- is type N/A
+ is type Baly
 DK.113
- is type N/A
+ is type Baly
 DK.114
- is type N/A
+ is type Baly
 DK.115
- is type N/A
+ is type Baly
 DK.116
- is type N/A
+ is type Baly
 DK.117
- is type N/A
+ is type Baly
 DL.001
  is type Baly
 DL.002

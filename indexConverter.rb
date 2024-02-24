@@ -7,7 +7,7 @@
 ########################################################
 #Bsorthash allows us to sort a VRC number into the appropriate hash for conversion.
 #one day we will have one that reverses this.
-Bsorthash={"B01-41" => "BHashNorm", "B42.0-43.9" => "BhashRange", "B44.0-44.1" => "B44hsh","B44.2-44.8"=>"BhashRange", "B44.9" => "B44hsh"}
+Bsorthash={"B01-41" => "BHashNorm", "B42.0-43.9" => "BhashRange", "B44.0-44.1" => "B44hsh","B44.2-44.8"=>"BhashRange", "B44.9" => "B44hsh","B47.0-47.9" => 'B47hash'}
 
 =begin
 convertHashIrreg={
@@ -151,6 +151,23 @@ puts getBsorthashkey "B42.145"
 puts getBsorthashkey "B44.200"
 =end
 
+#the next function takes two equally sized ranges as inputs,
+#and returns a hash that contains each element 
+#of the 'domain' range mapped to the 'codomain' range
+#   (the order of the hash is determined by the order of the inputs)
+
+def projectRange(domain,codomain)
+    print "WORK ON ME!!"
+end
+
+#sometimes we wont need to get a custom dictionary 
+# if we only have one slide to map, we have a more efficient 
+# function here to do just that.
+
+def translateRangeElement(slide,domain,codomain)
+    
+end
+
 def indexConverter(slide)
     if slide[0]=="B"
         if slide.include? "."
@@ -166,12 +183,14 @@ def indexConverter(slide)
                 newleftside=BHashNorm[leftside]
                 newslide=newleftside+"."+rightside
                 return newslide
+            elsif hashtouse='B47hash'
+
             end
-        else 
+        else
             puts "This slide has no decimal point. Make sure to include the full indexing"
         end
     else
-        print "we're not ready for that silly"
+        
     end
 end
 

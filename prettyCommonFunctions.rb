@@ -1,8 +1,12 @@
-load 'balyClasses.rb'
+#load 'balyClasses.rb'
 #This file is meant to be loaded at the start of more specific files.
 # It contains functions that we will use a lot in different applications.
 
 #the first one takes a slide range as a string and outputs a list of all the slides in that range.
+# 
+# ASIDE: This is the key to time efficient data entry. There are many parts of the collection which are
+#        consistent in some aspect with unpredictable and varying interruptions (eg. classification methodology).
+#         
 def parseSlideRange(string)
     #this will be our array that we return at the end
     slidesMentioned=Array.new
@@ -77,7 +81,7 @@ def parseSlideRange(string)
         for i in start..last
             if i < 100
                 slidestem=lastcollection + "." + hundreds
-            else 
+            else
                 slidestem=lastcollection+"."+(i/100+hundreds.to_i).to_s
                 i=i%100
             end
@@ -99,12 +103,20 @@ def parseSlideRange(string)
     end
   
     slidesMentioned=slidesMentioned.sort
+    if slidesMentioned[0][4..] == 1000
+      slidesMentioned=slidesMentioned.rotate(1) 
+      print "Did something "
+    end
     minslide=slidesMentioned[0]
     maxslide=slidesMentioned[-1]
     return [slidesMentioned,minslide,maxslide]
     #we begin by splitting our description up by subcollection. 
 end
-=begin The following is a debug routine that allows you to repeatedly test ranges
+######### Known Errors ########################################################
+## There is an error that needs fixing involving ranges ending in/crossing 1000#
+   # fixing in progress, .rotate seems ineffective
+
+=begin #The following is a debug routine that allows you to repeatedly test ranges
 s=""
 puts "a debug session has started. enter \"n\" at any time to end it"
 while s != "n"
@@ -122,14 +134,7 @@ end
 # and some details about the suffix to raise errors as soon as possible.
 
 #It would be really nice to not load this giant data file each time but...
-AcceptableAlphanumerics=[
-    "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","R","S","T","U","V","W","X","Y","Z",
-    "AA","AB","AC","AD","AE","AF","AG","AH","AI","AJ","AK","AL","AM","AN","AO","AP","AR","AS","AT","AU","AV","AW","AX","AY","AZ",
-    "BA","BB","BC","BD","BE","BF","BG","BH","BI","BJ","BK","BL","BM","BN","BR","BS","BT","BU","BV","BW","BX","BY","BZ",
-    "CA","CB","CC","CD","CE","CF","CI","CJ","CK","CL","CM","CN","CO","CP","CR","CS","CT","CU","CV","CW","CX","CY","CZ",
-    "DA","DB","DC","DD","DE","DF","DG","DH","DI","DJ","DK","DL","DM","DO","DR","DS","DU","DV","DW","DX","DY","DZ",
-    "EA","EB","EC","ED","EE","EF","EH","EJ","EK","EM","EN"
-]
+#load "classificationData.rb"
 
 def getCatType(catnum)
   #first we use the prefix of the classification number (the bit before the decimal point) and make 
@@ -145,7 +150,9 @@ def getCatType(catnum)
   
   if hypothesis == "Baly"
     if AcceptableAlphanumerics.include? prefix
-      if suffix.to_i < 110
+      #The 118 below is nothing more than the largest number we have indexed in a collection thus far
+      # If errors are occurring in the higher numbers, look here. 
+      if suffix.to_i < 118
         return "Baly"
       else         
         return "N/A" 
@@ -163,7 +170,7 @@ def getCatType(catnum)
     if prefix[1..].to_i < 42
       #The 117 below is nothing more than the largest number we have indexed in a collection thus far
       # If errors are occurring in the higher numbers, look here. 
-      if suffix.to_i < 117 
+      if suffix.to_i < 118 
         return "VRC"
       else
         return "N/A" 
@@ -184,6 +191,7 @@ def getCatType(catnum)
       puts
     end
   end
+  return "N/A"
   puts "If its made it this far the slide cannot be sorted"
 end
 
