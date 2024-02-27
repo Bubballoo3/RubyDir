@@ -77,7 +77,7 @@ def parseSlideRange(string)
         if last.to_s.length > 2
             last=(last-hundreds.to_i*100)
         end
-        puts [rightside,hundreds,start,last] 
+        #puts [rightside,hundreds,start,last] 
         for i in start..last
             if i < 100
                 slidestem=lastcollection + "." + hundreds

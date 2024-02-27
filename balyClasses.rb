@@ -9,6 +9,9 @@ end
 class SuffixError < ClassificationError
 end
 
+class SortError < StandardError
+end
+
 class Slide
     def initialize(categorization)
         

@@ -9,51 +9,12 @@
 #one day we will have one that reverses this.
 Bsorthash={"B01-41" => "BHashNorm", "B42.0-43.9" => "BhashRange", "B44.0-44.1" => "B44hsh","B44.2-44.8"=>"BhashRange", "B44.9" => "B44hsh","B47.0-47.9" => 'B47hash'}
 
-=begin
-convertHashIrreg={
-"AR" => "B44.2"
-"AS" => "B44.3"
-"AT" => "B44.4"
-"AU" => "B44.5"
-"AV" => "B44.6"
-"AW" => "B44.7"
-"AX" => "B44.8"
-"AY" => AYhsh
-"AZ" => AVhsh
-"BA" => BAhsh
-"BB" => BBhsh
-"BC" => BChsh
-"BD" => Bhsh12
-"BE" => Bhsh12
-"BF" => Bhsh12
-"BG" => Bhsh12
-"BH" => Bhsh12
-"BI" => 
-"BJ" => 
-"BK" => 
-"BL" => 
-"BM" => 
-"BN" => 
-"BO" => 
-"BP" => 
-"BQ" => 
-"BR" => 
-"BS" => 
-"BT" => 
-"BU" => 
-"BV" => 
-"BW" => 
-"BX" => 
-"BY" => 
-"BZ" => 
-}
-
-=end
-
 #Once the hashes above are complete, they will be moved to their own file
 # Then the real file will start here
 
-#we start by loading some universal functions
+#first we load our classes
+load 'balyClasses.rb'
+#we then load some universal functions
 load 'prettyCommonFunctions.rb'
 #Then we load our data 
 load 'classificationData.rb'
@@ -108,7 +69,7 @@ def expandBhashRange(brange,includeLeadingZeros=true)
     return expandedRange
 end
 
-=begin Testing Code for expandBhashRange
+=begin #Testing Code for expandBhashRange
 # As Bsorthash grows to include up to B51, this should be run periodically to ensure it still works. 
 # Currently tested up to B44.9
 Bsorthash.keys.each do |key|
@@ -165,14 +126,70 @@ end
 # function here to do just that.
 
 def translateRangeElement(slide,domain,codomain)
-    
+    #split left and right side of each range
+    (dleft,dright)=domain.split("-")
+    (cleft,cright)=codomain.split("-")
+    # filter each piece to the numbers
+    dombase=dleft.split(".")[1].to_i
+    cobase=cleft.split(".")[1].to_i
+    slidenum=slide.split(".")[1].to_i
+    #check that the slide is actually in the range
+    # this will help us catch errors in larger fxns that pass faulty arguments
+    unless slidenum >= dombase and slidenum <= dright.to_i
+        raise StandardError.new "slide #{slide} is outside domain"
+    else 
+        if dright.to_i-dombase != cright.to_i-cobase
+            raise StandardError.new "domain and codomain are different sizes"
+        end
+    end
+    if dombase != cobase
+        scale=cobase-dombase
+        tlatednum=(slidenum+scale).to_s
+        while tlatednum.length < 3
+            tlatednum = "0"+tlatednum
+        end
+    end
+    newprefix=cleft.split(".")[0]
+    newslide=newprefix+"."+tlatednum
+    return newslide
 end
 
+=begin #testing
+puts translateRangeElement("D.033","D.020-40","B43.056-76")
+puts translateRangeElement("B43.045","B43.035-92","C.001-58")
+puts translateRangeElement("B43.030","B43.035-92","C.001-58")
+=end
+def scanB47hash(slide)
+    if B47hash.keys.include? slide
+        newslide=B47hash[slide]
+    else
+        rng=""
+        B47hash.keys.each do |key|
+            if parseSlideRange(key)[0].include? slide
+                rng=key
+                break
+            end
+            #print slide, parseSlideRange(key)[0], (parseSlideRange(key)[0].include? slide)
+            #puts
+        end
+        if rng == ""
+            raise SortError.new "slide #{slide} could not be found in this hash"
+        end
+        newslide=translateRangeElement(slide,rng,B47hash[rng])
+    end
+    return newslide
+end
+=begin #testing
+puts scanB47hash('B47.035')
+puts scanB47hash('B47.005')
+=end
+
+#this function currently has capability for BHashNorm and B47hash ranges
 def indexConverter(slide)
     if slide[0]=="B"
         if slide.include? "."
             (leftside,rightside)=slide.split "."
-            while rightside.length <= 3
+            while rightside.length < 3
                 rightside="0"+rightside
             end
             hashtouse=Bsorthash[getBsorthashkey(slide)]
@@ -182,9 +199,24 @@ def indexConverter(slide)
             ##############################################################################
                 newleftside=BHashNorm[leftside]
                 newslide=newleftside+"."+rightside
-                return newslide
-            elsif hashtouse='B47hash'
-
+            elsif hashtouse=='B47hash'
+                if B47hash.keys.include? slide
+                    newslide=B47hash[slide]
+                else
+                    rng=""
+                    B47hash.keys.each do |key|
+                        if parseSlideRange(key)[0].include? slide
+                            rng=key
+                            break
+                        end
+                        #print slide, parseSlideRange(key)[0], (parseSlideRange(key)[0].include? slide)
+                        #puts
+                    end
+                    if rng == ""
+                        raise SortError.new "slide #{slide} could not be found in this hash"
+                    end
+                    newslide=translateRangeElement(slide,rng,B47hash[rng])
+                end
             end
         else
             puts "This slide has no decimal point. Make sure to include the full indexing"
@@ -192,11 +224,14 @@ def indexConverter(slide)
     else
         
     end
+    return newslide
 end
 
-#testing code
+#=begin #testing code
 testslide="B12.045"
 while testslide != "n"
-    testslide=gets
+    testslide=gets[0...-1]
     puts indexConverter(testslide)
 end
+#=end
+#puts indexConverter("B47.001")
