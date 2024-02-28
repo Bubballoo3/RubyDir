@@ -7,17 +7,17 @@
 ########################################################
 #Bsorthash allows us to sort a VRC number into the appropriate hash for conversion.
 #one day we will have one that reverses this.
-Bsorthash={"B01-41" => "BHashNorm", "B42.0-43.9" => "BhashRange", "B44.0-44.1" => "B44hsh","B44.2-44.8"=>"BhashRange", "B44.9" => "B44hsh","B47.0-47.9" => 'B47hash'}
+Bsorthash={"B01-41" => "BHashNorm", "B42.0-43.9" => "BhashRange", "B44.0-44.1" => "B44-45hash","B44.2-44.8"=>"BhashRange", "B44.9" => "B44-45hash","B47.0-47.9" => 'B47hash'}
 
 #Once the hashes above are complete, they will be moved to their own file
 # Then the real file will start here
 
 #first we load our classes
-load 'balyClasses.rb'
+require_relative 'balyClasses'
 #we then load some universal functions
-load 'prettyCommonFunctions.rb'
+require_relative 'prettyCommonFunctions'
 #Then we load our data 
-load 'classificationData.rb'
+require_relative 'classificationData'
 
 #then we start with our index converter function
 
@@ -82,7 +82,7 @@ def getBsorthashkey(slide)
     if slide.include? "."
         ans=""
         (leftside,rightside)=slide.split "."
-        if leftside[1..].to_i > 41
+        if leftside[1..].to_i > 41 #41 is the last VRC collection of 100
             unless rightside [-2..] == "00"
                 hundreds=rightside[0]
             else 
@@ -125,21 +125,31 @@ end
 # if we only have one slide to map, we have a more efficient 
 # function here to do just that.
 
-def translateRangeElement(slide,domain,codomain)
+def translateRangeElement(slideindx,domain,codomain)
     #split left and right side of each range
     (dleft,dright)=domain.split("-")
     (cleft,cright)=codomain.split("-")
+    #since right sides can omit the hundreds place, we fill it in 
+    #if it is missing and convert to integer
+    if dright.length < 3
+        dright=((dleft.split(".")[1].to_i/100).to_s+dright).to_i
+    end
+    if cright.length < 3
+        cright=((cleft.split(".")[1].to_i/100).to_s+cright).to_i
+    end
     # filter each piece to the numbers
     dombase=dleft.split(".")[1].to_i
     cobase=cleft.split(".")[1].to_i
-    slidenum=slide.split(".")[1].to_i
+    slidenum=slideindx.number
     #check that the slide is actually in the range
     # this will help us catch errors in larger fxns that pass faulty arguments
-    unless slidenum >= dombase and slidenum <= dright.to_i
-        raise StandardError.new "slide #{slide} is outside domain"
+    unless slideindx.inRange? domain
+        raise StandardError.new "slide #{slideindx.to_s} is outside domain"
     else 
+        #puts dright,dombase,cright,cobase
         if dright.to_i-dombase != cright.to_i-cobase
-            raise StandardError.new "domain and codomain are different sizes"
+            
+            raise StandardError.new "domain (#{domain}) and codomain are different sizes"
         end
     end
     if dombase != cobase
@@ -148,9 +158,11 @@ def translateRangeElement(slide,domain,codomain)
         while tlatednum.length < 3
             tlatednum = "0"+tlatednum
         end
+    elsif dombase == cobase
+        tlatednum=slidenum
     end
     newprefix=cleft.split(".")[0]
-    newslide=newprefix+"."+tlatednum
+    newslide=Classification.new([newprefix,tlatednum.to_i])
     return newslide
 end
 
@@ -159,13 +171,14 @@ puts translateRangeElement("D.033","D.020-40","B43.056-76")
 puts translateRangeElement("B43.045","B43.035-92","C.001-58")
 puts translateRangeElement("B43.030","B43.035-92","C.001-58")
 =end
-def scanB47hash(slide)
-    if B47hash.keys.include? slide
-        newslide=B47hash[slide]
+def scanRangeHash(slideindx,activehash)
+    slidestring=slideindx.to_s
+    if activehash.keys.include? slidestring
+        newslide=Classification.new(activehash[slidestring])
     else
         rng=""
-        B47hash.keys.each do |key|
-            if parseSlideRange(key)[0].include? slide
+        activehash.keys.each do |key|
+            if slideindx.inRange? key
                 rng=key
                 break
             end
@@ -173,9 +186,9 @@ def scanB47hash(slide)
             #puts
         end
         if rng == ""
-            raise SortError.new "slide #{slide} could not be found in this hash"
+            raise SortError.new "slide #{slidestring} could not be found in this hash"
         end
-        newslide=translateRangeElement(slide,rng,B47hash[rng])
+        newslide=translateRangeElement(slideindx,rng,activehash[rng])
     end
     return newslide
 end
@@ -185,44 +198,34 @@ puts scanB47hash('B47.005')
 =end
 
 #this function currently has capability for BHashNorm and B47hash ranges
-def indexConverter(slide)
-    if slide[0]=="B"
-        if slide.include? "."
-            (leftside,rightside)=slide.split "."
-            while rightside.length < 3
-                rightside="0"+rightside
-            end
-            hashtouse=Bsorthash[getBsorthashkey(slide)]
-            if hashtouse=="BHashNorm"
-            ##############################################################################    
-            #this is where we will eventually check an index of inconsistencies in the normal hash.
-            ##############################################################################
-                newleftside=BHashNorm[leftside]
-                newslide=newleftside+"."+rightside
-            elsif hashtouse=='B47hash'
-                if B47hash.keys.include? slide
-                    newslide=B47hash[slide]
-                else
-                    rng=""
-                    B47hash.keys.each do |key|
-                        if parseSlideRange(key)[0].include? slide
-                            rng=key
-                            break
-                        end
-                        #print slide, parseSlideRange(key)[0], (parseSlideRange(key)[0].include? slide)
-                        #puts
-                    end
-                    if rng == ""
-                        raise SortError.new "slide #{slide} could not be found in this hash"
-                    end
-                    newslide=translateRangeElement(slide,rng,B47hash[rng])
-                end
-            end
-        else
-            puts "This slide has no decimal point. Make sure to include the full indexing"
+def indexConverter(slide,outputform='String')
+    if slide.class == String
+        slideindx=Classification.new(slide)
+        slidestring=slide
+        #print "a string was input"
+    elsif slide.class == Classification
+        slideindx=slide
+        slidestring=slide.to_s
+        #print "a Classification was input"
+    end
+    #print slideindx.class,slidestring.class
+
+    if slideindx.classSystem == "VRC"
+        hashtouse=Bsorthash[getBsorthashkey(slidestring)]
+        if hashtouse=="BHashNorm"
+        ##############################################################################    
+        #this is where we will eventually check an index of inconsistencies in the normal hash.
+        ##############################################################################
+            newleftside=BHashNorm[slideindx.group]
+            newslide=Classification.new([newleftside,slideindx.number])
+            print newslide.class
+        elsif hashtouse=='BhashRange'
+            newslide=scanRangeHash(slideindx,BhashRange)
+        elsif hashtouse=='B47hash'
+            newslide=scanRangeHash(slideindx,B47hash)
         end
-    else
-        
+    elsif slideindx.classSystem == "Baly"
+       return "We cannot convert Baly indexes to VRC yet" 
     end
     return newslide
 end
@@ -231,7 +234,10 @@ end
 testslide="B12.045"
 while testslide != "n"
     testslide=gets[0...-1]
-    puts indexConverter(testslide)
+    unless testslide == 'n'
+        puts indexConverter(testslide)
+    end
 end
-#=end
-#puts indexConverter("B47.001")
+
+#test results:
+#   Successfully converted B47.001-999 and B42.001-999

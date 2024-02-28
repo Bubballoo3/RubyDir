@@ -1,4 +1,4 @@
-#load 'balyClasses.rb'
+require_relative 'balyClasses.rb'
 #This file is meant to be loaded at the start of more specific files.
 # It contains functions that we will use a lot in different applications.
 
@@ -32,17 +32,14 @@ def parseSlideRange(string)
     lastcollection="ERROR"
   
     #we now loop through the ranges and process them
-    for i in 0...ranges.length
-      range=ranges[i]
+    ranges.each do |range|
       
       #the following will be a sample range to indicate which parts the code is handling
       
       #B22.222-22  
       #   ^
       if range.include? "."
-        decimalpoint=range.index "."
-        nextpoint=decimalpoint+1
-        rightside=range[nextpoint..]
+        rightside=range.split(".")[1]
       else
         #in case it is only 222-22 
         decimalpoint=0
@@ -51,9 +48,8 @@ def parseSlideRange(string)
       
       #B22.222-22
       #^^^
-  
       if range[0]=="B"
-        lastcollection=range[...decimalpoint]
+        lastcollection=range.split('.')[0]
         unless collectionsMentioned.include? lastcollection
           collectionsMentioned.push lastcollection
         end 
@@ -105,7 +101,7 @@ def parseSlideRange(string)
     slidesMentioned=slidesMentioned.sort
     if slidesMentioned[0][4..] == 1000
       slidesMentioned=slidesMentioned.rotate(1) 
-      print "Did something "
+      #print "Did something "
     end
     minslide=slidesMentioned[0]
     maxslide=slidesMentioned[-1]
@@ -133,9 +129,11 @@ end
 # into the baly system even though no such slide exists. However we will check the prefix 
 # and some details about the suffix to raise errors as soon as possible.
 
-#It would be really nice to not load this giant data file each time but...
-#load "classificationData.rb"
-
+#This function has been effectively replaced by the indexSystem attribute for classifications.
+# Once classificationData.rb includes every (known) slide in the collection,
+# this function will be improved to check against data and be more precise than inRange?.
+# Until then, get the classification system by entering 
+#  "Classification.new(classificationstring).indexSystem"
 def getCatType(catnum)
   #first we use the prefix of the classification number (the bit before the decimal point) and make 
   # a first guess about the sort. This will allow us to check some more specific conventions for each
@@ -143,7 +141,7 @@ def getCatType(catnum)
     hypothesis="Baly"
   elsif catnum[1] == "."
     hypothesis="Baly"
-  else
+  elsif [0,1,2,3,4,5,6,7,8,9].include? catnum.split('.')[1][-1]
     hypothesis="VRC"
   end
   (prefix,suffix)=catnum.split(".")
@@ -152,7 +150,7 @@ def getCatType(catnum)
     if AcceptableAlphanumerics.include? prefix
       #The 118 below is nothing more than the largest number we have indexed in a collection thus far
       # If errors are occurring in the higher numbers, look here. 
-      if suffix.to_i < 118
+      if suffix.to_i <= BalyMaxNum
         return "Baly"
       else         
         return "N/A" 

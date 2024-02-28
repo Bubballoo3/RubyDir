@@ -1,14 +1,4 @@
-AcceptableAlphanumerics=[
-    "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","R","S","T","U","V","W","X","Y","Z",
-    "AA","AB","AC","AD","AE","AF","AG","AH","AI","AJ","AK","AL","AM","AN","AO","AP","AR","AS","AT","AU","AV","AW","AX","AY","AZ",
-    "BA","BB","BC","BD","BE","BF","BG","BH","BI","BJ","BK","BL","BM","BN","BR","BS","BT","BU","BV","BW","BX","BY","BZ",
-    "CA","CB","CC","CD","CE","CF","CH","CI","CJ","CK","CL","CM","CN","CO","CP","CR","CS","CT","CU","CV","CW","CX","CY","CZ",
-    "DA","DB","DC","DD","DE","DF","DG","DH","DI","DJ","DK","DL","DM","DO","DR","DS","DU","DV","DW","DX","DY","DZ",
-    "EA","EB","EC","ED","EE","EF","EH","EJ","EK","EM","EN","EJB"
-]
 #Normal Hashes are used for A-AQ/B01-B41. These are largely the same numbers with different prefixes
-
-
 #ConvertHashNorm contains subcollections that index normally.
 # we can keep everything right of the decimal point and just change
 # the beginning
@@ -110,11 +100,12 @@ BHashNorm={
 "B40"=>"AO",
 "B41"=>"AP",
 }
-
+#for BhashRange values are what we expect to find, 
+# verified ranges marked with #V
 BhashRange ={
-"B42.001-100" => "AQ.1-100",
-"B42.101-201" => "CU.1-100",
-"B42.201-300" => "CV.1-100",
+"B42.001-100" => "AQ.1-100", #V
+"B42.101-200" => "CU.1-100", #V
+"B42.201-300" => "CV.1-100", #V
 "B42.301-400" => "CW.1-100",
 "B42.401-500" => "CX.1-100",
 "B42.501-600" => "CY.1-100",
@@ -139,11 +130,34 @@ BhashRange ={
 "B44.501-600" => "AU.1-100",
 "B44.601-700" => "AV.1-100",
 "B44.701-800" => "AW.1-100",
-"B44.801-900" => "AX.1-100"
+"B44.801-900" => "AX.1-100",
 }
-
+#the next hash picks up at B44.900s and ends at B45.1000
+B44to45hash={
+'B44.901-78' => 'AY.001-078',
+'B44.979-95' => 'AY.080-96',
+'B44.996-98' => 'AY.098-100',
+'B44.999' => 'AZ.001',
+'B45.000-81' => 'AZ.002-83',
+'B45.082' => 'AZ.085',
+'B45.083' => 'AZ.084',
+'B45.084-98' => 'AZ.086-100',
+'B45.099-198' => 'BB.001-100',
+'B45.199-261' => 'BA.001-63',### Problems here as well 
+'B45.262' => 'BA.071',
+'B45.263' => 'BA.069',
+'B45.264' => 'BA.070',
+'B45.265' => 'BA.000', #This slide is repeated here, this will have to be updated when a fix is made
+'B45.266' => 'BA.073',
+#####################################################################
+# B45.200s become very messy and putting them into code will lead to 
+# problems until an official fix is made
+#####################################################################
+'B45.292' => 'BC.001',
+}
 B47hash={
 'B47.001-024' => 'BV.068-091',
+'B47.025' => "NE.001",
 'B47.026' => 'Z.056',
 'B47.027' => 'Z.057',
 'B47.028' => 'Z.058',
@@ -167,8 +181,8 @@ B47hash={
 'B47.061' => 'Z.069',
 'B47.062' => 'Z.077',
 'B47.063-76' => 'BW.016-29',
-'B47.077' => 'EJB',
-'B47.078' => 'EJB',
+'B47.077' => 'EJB.001',  # The numbers on the EJB slides are created, 
+'B47.078' => 'EJB.002',  # and may need to be changed if more are found
 'B47.079' => 'Z.080',
 'B47.080' => 'Z.081',
 'B47.081' => 'Z.083',
@@ -216,7 +230,7 @@ B47hash={
 'B47.519-618' => 'CB.001-100',
 'B47.619-718' => 'CC.001-100',
 'B47.719-811' => 'CD.001-93',
-'B47.812-17' => 'CD.094-100',
+'B47.812-17' => 'CD.095-100',
 'B47.818-64' => 'CE.001-47',
 'B47.865' => 'CE.049',
 'B47.866' => 'CE.050',
