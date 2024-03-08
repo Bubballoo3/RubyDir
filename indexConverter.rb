@@ -2,9 +2,14 @@
 # Baly's indexing was alphanumeric in groups of 100
 # VRC indexing is decimalized with varying group sizes (usually 100/1000)
 # Buckle in because these systems are so inconsistent
-########################################################
-# If you want to jump to the functions, skip to line 177
-########################################################
+
+#The concept is to store the classification data in ranges, allowing us to compress the data.
+#This allows for faster data entry while still accounting for unpredictable exceptions.
+#In order to keep our hashes orderly, we currently limit coverage to 1000 slides for each rangehash
+# we can then run the following routines to parse these rangehashes and produce an output.
+
+# The only exception is BHashNorm, since those are so straightforward we can save some computation by doing them separately.
+
 #Bsorthash allows us to sort a VRC number into the appropriate hash for conversion.
 #one day we will have one that reverses this.
 Bsorthash={"B01-41" => "BHashNorm", "B42.0-43.9" => "BhashRange", "B44.0-44.1" => "B44-45hash","B44.2-44.8"=>"BhashRange", "B44.9" => "B44-45hash","B47.0-47.9" => 'B47hash'}

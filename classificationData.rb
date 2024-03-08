@@ -143,21 +143,21 @@ B44to45hash={
 'B45.083' => 'AZ.084',
 'B45.084-98' => 'AZ.086-100',
 'B45.099-198' => 'BB.001-100',
-'B45.199-261' => 'BA.001-63',### Problems here as well 
-'B45.262' => 'BA.071',
-'B45.263' => 'BA.069',
-'B45.264' => 'BA.070',
-'B45.265' => 'BA.000', #This slide is repeated here, this will have to be updated when a fix is made
-'B45.266' => 'BA.073',
+'B45.199-261' => 'TC.001-63',### Due to problems with BA, it will be assigned TC until it can be redefined officially
+'B45.262' => 'TC.071',
+'B45.263' => 'TC.069',
+'B45.264' => 'TC.070',
+'B45.265' => 'TC.000', #This slide is repeated here, this will have to be updated when a fix is made
+'B45.266' => 'TC.073',
 #####################################################################
 # B45.200s become very messy and putting them into code will lead to 
 # problems until an official fix is made
 #####################################################################
-'B45.292' => 'BC.001',
+'B45.292' => 'TC.',
 }
 B47hash={
 'B47.001-024' => 'BV.068-091',
-'B47.025' => "NE.001",
+'B47.025' => "XE.001",
 'B47.026' => 'Z.056',
 'B47.027' => 'Z.057',
 'B47.028' => 'Z.058',
