@@ -51,8 +51,12 @@ end
 #we begin with methods specific to the slide class, and then we create subclasses for some of the more intricate data,
 #such as classifications and locations.
 class Slide
-    def initialize(attributes)
-        id=Classification.new(attributes)
+    #slides are created with indexings, either from the VRC or Baly Systems. 
+    #There are some checks, but indexings should be verified before being passed to this.
+    def initialize(indexing)
+        #the first thing we do with our indexing string is create a classification object for it
+        id=Classification.new(indexing)
+        #we then determine which system it uses, and log it under that class variable.
         if id.classSystem == "Baly"
             @Balyid=id
             @VRCid=0
@@ -60,6 +64,8 @@ class Slide
             @Balyid=0
             @VRCid=id
         end
+        #finally we create the rest of our class variables and leave them blank.
+        #they will need to be added separately
         @indexwriting=String.new
         @generalLocation=0
         @specificLocation=0
@@ -72,7 +78,8 @@ class Slide
     def VRCGroup()
         return @VRCid.group()
     end
-
+    #For this accessor, we accept the choice of which indexing is returned.
+    #if a choice is not made, we default to the non-zero one or Baly ID 
     def getindex(system=0)
         if system=="Baly"
             return @Balyid
@@ -99,7 +106,9 @@ class Slide
         return @descriptionNotes
     end
 
+    #with all our accessor methods created, we move to mutator methods
 
+    #the first one adds the ID that was not used to create the slide. IDs cannot be changed once they are given.
     def addAltID(input)
         if input.class != Classification
             id=Classification.new(input)
@@ -121,15 +130,22 @@ class Slide
         end
     end
 
+    #the next mutator adds a location. Locations need to be carefully formatted, parsed into an array containing the coordinate tuple
+    #and whatever words accompany it. If it is specific, the array can be followed by a 'true', and if you would like to override an
+    #existing location another 'true' must follow. If you are overriding a general location, use (array,false,true).
     def addLocation(locationArray,specific=false,replace=false)
+        #we begin by checking if there is already a location assigned to this slide, and whether we are authorized to replace it
         prevLocations=[@generalLocation,@specificLocation]
         if replace == false and prevLocations != [0,0]
+            #if not, we check specific cases to identify if there is actually a problem. If there is, we throw an error
             if specific == false and prevLocations[0] != 0
                 raise StandardError.new "This slide already has a general location, if you would like to override it, change the \'replace\' variable in the function call"
             elsif specific == true and prevLocations[1] != 0
                 raise StandardError.new "This slide already has a specific location, if you would like to override it, change the \'replace\' variable in the function call"
             end
         end
+        #now that we are definitely authorized to change our class variables, we do exactly that. 
+        #The locationArray is passed straight through to the appropriate location constructor
         if specific == false
             @generalLocation=GeneralLocation.new(locationArray)
         elsif specific == true
@@ -137,15 +153,19 @@ class Slide
         end
     end
 end
+
 #the following class parses and stores a classification number.
 # The current class variables are:
 #       input: Whatever input was used in the init function
 #       group: The subcollection the number is a part of (B## or Alphanumeric)
 #       number: The number in that collection, stored as an integer
-#       stringform: The 
-   
-class Classification 
+#       stringform: The    
+class Classification
+    #we create a classification using either a string ("B43.001") or an array(["B43",1])
     def initialize(classnumber)
+        #First we check that the input actually contains the proper syntax for a classification.
+        #As you might expect, we check separate conditions for strings and arrays.
+        #If the input is readable, we parse it into class variables.
         if classnumber.class == String and classnumber.include?(".")
             @input=classnumber
             @stringform=classnumber
@@ -159,12 +179,13 @@ class Classification
                 stringnum = '0'+stringnum
             end
             @stringform=@group+'.'+stringnum
-        else
-            print "#{classnumber} is not a valid Classification object"
+        else #if the input is not readable, we print a warning, and raise an error
+            raise ClassificationError.new "#{classnumber} is not a valid Classification object"
         end
 
         #the next part will make an attempt to identify the classification system. 
-        # we already have a function that will do this, getCatType, but 
+        # we already have a function that will do this, getCatType, but this is too bulky to be 
+        # automatically called each time. This version is weaker, but quicker.
         if @group[0] == "B" and @group[-1].is_integer?
             @classSystem='VRC'
         elsif AcceptableAlphanumerics.include? @group
@@ -178,15 +199,13 @@ class Classification
             Check for typos in your entry or change the constant BalyMaxNum"
         end 
     end
-
+    #accessor methods
     def group()
         return @group
     end
-
     def number()
         return @number
     end
-
     def stringNum()
         num=@number.to_s
         while num.length < 3
@@ -194,17 +213,19 @@ class Classification
         end
         return num
     end
-
     def to_s()
         return @stringform
     end
-
     def classSystem()
         return @classSystem
     end
-
+    #other methods
+    #this method is a quick way to check whether something is in a range. 
+    #It specifically uses the format of ranges found in B47hash, in classificationData.rb
     def inRange?(range)
+        #if the range is more than one slide, it will have a dash
         if range.include? "-"
+            #rather than generate the whole range as a list, we see if it is between the range limits
             (leftside,rightside)=range.split("-")
             (rgroup,lownum)=leftside.split(".")
             hundreds=lownum[0]
@@ -218,35 +239,65 @@ class Classification
             else
                 return false
             end
-        else
+        else #if it is a single slide, we check if it is the right slide
             return @stringform == range
         end
     end
 end
-class GeneralLocation
-    def initialize(input)
+#This class stores general locations, either for a range or for a single slide. 
+#The input variable must be of the form [[latitude,longitude],name], where name is the object of the photo (title of the map entry)
+class Location
+    def parseLocationArray(input)
         tuple=input[0]
-        name=input[1]
-        (@latitude,@longitude)=tuple
-        @name=name
+        data=input[1]
+        if input.length == 3
+            notes=input[2]
+        else
+            notes=0
+        end
+        (latitude,longitude)=tuple
+        return [latitude,longitude,data,notes]
     end
+end
+class GeneralLocation < Location
+    def initialize(input,range=0)
+        #first we parse the location input into class variables.
+        (@latitude,@longitude,data,@notes)=parseLocationArray(input)
+        @name=data
+        if range!=0
+            @range=range
+        end
+    end
+    #accessor methods
     def coords()
         return [@latitude,@longitude]
     end
     def name()
         return @name
     end
+    def range()
+        if @range!=0
+            return @range
+        end
+    end
+    def notes()
+        if @notes!=0
+            return @notes
+        end
+    end
 end
-class SpecificLocation
+#This class stores a specific location. These must always have an angle, and should also include a precision qualifier.
+# if there is no precision qualifier, "exact" is presumed. input must be of the form [[latitude,longitude],data],
+# where data is a string like "approximate location at 15 degrees N"
+class SpecificLocation < Location
+    #we use a similar array to general locations, except we have angle and precision data in place of the name
     def initialize(input)
-        tuple=input[0]
-        data=input[1]
+        (@latitude,@longitude,data,@notes)=parseLocationArray(input)
         if data.class==String
             attributes=getAttributesFromString(data)
         elsif data.class==Array
             attributes=data[0..-1]
         end
-        (@latitude,@longitude)=tuple
         @angle=Angle.new(attributes[0])
         @precision=attributes[1]
     end
