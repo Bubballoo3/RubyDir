@@ -217,6 +217,7 @@ def indexConverter(slide,outputform='String')
 
     if slideindx.classSystem == "VRC"
         hashtouse=Bsorthash[getBsorthashkey(slidestring)]
+        puts [hashtouse,slidestring]
         if hashtouse=="BHashNorm"
         ##############################################################################    
         #this is where we will eventually check an index of inconsistencies in the normal hash.
@@ -235,7 +236,7 @@ def indexConverter(slide,outputform='String')
     return newslide
 end
 
-#=begin #testing code
+=begin #testing code
 testslide="B12.045"
 while testslide != "n"
     testslide=gets[0...-1]
@@ -243,6 +244,6 @@ while testslide != "n"
         puts indexConverter(testslide)
     end
 end
-
+=end
 #test results:
 #   Successfully converted B47.001-999 and B42.001-999
