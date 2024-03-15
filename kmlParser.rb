@@ -8,8 +8,9 @@ Include notes and advice in this section
 #load accessory files
 #make sure you're in the right directory when you run this 
 # or it won't be able to find the file
+load 'balyClasses.rb'
 require_relative 'prettyCommonFunctions'
-
+require_relative 'indexConverter.rb'
 #a purely original attempt
 
 #some initial data
@@ -137,6 +138,220 @@ def splitLocations (stringLocation)
 end 
 
 
+def writeToXlsWithClass(bigarray, mode="straight", filename="blank")
+  #this function makes heavy use of the spreadsheet package. To install, type "gem install spreadsheet" into your terminal (windows)
+  # or visit the source at https://rubygems.org/gems/spreadsheet/versions/1.3.0?locale=en
+  require "spreadsheet" 
+  #Next we set the encoding. This is the default setting but can be changed here
+  Spreadsheet.client_encoding='UTF-8'
+  
+  #Now we define a mode. Each mode will direct the function to a different loop to produce different types of data.
+  #"straight" mode keeps data organized by location, ex. Baly Cottage => B43.32-53,location
+  #"CatNum" mode interprets each range and re-organizes it to read B43.32 => Baly Cottage, location
+
+
+
+  #we now create our spreadsheet file
+  book=Spreadsheet::Workbook.new
+  mainsheet=book.create_worksheet
+  
+  #we then collect the title of the group and name our sheet after it
+  collectionTitle=bigarray[0]
+  mainsheet.name = collectionTitle
+
+  #we define a disclaimer to populate the top left cell, identifying that it was produced by code
+  disclaimer="This is an automatically generated spreadsheet titled \'#{collectionTitle}\' Please review the information before copying into permanent data storage."
+  mainsheet[0,0] = disclaimer
+  
+  if mode=="straight"
+
+    #then we make titles for each column
+    mainsheet[1,0]="Title"
+    mainsheet[1,1]="Description"
+    mainsheet[1,2]="Longitude"
+    mainsheet[1,3]="Latitude"
+
+    #with our title and disclaimer made, we move into our main loop
+    #the writing will take place one row at a time, and will be based on the list of keys (bigarray[1])
+
+    for i in 2..bigarray[1].length
+      #gather info
+      title = bigarray[1][i]
+      description=bigarray[2][title]
+      location=bigarray[3][title]
+      
+      #while most of the data is ready to input, the locations are still a string tuple.
+      #we must split this into its parts before entry
+
+      locationTuple = splitLocations location
+
+      #populate info
+      mainsheet[i,0]=title
+      mainsheet[i,1]=description
+      mainsheet[i,2]=locationTuple[0]
+      mainsheet[i,3]=locationTuple[1]
+    end 
+  end
+
+  if mode == "CatNum"
+    seenSlides=Hash.new
+    bigarray[1].each do |activetitle|
+      desc = bigarray[2][activetitle]
+      if desc.class != NilClass
+        location=bigarray[3][activetitle]
+        locationTuple=splitLocations location
+        slidesarray = parseSlideRange(desc)[0]
+        slidesarray.each do |cat|
+          if cat.class == NilClass
+            print "The slide with categorization #{cat} and title #{activetitle} could not be parsed, and has been skipped"
+          elsif cat.include? "ERROR"
+            print "The slide with categorization #{cat} and title #{activetitle} could not be parsed, and has been skipped"
+          else
+            #puts seenSlides
+            puts activetitle
+            puts cat
+            if seenSlides.include? cat
+              slide=seenSlides[cat]
+              addLocationToSlide(slide,locationTuple,activetitle,desc)
+            else  
+              slide=Slide.new(cat)
+              addLocationToSlide(slide,locationTuple,activetitle,desc)
+              altId=indexConverter(slide.getindex)
+              if altId.class == Classification
+                slide.addAltID(altId)
+              end
+              seenSlides[cat]=slide
+            end
+          end
+        end
+      end
+    end
+    lastblock=2
+    #populate spreadsheet
+    formatspreadsheet(mainsheet)
+    slides=seenSlides.values.sort_by {|slide| slide.getindex.to_s}
+    slides.each do |slide|
+      slideData=formatSlideData(slide)
+      for i in [0..slideData.length]
+        mainsheet[lastblock,i]=slideData[i]
+      end
+      lastblock+=1
+    end
+  end
+  if filename != "blank"
+    book.write filename
+  else 
+    time=Time.now
+    minutes=time.min
+    seconds=time.sec
+    book.write collectionTitle+minutes.to_s + "." + seconds.to_s+".xls"
+  end
+end
+
+
+def addLocationToSlide(slide,locationTuple,title,desc)
+  data=stripData(desc)
+  if data.class != Array
+    notes=data
+    slide.addLocation([locationTuple,title,notes],false,false)
+  elsif data[0].class != NilClass
+    slide.addLocation([locationTuple,data[0],data[1],title],true,false)
+  end
+  
+end
+  
+def stripData(desc)
+  if desc.include?("degrees")==false
+    lastnum=-1
+    if desc.include? ". "
+      sentences=desc.split(". ")[1..]
+      notes=''
+      if sentences.length > 1
+        sentences.each do |item|
+          notes+=item
+        end
+      else
+        notes=sentences[0]
+      end
+    else
+      desc.each_char do |char|
+        if char.is_integer?
+          lastnum=desc.rindex char
+        end
+      end
+      notes=desc[lastnum+1..]
+    end
+    return notes
+  elsif desc.include? "degrees"
+    firstspace=desc.index " "
+    while firstspace <= 1
+      firstspace=firstspace+desc[firstspace..].index(" ")
+    end
+    sentences=desc[firstspace..].split ". "
+    angledata=sentences[0]
+    if sentences.length > 1
+      notes=''
+      sentences[1..].each do |sentence|
+        notes += sentence
+      end
+      return [angledata,notes]
+    end
+    return [angledata]
+  end
+end
+
+def formatspreadsheet(sheet)
+  fields=["Slide Title","Baly Cat","VRC Cat","General Place Name","General Coordinates","Specific Coordinates","Direction","Notes"]
+  for i in [0..fields.length]
+    sheet[1,i]=fields[i]
+#    format=Spreadsheet::Format.new :width => fields[i].length
+#    sheet.col(i).default_format=format
+  end
+end
+def formatSlideData(slide)
+  balyid=slide.getindex("Baly").to_s
+  vrcid=slide.getindex("VRC").to_s
+  generalLoc=slide.generalLocation
+  if generalLoc != 0
+    locationName= generalLoc.name
+    genCoords = formatCoords(generalLoc.coords)
+  else
+    locationName=""
+    genCoords = ["",""]
+  end
+  specificLoc=slide.specificLocation
+  if specificLoc!=0
+    title=specificLoc.title
+    specCoords = formatCoords(specificLoc.coords)
+    specAngle=specificLoc.angle.to_s
+  else
+    title=""
+    specCoords=["",""]
+    specAngle=""
+  end
+  resultarray=[title,balyid,vrcid,locationName,genCoords,specCoords,specAngle]
+  notes=""
+  [generalLoc,specificLoc].each do |loc|
+    if loc.class == Location
+      eachnote=loc.notes
+      if eachnote != 0
+        notes += eachnote
+      end
+    end
+  end
+  resultarray.push notes
+  resultarray.each do |element|
+    if element == 0
+      element=""
+    end
+  end
+  return resultarray
+end
+def formatCoords(coordinateArray)
+  latitude=coordinateArray[0]
+  longitude=coordinateArray[1]
+  return "(#{latitude},#{longitude})"
+end
 def writeToXls(bigarray, mode="straight", filename="blank")
   #this function makes heavy use of the spreadsheet package. To install, type "gem install spreadsheet" into your terminal (windows)
   # or visit the source at https://rubygems.org/gems/spreadsheet/versions/1.3.0?locale=en
@@ -263,5 +478,5 @@ def indexByBnum(bigarray)
 end
 
 allinfo=stripInfo filename
-writeToXls(allinfo, "CatNum")
+writeToXlsWithClass(allinfo, "CatNum", "test.xls")
   
