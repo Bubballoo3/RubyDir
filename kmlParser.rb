@@ -1,10 +1,3 @@
-=begin
-This is a test document for Ruby explorations
----------------------------------------------
-Include notes and advice in this section
-----------------------------------------
-=end
-
 #load accessory files
 #make sure you're in the right directory when you run this 
 # or it won't be able to find the file
@@ -13,11 +6,37 @@ require_relative 'prettyCommonFunctions'
 require_relative 'indexConverter.rb'
 #a purely original attempt
 
-#some initial data
+############### Mapping Functions ################################
+# The first puts together the two main functions above into a simple mapping function
+# the inputfile is a kml filename that has been downloaded from the google Mymaps.
+# the resultfile can be any filename you like ending in .xls. If you don't pass a 
+# resultfile, a (hopefully) unique one will be generated
+# 
+# To try an example, download UnitedKingdom.kml from the github and place it 
+# in the same folder as this file. Then open a terminal and navigate to that 
+# folder with the "cd" command. Once in the correct folder, the terminal should look like 
+#
+# C:\Users\SomeUser\aFolder\...\thisFolder> 
+#
+# Then type "irb" into the command line to start a ruby session.
+#
+# then type "load "kmlParser.rb"". If the terminal returns true, you are done.
+# If it generates an error, you are probably not in the correct folder.
+#
+# Once the file is loaded, just call the mapping function below. For the sample file, that looks like
+#
+# mapKMLtoXLS("UnitedKingdom.kml")
+#
+# If this runs with no errors, there should be a new xls file containing the data in that folder.
+#
+# If an error is encountered, it is probably related to the syntax of the descriptions.
+# The last output before the error should give you the slide number and title of the last one read.
+def mapKMLtoXLS(inputfile,resultfile="blank",mode="CatNum")
+  allinfo=stripInfo inputfile
+  writeToXlsWithClass(allinfo, mode, resultfile)
+end
 
-#this array contains all the keywords marking values we want to store. This uses the same strings used in the kml file.
-
-filename="UnitedKingdom.kml"
+#filename="UnitedKingdom.kml"
 
 
                        
@@ -241,10 +260,7 @@ def writeToXlsWithClass(bigarray, mode="straight", filename="blank")
   if filename != "blank"
     book.write filename
   else 
-    time=Time.now
-    minutes=time.min
-    seconds=time.sec
-    book.write collectionTitle+minutes.to_s + "." + seconds.to_s+".xls"
+    book.write generateUniqueFilename("xls",collectionTitle)
   end
 end
 
@@ -472,11 +488,4 @@ end
 #puts parseSlideRange "B45.321 approximate location at 35 degrees N"
 #"B27.012-15, B47.654-63, 716-18,B45.9-10, B45.63-67. WHat the"
 
-def indexByBnum(bigarray)
-  for i in 0...bigarray[1].length
-  end
-end
 
-allinfo=stripInfo filename
-writeToXlsWithClass(allinfo, "CatNum", "test.xls")
-  
