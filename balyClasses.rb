@@ -44,6 +44,13 @@ class String
     def is_integer?
     self.to_i.to_s == self
     end
+    def lfullstrip
+        temp=self
+        while temp[0].codepoints[0]==32 or temp[0].codepoints[0]==160
+            temp=temp[1..-1]
+        end
+        return temp
+    end
 end
 
 #The slide class is our main class, representing the info for a single slide. The goal is to have automated processes 
@@ -55,6 +62,7 @@ class Slide
     #There are some checks, but indexings should be verified before being passed to this.
     def initialize(indexing)
         #the first thing we do with our indexing string is create a classification object for it
+        @input=indexing
         id=Classification.new(indexing)
         #we then determine which system it uses, and log it under that class variable.
         if id.classSystem == "Baly"
@@ -66,10 +74,11 @@ class Slide
         end
         #finally we create the rest of our class variables and leave them blank.
         #they will need to be added separately
+        @title=0
         @indexwriting=String.new
         @generalLocation=0
         @specificLocation=0
-        @descriptionNotes
+        @descriptionNotes=0
     end
     #accessor methods
     def balyGroup()
@@ -83,7 +92,7 @@ class Slide
     def getindex(system=0)
         if system=="Baly"
             return @Balyid
-        elsif system=="Baly"
+        elsif system=="VRC"
             return @VRCid
         else
             [@Balyid,@VRCid].each do |id|
@@ -92,6 +101,10 @@ class Slide
                 end
             end
         end
+    end
+    
+    def title()
+        return @title
     end
     def indexwriting()
         return @indexwriting
@@ -139,9 +152,9 @@ class Slide
         if replace == false and prevLocations != [0,0]
             #if not, we check specific cases to identify if there is actually a problem. If there is, we throw an error
             if specific == false and prevLocations[0] != 0
-                raise StandardError.new "This slide already has a general location, if you would like to override it, change the \'replace\' variable in the function call"
+                raise StandardError.new "This slide, classified #{@input} already has a general location, if you would like to override it, change the \'replace\' variable in the function call"
             elsif specific == true and prevLocations[1] != 0
-                raise StandardError.new "This slide already has a specific location, if you would like to override it, change the \'replace\' variable in the function call"
+                raise StandardError.new "This slide, classified #{@input} already has a specific location, if you would like to override it, change the \'replace\' variable in the function call"
             end
         end
         #now that we are definitely authorized to change our class variables, we do exactly that. 
@@ -151,6 +164,9 @@ class Slide
         elsif specific == true
             @specificLocation=SpecificLocation.new(locationArray)
         end
+    end
+    def addTitle(title)
+        @title=title
     end
 end
 
@@ -168,9 +184,9 @@ class Classification
         #If the input is readable, we parse it into class variables.
         if classnumber.class == String and classnumber.include?(".")
             @input=classnumber
-            @stringform=classnumber
             (@group,rightside)=classnumber.split(".")
             @number=rightside.to_i
+            stringnum=rightside.split(" ")[0]
         elsif classnumber.class == Array and classnumber.length == 2
             @input=classnumber
             (@group,@number) = classnumber
@@ -178,11 +194,10 @@ class Classification
             while stringnum.length < 3
                 stringnum = '0'+stringnum
             end
-            @stringform=@group+'.'+stringnum
         else #if the input is not readable, we print a warning, and raise an error
             raise ClassificationError.new "#{classnumber} is not a valid Classification object"
         end
-
+        @stringform=@group+'.'+stringnum
         #the next part will make an attempt to identify the classification system. 
         # we already have a function that will do this, getCatType, but this is too bulky to be 
         # automatically called each time. This version is weaker, but quicker.
@@ -247,31 +262,40 @@ end
 #This class stores general locations, either for a range or for a single slide. 
 #The input variable must be of the form [[latitude,longitude],name], where name is the object of the photo (title of the map entry)
 class Location
+    #accessor methods
+    def coords()
+        return [@latitude,@longitude]
+    end
+    def notes()
+        return @notes
+    end
+    #other methods
     def parseLocationArray(input)
         tuple=input[0]
         data=input[1]
-        if input.length == 3
+        arrlength=input.length
+        #these class variables are optional, so we set them inside condition
+        if arrlength > 2
             notes=input[2]
+            if arrlength > 3
+                title=input[3]
+            else
+                title=0
+            end
         else
             notes=0
         end
         (latitude,longitude)=tuple
-        return [latitude,longitude,data,notes]
+        return [latitude,longitude,data,notes,title]
     end
 end
 class GeneralLocation < Location
     def initialize(input,range=0)
         #first we parse the location input into class variables.
-        (@latitude,@longitude,data,@notes)=parseLocationArray(input)
-        @name=data
-        if range!=0
-            @range=range
-        end
+        (@latitude,@longitude,@name,@notes,extra)=parseLocationArray(input)
+        range=Array.new
     end
     #accessor methods
-    def coords()
-        return [@latitude,@longitude]
-    end
     def name()
         return @name
     end
@@ -280,10 +304,9 @@ class GeneralLocation < Location
             return @range
         end
     end
-    def notes()
-        if @notes!=0
-            return @notes
-        end
+    #mutator methods
+    def applyToRange(range)
+        @range.push range
     end
 end
 #This class stores a specific location. These must always have an angle, and should also include a precision qualifier.
@@ -292,7 +315,7 @@ end
 class SpecificLocation < Location
     #we use a similar array to general locations, except we have angle and precision data in place of the name
     def initialize(input)
-        (@latitude,@longitude,data,@notes)=parseLocationArray(input)
+        (@latitude,@longitude,data,@notes,@title)=parseLocationArray(input)
         if data.class==String
             attributes=getAttributesFromString(data)
         elsif data.class==Array
@@ -301,14 +324,14 @@ class SpecificLocation < Location
         @angle=Angle.new(attributes[0])
         @precision=attributes[1]
     end
-    def coords()
-        return [@latitude,@longitude]
-    end
     def precision()
         return @precision
     end
     def angle()
         return @angle
+    end
+    def title()
+        return @title
     end
     def getAttributesFromString(stringin)
         (precisiondata,angledata)=stringin.split(" at ")
@@ -317,6 +340,9 @@ class SpecificLocation < Location
             precision=precisiondata.split(" ")[0].downcase
         else
             precision="exact"
+        end
+        if angledata.class == NilClass
+            raise StandardError.new "input #{stringin} could not be parsed"
         end
         if angledata.include? "degrees"
             angle=angledata
@@ -349,4 +375,73 @@ end
 sampleLocation=[[-2.27677,51.2792093],'estimated location at 70 degrees E']
 #specificLocation=SpecificLocation.new(sampleLocation)
 
+class Subcollection
+    def initialize(collection)
+        if meetsformat?(collection)
+            (@group,@subgroup)=collection.split(".")
+        end
+    end 
+    def meetsformat?(input)
+        returnbool = false
+        if input.class != String
+            raise StandardError.new "Input: #{input} is not a string. A string is required to initialize the Subcollection class"
+        end
+        if input.include? "."
+            parts=input.split "."
+            if parts[0].length < 4 
+                if parts[0][0].is_integer?
+                    raise StandardError.new "The collection #{parts[0]} is unable to be parsed. If there is ever a collection beginning with an integer, remove this condition"  
+                else
+                    if parts[1].length != 1 or parts[1].is_integer? == false
+                        raise StandardError.new "The subcollection input value (after the point) for input #{input} can only be one integer"
+                    else
+                        returnbool=true
+                    end
+                end
+            else
+                raise StandardError.new "Collection #{parts[0]} could not be read. There is no known collection with more than 3 characters. If this is no longer the case, remove this condition."
+            end
+        else
+            raise StandardError.new "Subcollection input #{input} does not include a period, and cannot be parsed"
+        end
+    end
+    def to_s()
+        return @group+"."+@subgroup
+    end
+    def group()
+        return @group
+    end
+    def hundreds()
+        return @subgroup
+    end
+    def addone() 
+        if isVRC?
+            subgroup=@subgroup.to_i
+            unless subgroup == 9
+                newsubgroup = subgroup+1
+                @subgroup=newsubgroup.to_s
+            else
+                group=@group
+                groupnumber=group[1..].to_i
+                groupnumber+=1
+                @group="B"+groupnumber.to_s
+                @subgroup="0"
+            end
+        else
+            subgroup=@subgroup.to_i
+            if subgroup!=0
+                raise StandardError.new "Baly Collections are all less than 200"
+            end
+            newsubgroup=subgroup+1
+            @subgroup=newsubgroup.to_s
+        end
+    end
+    def isVRC?()
+        if @group[0]=="B" and @group[-1].is_integer?
+            return true
+        else
+            return false
+        end
+    end
+end
 
