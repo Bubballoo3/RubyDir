@@ -124,9 +124,12 @@ while s != "n"
   s=gets
 end
 =end
-=begin
-######### Fresh Attempt using Classes ##########################################
 
+
+######### Fresh Attempt using Classes ##########################################
+#the next functions, parseSlideRangeAttempt, prepareRanges, getsubcollection,findendplace, 
+# and regularizeRightSide are part of this attempt, currently unsuccessful.
+# The smaller functions may have other uses, but still need to be rigorously tested
 def parseSlideRangeAttempt(string)
   #this will be our array that we return at the end
   slidesMentioned=Array.new
@@ -275,7 +278,7 @@ def regularizeRightside(rightside)
   end
   return rightside
 end
-=end
+
 #The next function takes a slide categorization number and returns if it is an element of the 
 # VRC or Baly categorization system. It does not reference a database, but just uses the 
 # conventions of each to determine which it belongs to. Thus a slide C.400 would be sorted 
@@ -345,13 +348,44 @@ def getCatType(catnum)
   return "N/A"
   puts "If its made it this far the slide cannot be sorted"
 end
-
-
 =begin #testing code
 testslide="B12.045"
 while testslide != "n"
     testslide=gets
     puts getCatType(testslide)
 end
-
 =end
+def generateUniqueFilename(filetype="xls",someTitle)
+  time=Time.now
+  minutes=time.min
+  seconds=time.sec
+  filename=someTitle+minutes.to_s + "." + seconds.to_s+"."+filetype
+  return filename
+end
+
+def generateSortingNumbers(array)
+  sortingNumbers=Array.new
+  array.each do |cat|
+    if cat.class == NilClass
+      sortingNumbers.append ""
+    elsif cat.length < 2
+      sortingNumbers.append ""
+    else
+      classification=Classification.new(cat)
+      if classification.classSystem != "Baly"
+        sortingNumbers.append ""
+      end
+      decimalgroup=AllAlphanumerics.index classification.group
+      decimalgroup+=1
+      groupvalue=decimalgroup*1000
+      numvalue=classification.number
+      if numvalue > 1000
+        raise StandardError "Baly Classification dont have #{numvalue} slides. If there's one that does, overhaul the whole system ig :/"
+      end
+      sortingnum=groupvalue+numvalue
+      sortingNumbers.append sortingnum
+    end
+  end
+  return sortingNumbers
+end
+
