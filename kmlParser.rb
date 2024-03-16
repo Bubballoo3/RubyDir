@@ -484,7 +484,19 @@ def writeToXls(bigarray, mode="straight", filename="blank")
   end
 end
 
-
+def readXLScolumn(xlsfile,worksheet,columnNum)
+  require 'spreadsheet'
+  Spreadsheet.client_encoding = 'UTF-8'
+  book = Spreadsheet.open xlsfile
+  sheet=book.worksheet 0
+  
+  indexarray=Array.new
+  sheet.each do |row|
+    eachindex=row[columnNum]
+    indexarray.push eachindex
+  end
+  return indexarray
+end
 #puts parseSlideRange "B45.321 approximate location at 35 degrees N"
 #"B27.012-15, B47.654-63, 716-18,B45.9-10, B45.63-67. WHat the"
 
