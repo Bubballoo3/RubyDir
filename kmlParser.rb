@@ -36,6 +36,11 @@ def mapKMLtoXLS(inputfile,resultfile="blank",mode="CatNum")
   writeToXlsWithClass(allinfo, mode, resultfile)
 end
 
+def addSortingNumbers(inputfile,resultfile="blank",worksheet=1,columnNum=1)
+  indexes=readXLScolumn(inputfile,worksheet,columnNum)
+  sortingNumbers=generateSortingNumbers(indexes)
+  writeXLSfromArray(resultfile,[sortingNumbers,indexes],["Sorting Number","Index"])
+end
 #filename="UnitedKingdom.kml"
 
 
@@ -484,11 +489,13 @@ def writeToXls(bigarray, mode="straight", filename="blank")
   end
 end
 
+#This function reads an xlsfile and turns one column into an array. 
+#Its inputs are a string of the file to read, and two integer indexes for the worksheet and column.
 def readXLScolumn(xlsfile,worksheet,columnNum)
   require 'spreadsheet'
   Spreadsheet.client_encoding = 'UTF-8'
   book = Spreadsheet.open xlsfile
-  sheet=book.worksheet 0
+  sheet=book.worksheet worksheet
   
   indexarray=Array.new
   sheet.each do |row|
@@ -500,4 +507,35 @@ end
 #puts parseSlideRange "B45.321 approximate location at 35 degrees N"
 #"B27.012-15, B47.654-63, 716-18,B45.9-10, B45.63-67. WHat the"
 
+#then we take that input and write it to a newfile. 
+#These inputs are a string filename, an Array of Arrays representing each column to write,
+# plus an optional array input containing the headers
+def writeXLSfromArray(newfile,data,headers=[])
+  Spreadsheet.client_encoding = 'UTF-8'
+  book = Spreadsheet::Workbook.new
+  sheet = book.create_worksheet
+  if headers != []
+    sheet[0,0..headers.length]=headers
+    rowtostart=1
+  else
+    rowtostart=0
+  end
+  currentcol=0
+  data.each do |colArray|
+    currentrow=rowtostart
+    colArray.each do |item|
+      sheet[currentrow,currentcol]=item
+      currentrow+=1
+    end
+    currentcol+=1
+  end
 
+  if newfile[-3..] != "xls"
+    newfile=generateUniqueFilename("xls","NewSpreadsheet")
+  end
+  book.write newfile
+end
+=begin testing
+A sample input
+writeXLSfromArray("test.xls",[["col1","r1","r2","r3","r4","r5"],["col2",1,2,3,4,5]],["sampleHeader1","sampleheader2"])
+=end

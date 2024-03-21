@@ -1,4 +1,6 @@
 require_relative 'balyClasses.rb'
+
+Threeletterclassifications=["EJB"]
 #This file is meant to be loaded at the start of more specific files.
 # It contains functions that we will use a lot in different applications.
 
@@ -369,6 +371,8 @@ def generateSortingNumbers(array)
     if cat.class == NilClass
       sortingNumbers.append ""
     elsif cat.length < 2
+      sortingNumbers.append ""
+    elsif Threeletterclassifications.include? cat
       sortingNumbers.append ""
     else
       classification=Classification.new(cat)
