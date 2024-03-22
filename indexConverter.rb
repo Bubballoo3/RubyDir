@@ -12,7 +12,7 @@
 
 #Bsorthash allows us to sort a VRC number into the appropriate hash for conversion.
 #one day we will have one that reverses this.
-Bsorthash={"B01-41" => "BHashNorm", "B42.0-43.9" => "BhashRange", "B44.0-44.1" => "B44-45hash","B44.2-44.8"=>"BhashRange", "B44.9" => "B44-45hash","B47.0-47.9" => 'B47hash'}
+Bsorthash={"B01-41" => "BHashNorm", "B42.0-43.9" => "BhashRange", "B44.0-44.1" => "B44-45hash","B44.2-44.8"=>"BhashRange", "B44.9" => "B44-45hash","B45.0-B45.2" => "B44to45hash","B46.0-B46.9" => "B46hash","B47.0-47.9" => 'B47hash'}
 
 #Once the hashes above are complete, they will be moved to their own file
 # Then the real file will start here
@@ -227,6 +227,10 @@ def indexConverter(slide,outputform='String')
             print newslide.class
         elsif hashtouse=='BhashRange'
             newslide=scanRangeHash(slideindx,BhashRange)
+        elsif hashtouse=='B44to45hash'
+            newslide=scanRangeHash(slideindx,B44to45hash)
+        elsif hashtouse=='B46hash'
+            newslide=scanRangeHash(slideindx,B46hash)
         elsif hashtouse=='B47hash'
             newslide=scanRangeHash(slideindx,B47hash)
         end

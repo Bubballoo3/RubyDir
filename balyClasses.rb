@@ -43,8 +43,8 @@ AllAlphanumerics=[
     ]
 
 #The next constant records the highest number assigned across all the Baly collections.
-# the current highest is in DK at 117. If a higher one is found, change this.
-BalyMaxNum=117
+# the current highest is in DN at 137. If a higher one is found, change this.
+BalyMaxNum=137
 
 
 #We start with our Error classes, which will allow us to identify

@@ -155,8 +155,33 @@ B44to45hash={
 #####################################################################
 'B45.292' => 'TC.',
 }
+B46hash={
+"B46.000-084" => "BJ.016-100",
+"B46.085-174" => "BK.001-90",
+"B46.175" => "BK.092",
+"B46.176" => "BK.091",
+"B46.177-181" => "BK.093-97",
+"B46.182-280" => "BL.001-99",
+"B46.281"=>"BL.100", #this slide is also categorized BL.099, so it has been changed to 100
+"B46.282-353" => "BM.001-72",
+"B46.354" => "BM.074",
+"B46.355" => "BM.073",
+"B46.356-381" => "BM.075-100",
+"B46.382-481" => "BN.001-100",
+"B46.482-556" => "BQ.001-75",
+#the following have no Baly numbers, so we use the invented group FL
+"B46.557-561" => "FL.001-05",
+#and these have been assigned the unnumbered group GB
+"B46.561-656" => "GB.001-95", #These may get changed to BR, 
+# since they certainly seem to be placed here with that in mind, but we'll see
+"B46.657-756" => "BS.001-100",
+"B46.757-856" => "BT.001-100",
+"B46.857-933" => "BU.001-77", #there is doubt as to the origin of this collection
+"B46.934-999" => "BV.001-66"
+}
 B47hash={
-'B47.001-024' => 'BV.068-091',
+'B47.000-024' => 'BV.067-091',
+#the next slide is totally unaccounted for, so it gets XE (does not exist)
 'B47.025' => "XE.001",
 'B47.026' => 'Z.056',
 'B47.027' => 'Z.057',
@@ -181,7 +206,7 @@ B47hash={
 'B47.061' => 'Z.069',
 'B47.062' => 'Z.077',
 'B47.063-76' => 'BW.016-29',
-'B47.077' => 'EJB.001',  # The numbers on the EJB slides are created, 
+'B47.077' => 'EJB.001',  # The numbers on the EJB slides are invented, 
 'B47.078' => 'EJB.002',  # and may need to be changed if more are found
 'B47.079' => 'Z.080',
 'B47.080' => 'Z.081',
@@ -207,7 +232,7 @@ B47hash={
 'B47.103' => 'Z.098',
 'B47.104' => 'Z.099',
 'B47.105' => 'Z.092',
-'B47.106-10' => 'CY.094-98',
+'B47.106-110' => 'CY.094-98',
 'B47.111' => 'CY.100',
 'B47.112' => 'Z.087',
 'B47.113' => 'Z.088',
@@ -217,12 +242,9 @@ B47hash={
 'B47.117' => 'Z.095',
 'B47.118' => 'Z.096',
 'B47.119-200' => 'BX.001-82',
-######################################################
-###'MISSING 200-300!!!' ######## But it probably looks like this #####################
-'B47.201-218' => 'BX.083-100',  #THESE HAVE TO BE CHECKED AGAINST
-'B47.219-300' => 'BY.001-82',   #THE PHYSICAL SLIDES ASAP
-######################################################
-'B47.301-16' => 'BY.083-98',
+'B47.201-218' => 'BX.083-100',
+'B47.219-300' => 'BY.001-82',  
+'B47.301-316' => 'BY.083-98',
 'B47.317' => 'BY.100',
 'B47.318' => 'BY.099',
 'B47.319-418' => 'BZ.001-100',
@@ -230,8 +252,8 @@ B47hash={
 'B47.519-618' => 'CB.001-100',
 'B47.619-718' => 'CC.001-100',
 'B47.719-811' => 'CD.001-93',
-'B47.812-17' => 'CD.095-100',
-'B47.818-64' => 'CE.001-47',
+'B47.812-817' => 'CD.095-100',
+'B47.818-864' => 'CE.001-47',
 'B47.865' => 'CE.049',
 'B47.866' => 'CE.050',
 'B47.867-890' => 'CE.052-75',
@@ -244,7 +266,7 @@ B47hash={
 # the alphanumeric 'FL' to signal slides that have VRC
 # numbers but not baly ones. If this conflicts with a
 # decision down the road, fix it here.
-'B47.913-1000' => 'FL.001-88',
+'B47.913-1000' => 'FL.006-93',
 }
 =begin
 'B47.0'
