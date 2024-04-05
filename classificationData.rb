@@ -143,17 +143,50 @@ B44to45hash={
 'B45.083' => 'AZ.084',
 'B45.084-98' => 'AZ.086-100',
 'B45.099-198' => 'BB.001-100',
-'B45.199-261' => 'TC.001-63',### Due to problems with BA, it will be assigned TC until it can be redefined officially
-'B45.262' => 'TC.071',
-'B45.263' => 'TC.069',
-'B45.264' => 'TC.070',
-'B45.265' => 'TC.000', #This slide is repeated here, this will have to be updated when a fix is made
-'B45.266' => 'TC.073',
+'B45.199-261' => 'BA.001-63',
+'B45.262' => 'BA.071',
+'B45.263' => 'BA.069',
+'B45.264' => 'BA.070',       ### Due to conflicts within the BA classifications, the following classifications
+'B45.265' => 'BA.064',#BA.059  # were reclassified and have their old baly classification listed next to them
+'B45.266' => 'BA.066',#BA.061
+'B45.267' => 'BA.065',#BA.060
+'B45.268' => 'BA.072',
+'B45.269' => 'BA.067',#BA.069
+'B45.270' => 'BA.068',#BA.070
 #####################################################################
-# B45.200s become very messy and putting them into code will lead to 
-# problems until an official fix is made
+# B45.200s are the first well documented classification change in Baly Project History!
+# If you are looking for more info on the earlier state of the collection and the
+# rationale for modifications, take a look at the documentation file in the drive
 #####################################################################
-'B45.292' => 'TC.',
+'B45.271-277' => 'BA.073-79',
+'B45.278' => 'BA.093',
+'B45.279' => 'BA.092',
+'B45.280' => 'BA.091',
+'B45.281' => 'BA.090',
+'B45.282' => 'BA.089',
+'B45.283' => 'BA.088',
+'B45.284' => 'BA.087',
+'B45.285' => 'BA.086',
+'B45.286' => 'BA.094',
+'B45.287' => 'BA.084',
+'B45.288' => 'BA.083',
+'B45.289' => 'BA.082',
+'B45.290' => 'BA.081',
+'B45.291' => 'BA.080',
+'B45.292-389' => 'BC.001-98',
+'B45.390-478' => 'BD.001-89',
+'B45.479' => 'BD.091',
+'B45.480' => 'BD.090',
+'B45.481-489' => 'BD.092-100',
+'B45.490-589' => 'BE.001-100',
+'B45.590-661' => 'BF.001-72',
+'B45.662' => 'BF.074',
+'B45.663' => 'BF.073',
+'B45.664-689' => 'BF.075-100',
+'B45.690-789' => 'BG.001-100',
+'B45.790-889' => 'BH.001-100',
+'B45.890-984' => 'BI.001-95',
+'B45.985-999' => 'BJ.001-15'
 }
 B46hash={
 "B46.000-084" => "BJ.016-100",
@@ -170,7 +203,7 @@ B46hash={
 "B46.382-481" => "BN.001-100",
 "B46.482-556" => "BQ.001-75",
 #the following have no Baly numbers, so we use the invented group FL
-"B46.557-561" => "FL.001-05",
+"B46.557-561" => "FL.101-105",
 #and these have been assigned the unnumbered group GB
 "B46.561-656" => "GB.001-95", #These may get changed to BR, 
 # since they certainly seem to be placed here with that in mind, but we'll see
@@ -266,19 +299,43 @@ B47hash={
 # the alphanumeric 'FL' to signal slides that have VRC
 # numbers but not baly ones. If this conflicts with a
 # decision down the road, fix it here.
-'B47.913-1000' => 'FL.006-93',
+'B47.913-1000' => 'FL.001-88',
 }
-=begin
-'B47.0'
-'B47.0'
-'B47.0'
-'B47.0'
-'B47.0'
-'B47.0'
-'B47.0'
-'B47.0'
-
-}   
-=end
+B48to49hash={
+'B48.001-12' => 'FL.089-100',
+'B48.013-81' => 'CG.001-100', #the first 70 or so are labelled CO, the rest with no baly num. Labelled as CG in the index though
+'B48.113-212' => 'CH.001-100',
+'B48.213-312' => 'CI.001-100',
+'B48.313-412' => 'CJ.001-100',
+'B48.413-512' => 'CK.001-100',
+'B48.513-612' => 'CL.001-100',
+'B48.613-712' => 'CM.001-100',
+'B48.713-783' => 'CN.001-71',
+'B48.784-883' => 'CO.001-100',
+'B48.884-981' => 'CP.001-98', #CP.059 appears twice, so one was changed. This is recorded in the documentation file in the drive
+'B48.982-999' => 'CQ.001-18',
+'B49.000' => 'CQ.019',
+'B49.001-22' => 'CQ.020-41',
+'B49.023' => 'CQ.044',
+'B49.024' => 'CQ.043',
+'B49.025' => 'CQ.042',
+'B49.026-81' => 'CQ.045-100',
+'B49.082-181' => 'CR.001-100',
+'B49.182-281' => 'CS.001-100',
+'B49.282-381' => 'CT.001-100',
+}
     
-    
+#testing
+rtnarr=Array.new
+B46hash.values.each do |i|
+    primus=i.split(".")[0]
+    if primus.length < 3
+        frst=generateSortingNumbers [primus+'.001']
+    end
+    unless rtnarr.include? frst
+        rtnarr.push frst
+    end
+end 
+rtnarr.each do |el|
+    print(el.to_s+',')
+end
