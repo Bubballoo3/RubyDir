@@ -36,7 +36,7 @@ def mapKMLtoXLS(inputfile,resultfile="blank",mode="CatNum")
   writeToXlsWithClass(allinfo, mode, resultfile)
 end
 
-def addSortingNumbers(inputfile,resultfile="blank",worksheet=1,columnNum=1)
+def addSortingNumbers(inputfile,resultfile="blank",worksheet=0,columnNum=1)
   indexes=readXLScolumn(inputfile,worksheet,columnNum)
   sortingNumbers=generateSortingNumbers(indexes)
   writeXLSfromArray(resultfile,[sortingNumbers,indexes],["Sorting Number","Index"])
