@@ -12,8 +12,20 @@
 
 #Bsorthash allows us to sort a VRC number into the appropriate hash for conversion.
 #one day we will have one that reverses this.
-Bsorthash={"B01-41" => "BHashNorm", "B42.0-43.9" => "BhashRange", "B44.0-44.1" => "B44-45hash","B44.2-44.8"=>"BhashRange", "B44.9" => "B44-45hash","B45.0-B45.2" => "B44to45hash","B46.0-B46.9" => "B46hash","B47.0-47.9" => 'B47hash'}
-
+Bsorthash={"B01-41" => "BHashNorm", "B42.0-43.9" => "BhashRange", "B44.0-44.1" => "B44to45hash",
+           "B44.2-44.8"=>"BhashRange", "B44.9" => "B44-45hash","B45.0-B45.2" => "B44to45hash",
+           "B46.0-B46.9" => "B46hash","B47.0-47.9" => 'B47hash'}
+#then we make a similar hash for Baly numbers, but we use the sorting numbers so we can capture the ranges
+BalySorthash={"1000-42200" => 'ConvertHashNorm','43000-50200' => 'BhashRange','99000-124200' => 'BhashRange',
+              '135000-135200' => 'BhashRange','51000-62015' => 'B44to45hash','62016-74066' => 'B46hash', 
+              '26056-26100' => 'B47hash', '74000-83200' => 'B47hash','103085-103100'=> 'B47hash',
+              '85000-98200' => 'B48to49hash',
+            
+            #we also include maps for the invented numbers, but these will probably be used rarely since we should prefer VRC numbers for slides that lack Baly ones
+            '168000-168200'=>'B46hash','184000-184200'=>'B46hash',
+            '629000-629001'=>'B47hash', '168000-168088'=>'B47hash', #also EJB if that gets a number
+            '168089-168100'=> 'B48to49hash'
+        }
 #Once the hashes above are complete, they will be moved to their own file
 # Then the real file will start here
 
@@ -233,6 +245,8 @@ def indexConverter(slide,outputform='String')
             newslide=scanRangeHash(slideindx,B46hash)
         elsif hashtouse=='B47hash'
             newslide=scanRangeHash(slideindx,B47hash)
+        elsif hashtouse=='B48to49hash'
+            newslide=scanRangeHash(slideindx,B48to49hash)
         end
     elsif slideindx.classSystem == "Baly"
        return "We cannot convert Baly indexes to VRC yet" 
