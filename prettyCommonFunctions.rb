@@ -379,8 +379,7 @@ def generateSortingNumbers(array)
       if classification.classSystem != "Baly"
         sortingNumbers.append ""
       end
-      decimalgroup=AllAlphanumerics.index classification.group
-      decimalgroup+=1
+      decimalgroup=classification.group.alphValue
       groupvalue=decimalgroup*1000
       numvalue=classification.number
       if numvalue > 1000
