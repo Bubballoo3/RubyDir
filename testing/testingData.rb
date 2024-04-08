@@ -11,7 +11,7 @@
   #
 #   record input and results below each function
 
-
+=begin
 #Testing getCatType(categorizationNumber)
 
 #function lives here
@@ -29,5 +29,21 @@ end
 #Run on first 1-2000 categorization numbers stored in the Index on 2/21/24.
 #   Results were good but errors appeared with numbers out of acceptible range
 #   and alphanumerics not recognized #Unfixed
+=end
+
+#This is testing the int method alphValue versus the list index method of reading alphanumerics
+load 'prettyCommonFunctions.rb'
+load 'Sample.rb'
+
+AllAlphanumerics.each do |i|
+  methval=i.alphValue
+  print "#{i} => #{methval} | "
+end
+puts "XE".alphValue 
+puts generateSortingNumbers(["DD.001"])
+puts "ZZ".alphValue
+puts generateSortingNumbers(["ZZ.001"])
+puts "AAA".alphValue
+puts generateSortingNumbers(["AAA.001"])
 
 
