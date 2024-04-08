@@ -122,6 +122,10 @@ class Slide
             end
         end
     end
+
+    def getSortNum()
+        return @Balyid.sortingNumber
+    end
     
     def title()
         return @title
@@ -241,6 +245,20 @@ class Classification
     def number()
         return @number
     end
+    def sortingNumber()
+        if self.classSystem != "Baly"
+            return 0
+        end
+        decimalgroup=self.group.alphValue
+        groupvalue=decimalgroup*1000
+        numvalue=self.number
+        if numvalue > 1000
+            raise StandardError "Baly Classification dont have #{numvalue} slides. If there's one that does, overhaul the whole system ig :/"
+        end
+        sortingnum=groupvalue+numvalue
+        return sortingnum
+    end
+
     def stringNum()
         num=@number.to_s
         while num.length < 3
