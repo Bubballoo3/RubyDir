@@ -376,19 +376,8 @@ def generateSortingNumbers(array)
       sortingNumbers.append ""
     else
       classification=Classification.new(cat)
-      if classification.classSystem != "Baly"
-        sortingNumbers.append ""
-      end
-      decimalgroup=classification.group.alphValue
-      groupvalue=decimalgroup*1000
-      numvalue=classification.number
-      if numvalue > 1000
-        raise StandardError "Baly Classification dont have #{numvalue} slides. If there's one that does, overhaul the whole system ig :/"
-      end
-      sortingnum=groupvalue+numvalue
-      sortingNumbers.append sortingnum
+      sortingNumbers.append classification.sortingNumber
     end
   end
   return sortingNumbers
 end
-
