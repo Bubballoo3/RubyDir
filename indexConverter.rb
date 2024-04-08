@@ -121,6 +121,32 @@ def getBsorthashkey(slide)
     end
 end
 
+def getBalySorthashkey(slide)
+    sortingNumber=slide.getSortNum
+    ans=""
+    BalySorthash.keys.each do |key|
+        if intRangeIncludes?(key,sortingNumber)
+            ans=key
+            return key
+        end
+    end
+    if ans == ""
+        raise SortError.new("The slide could not be sorted. Check that it is within the range spanned by Bsorthash")
+    end
+end
+def intRangeIncludes?(range,element)
+    if range.include? "-"
+        (lowstr,highstr)=range.split "-"
+        (lownum,highnum)=[lowstr.to_i,highstr.to_i]
+        if element >= lownum and element <= highnum
+            return true
+        else
+            return false
+        end
+    else
+        return element == range.to_i
+    end
+end
 =begin Testing Code for getBsorthashkey
  #test a member of each range in Bsorthash just to be safe
 puts getBsorthashkey "B24.145"
@@ -229,7 +255,7 @@ def indexConverter(slide,outputform='String')
 
     if slideindx.classSystem == "VRC"
         hashtouse=Bsorthash[getBsorthashkey(slidestring)]
-        puts [hashtouse,slidestring]
+        #puts [hashtouse,slidestring]
         if hashtouse=="BHashNorm"
         ##############################################################################    
         #this is where we will eventually check an index of inconsistencies in the normal hash.
@@ -249,7 +275,8 @@ def indexConverter(slide,outputform='String')
             newslide=scanRangeHash(slideindx,B48to49hash)
         end
     elsif slideindx.classSystem == "Baly"
-       return "We cannot convert Baly indexes to VRC yet" 
+       sortingnum=generateSortingNumbers(slideindx.to_s)[0]
+
     end
     return newslide
 end
