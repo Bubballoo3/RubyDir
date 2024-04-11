@@ -20,6 +20,7 @@ AcceptableAlphanumerics=[
     "FL", #created to categorize the 88 slides at the end of B47 (stands for Fill)
     "XE", #created to allow production of trivial results for numbers VRC index skips. (stands for Non-Existent)
    "GB", # an unnumbered collection starting at B46.561
+   "UC", # a collection for slides that were never assigned Baly numbers
    #tests
    "ZZ",
    "AAA"
@@ -49,6 +50,9 @@ end
 class String
     def is_integer?
     self.to_i.to_s == self
+    end
+    def to_s
+        return self
     end
     def lfullstrip
         temp=self
@@ -194,6 +198,11 @@ class Slide
     end
 end
 
+class Hash
+    def invertible?
+        return self.invert.size==self.size
+    end
+end
 #the following class parses and stores a classification number.
 # The current class variables are:
 #       input: Whatever input was used in the init function
@@ -215,11 +224,11 @@ class Classification
             @input=classnumber
             (@group,@number) = classnumber
             stringnum=@number.to_s
-            while stringnum.length < 3
-                stringnum = '0'+stringnum
-            end
         else #if the input is not readable, we print a warning, and raise an error
             raise ClassificationError.new "#{classnumber} is not a valid Classification object"
+        end
+        while stringnum.length < 3
+            stringnum = '0'+stringnum
         end
         @stringform=@group+'.'+stringnum
         #the next part will make an attempt to identify the classification system. 
@@ -281,7 +290,11 @@ class Classification
             #rather than generate the whole range as a list, we see if it is between the range limits
             (leftside,rightside)=range.split("-")
             (rgroup,lownum)=leftside.split(".")
-            hundreds=lownum[0]
+            if lownum.length<3
+                hundreds='0'
+            else
+                hundreds=lownum[0]
+            end
             start=lownum.to_i
             if rightside.length < 3
                 rightside=hundreds+rightside
