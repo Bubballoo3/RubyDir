@@ -20,10 +20,10 @@ load 'prettyCommonFunctions.rb'
 file=File.open 'testing/testData.txt'
 output=File.open('testing/testoutput.txt','w')
 file.each_line do |line|
-    if line.length > 1
-        output.write(line+" is type "+getCatType(line)+"\n")
-        puts
-    end
+  if line.length > 1
+    output.write(line+" is type "+getCatType(line)+"\n")
+    puts
+  end
 end
 
 #Run on first 1-2000 categorization numbers stored in the Index on 2/21/24.
@@ -31,7 +31,7 @@ end
 #   and alphanumerics not recognized #Unfixed
 =end
 
-#This is testing the int method alphValue versus the list index method of reading alphanumerics
+=begin #This is testing the int method alphValue versus the list index method of reading alphanumerics
 load 'prettyCommonFunctions.rb'
 load 'Sample.rb'
 
@@ -45,5 +45,27 @@ puts "ZZ".alphValue
 puts generateSortingNumbers(["ZZ.001"])
 puts "AAA".alphValue
 puts generateSortingNumbers(["AAA.001"])
+=end 
 
+#testing indexConverter from Baly to VRC
+#we write a simple test that will make sure conversion is invertible
+load 'indexConverter.rb'
+def testConversion(slide)
+  return slide.to_s == indexConverter(indexConverter(slide)).to_s
+end
 
+def testConvertRange(range)
+  puts range
+  sliderange=parseSlideRange(range)[0]
+  returnhash=Hash.new
+  sliderange.each do |slide|
+    returnhash[slide]=testConversion(slide)
+  end
+  return returnhash
+end
+
+def testConvertHash(hash)
+  hash.keys.each do |key|
+    puts testConvertRange(key)
+  end
+end
