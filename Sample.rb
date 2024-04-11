@@ -1,5 +1,5 @@
 
-load 'prettyCommonFunctions.rb'
+require_relative 'prettyCommonFunctions.rb'
 =begin
 Testrange="A.001,AB.24-43,B35.235-60,80,995-1000"
 def testParse(string)
@@ -165,10 +165,12 @@ def readXLScolumn(xlsfile,worksheet,columnNum)
   return indexarray
 end
 
+=begin test
 array=readXLScolumn("United Kingdom48.3.xls",0,1)
 array.each do |element|
   puts element.class
 end
+=end
 
 AllAlphanumerics=[ 
     "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
@@ -190,3 +192,64 @@ AllAlphanumerics=[
     "PA","PB","PC","PD","PE","PF","PG","PH","PI","PJ","PK","PL","PM","PN","PO","PP","PQ","PR","PS","PT","PU","PV","PW","PX","PY","PZ",
     "QA","QB","QC","QD","QE","QF","QG","QH","QI","QJ","QK","QL","QM","QN","QO","QP","QQ","QR","QS","QT","QU","QV","QW","QX","QY","QZ",
     ]
+
+OldNumsInBW={ #this is an old attempt to partially solve the problem of BW being unordered by reverting to the crossed out numbers whenever possible
+'B47.026' => 'Z.056', # this attempt ended up being unsuccessful since they conflict with Z. slides in B25, and it has since been fixed.
+'B47.027' => 'Z.057', # In this hash, anything with a Z number is the crossed out slide, anything with a BW number has an invented (and outdated) number,
+'B47.028' => 'Z.058', # but had no crossed out numbers.
+'B47.029' => 'Z.062',
+'B47.030' => 'Z.063',
+'B47.031' => 'Z.066',
+'B47.032' => 'Z.061',
+'B47.033' => 'Z.060',
+'B47.034' => 'Z.059',
+'B47.035' => 'Z.065',
+'B47.036' => 'Z.064',
+'B47.037' => 'Z.067',
+'B47.038' => 'Z.068',
+'B47.039-51' => "BW.001-13", 
+'B47.052' => 'Z.075',
+'B47.053-56' => 'Z.071-74',
+'B47.057' => "BW.014",
+'B47.058' => 'Z.076',
+'B47.059' => 'Z.070',
+'B47.060' => 'BW.015',
+'B47.061' => 'Z.069',
+'B47.062' => 'Z.077',
+'B47.063-76' => 'BW.016-29',
+'B47.077' => 'EJB.001',  # The numbers on the EJB slides are invented, 
+'B47.078' => 'EJB.002',  # and may need to be changed if more are found
+'B47.079' => 'Z.080',
+'B47.080' => 'Z.081',
+'B47.081' => 'Z.083',
+'B47.082' => 'Z.084',
+'B47.083' => 'Z.086',
+'B47.084' => 'Z.078',
+'B47.085' => 'Z.079',
+'B47.086' => 'BW.30',
+'B47.087' => 'Z.085',
+'B47.088-91' => 'BW.031-34',
+'B47.092' => 'CY.088',
+'B47.093' => 'BW.035',
+'B47.094' => 'BW.036',
+'B47.095' => 'CY.085',
+'B47.096' => 'CY.089',
+'B47.097' => 'Z.089',
+'B47.098' => 'CY.091',
+'B47.099' => 'Z.100',
+'B47.100' => 'Z.092',
+'B47.101' => 'Z.093',
+'B47.102' => 'Z.097',
+'B47.103' => 'Z.098',
+'B47.104' => 'Z.099',
+'B47.105' => 'Z.092',
+'B47.106-110' => 'CY.094-98',
+'B47.111' => 'CY.100',
+'B47.112' => 'Z.087',
+'B47.113' => 'Z.088',
+'B47.114' => 'Z.090',
+'B47.115' => 'Z.091',
+'B47.116' => 'Z.094',
+'B47.117' => 'Z.095',
+'B47.118' => 'Z.096',
+}
