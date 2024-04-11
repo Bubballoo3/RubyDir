@@ -13,17 +13,22 @@
 #Bsorthash allows us to sort a VRC number into the appropriate hash for conversion.
 #one day we will have one that reverses this.
 Bsorthash={"B01-41" => "BHashNorm", "B42.0-43.9" => "BhashRange", "B44.0-44.1" => "B44to45hash",
-           "B44.2-44.8"=>"BhashRange", "B44.9" => "B44-45hash","B45.0-B45.2" => "B44to45hash",
-           "B46.0-B46.9" => "B46hash","B47.0-47.9" => 'B47hash'}
+           "B44.2-44.8"=>"BhashRange", "B44.9" => "B44to45hash","B45.0-45.9" => "B44to45hash",
+           "B46.0-46.9" => "B46hash","B47.0-47.9" => 'B47hash',
+           "B48.0-49.3"=> 'B48to49hash'}
 #then we make a similar hash for Baly numbers, but we use the sorting numbers so we can capture the ranges
-BalySorthash={"1000-42200" => 'ConvertHashNorm','43000-50200' => 'BhashRange','99000-124200' => 'BhashRange',
+BalySorthash={"1000-42200" => 'ConvertHashNorm','43000-50200' => 'BhashRange','99000-103084' => 'BhashRange','104000-124200' => 'BhashRange',
               '135000-135200' => 'BhashRange','51000-62015' => 'B44to45hash','62016-74066' => 'B46hash', 
-              '26056-26100' => 'B47hash', '74000-83200' => 'B47hash','103085-103100'=> 'B47hash',
+              '26056-26100' => 'B47hash', '74000-83200' => 'B47hash',
               '85000-98200' => 'B48to49hash',
-            
+            #we then include individual exceptions separately, so that the organization above is easier to see.
+            # this one deals with the CY's interspersed in BW.
+            '103085'=>'B47hash','103086-103087'=>'BhashRange', '103088-103089'=> 'B47hash','103090'=>'BhashRange',
+            '103091'=>'B47hash','103092-103093'=>'BhashRange','103094-103098'=>'B47hash','103099'=>'BhashRange','103100'=>'B47hash',
             #we also include maps for the invented numbers, but these will probably be used rarely since we should prefer VRC numbers for slides that lack Baly ones
-            '168000-168200'=>'B46hash','184000-184200'=>'B46hash',
-            '629000-629001'=>'B47hash', '168000-168088'=>'B47hash', #also EJB if that gets a number
+            '549001-549100'=>'BhashRange',
+            '168101-168105'=>'B46hash','184000-184200'=>'B46hash',
+            '629000-629001'=>'B47hash', '168000-168088'=>'B47hash', '3642001-3642002'=> 'B47hash',
             '168089-168100'=> 'B48to49hash'
         }
 #Once the hashes above are complete, they will be moved to their own file
@@ -100,7 +105,7 @@ def getBsorthashkey(slide)
         ans=""
         (leftside,rightside)=slide.split "."
         if leftside[1..].to_i > 41 #41 is the last VRC collection of 100
-            unless rightside [-2..] == "00"
+            unless rightside [-2..] == "00" and rightside != '000'
                 hundreds=rightside[0]
             else 
                 hundreds=(rightside[0].to_i - 1).to_s
@@ -114,15 +119,16 @@ def getBsorthashkey(slide)
             end
         end
         if ans == ""
-            puts "The slide could not be sorted. Check that it is within the range spanned by Bsorthash"
+            puts "The slide #{slide} could not be sorted. Check that it is within the range spanned by Bsorthash"
+            return ans
         end
     else
         puts "This slide has no decimal point. Make sure to include the full indexing"
     end
 end
 
-def getBalySorthashkey(slide)
-    sortingNumber=slide.getSortNum
+def getBalySorthashkey(classification)
+    sortingNumber=classification.sortingNumber
     ans=""
     BalySorthash.keys.each do |key|
         if intRangeIncludes?(key,sortingNumber)
@@ -131,7 +137,8 @@ def getBalySorthashkey(slide)
         end
     end
     if ans == ""
-        raise SortError.new("The slide could not be sorted. Check that it is within the range spanned by Bsorthash")
+        print " The slide could not be sorted. Check that it is within the range spanned by Balysorthash "
+        return ans
     end
 end
 def intRangeIncludes?(range,element)
@@ -214,8 +221,16 @@ puts translateRangeElement("D.033","D.020-40","B43.056-76")
 puts translateRangeElement("B43.045","B43.035-92","C.001-58")
 puts translateRangeElement("B43.030","B43.035-92","C.001-58")
 =end
-def scanRangeHash(slideindx,activehash)
+def scanRangeHash(slideindx,activehash,invert=false)
+    if invert
+        unless activehash.invertible?
+            raise StandardError.new("The active hash #{activehash} is not invertible. Make sure there are no repeated values in the hash")
+        end
+        activehash=activehash.invert
+    end
     slidestring=slideindx.to_s
+    #print slidestring
+    #print activehash.keys
     if activehash.keys.include? slidestring
         newslide=Classification.new(activehash[slidestring])
     else
@@ -223,6 +238,7 @@ def scanRangeHash(slideindx,activehash)
         activehash.keys.each do |key|
             if slideindx.inRange? key
                 rng=key
+                #print rng
                 break
             end
             #print slide, parseSlideRange(key)[0], (parseSlideRange(key)[0].include? slide)
@@ -240,7 +256,7 @@ puts scanB47hash('B47.035')
 puts scanB47hash('B47.005')
 =end
 
-#this function currently has capability for BHashNorm and B47hash ranges
+#this function currently has been tested on all slides mentioned in classificationData
 def indexConverter(slide,outputform='String')
     if slide.class == String
         slideindx=Classification.new(slide)
@@ -250,33 +266,54 @@ def indexConverter(slide,outputform='String')
         slideindx=slide
         slidestring=slide.to_s
         #print "a Classification was input"
+    else return ""
     end
     #print slideindx.class,slidestring.class
-
+    #check slideindx existence
+    unless slideindx.class == Classification
+        raise ClassificationError.new("A classification could not be created for #{slide}")
+    end
     if slideindx.classSystem == "VRC"
-        hashtouse=Bsorthash[getBsorthashkey(slidestring)]
+        hashkey=getBsorthashkey(slidestring)
+        invert=false
+        if Bsorthash.keys.include? hashkey
+            hashtouse=Bsorthash[hashkey]
+        else
+            hashtouse='None'
+        end
         #puts [hashtouse,slidestring]
-        if hashtouse=="BHashNorm"
+    elsif slideindx.classSystem == "Baly"
+        hashkey=getBalySorthashkey(slideindx)
+        invert=true
+        if hashkey==""
+            hashtouse='None'
+        else 
+            hashtouse=BalySorthash[hashkey]
+        end
+    end
+    if hashtouse=="BHashNorm"
         ##############################################################################    
         #this is where we will eventually check an index of inconsistencies in the normal hash.
         ##############################################################################
-            newleftside=BHashNorm[slideindx.group]
-            newslide=Classification.new([newleftside,slideindx.number])
-            print newslide.class
-        elsif hashtouse=='BhashRange'
-            newslide=scanRangeHash(slideindx,BhashRange)
-        elsif hashtouse=='B44to45hash'
-            newslide=scanRangeHash(slideindx,B44to45hash)
-        elsif hashtouse=='B46hash'
-            newslide=scanRangeHash(slideindx,B46hash)
-        elsif hashtouse=='B47hash'
-            newslide=scanRangeHash(slideindx,B47hash)
-        elsif hashtouse=='B48to49hash'
-            newslide=scanRangeHash(slideindx,B48to49hash)
-        end
-    elsif slideindx.classSystem == "Baly"
-       sortingnum=generateSortingNumbers(slideindx.to_s)[0]
-
+        newleftside=BHashNorm[slideindx.group]
+        newslide=Classification.new([newleftside,slideindx.number])
+        print newslide.class
+    elsif hashtouse=='None'
+        newslide=""
+    elsif hashtouse=='ConvertHashNorm'
+        # we will also check the inconsistencies here
+        newleftside=ConvertHashNorm[slideindx.group]
+        newslide=Classification.new([newleftside,slideindx.number])
+    elsif hashtouse=='BhashRange'
+        newslide=scanRangeHash(slideindx,BhashRange,invert)
+    elsif hashtouse=='B44to45hash'
+        newslide=scanRangeHash(slideindx,B44to45hash,invert)
+    elsif hashtouse=='B46hash'
+        newslide=scanRangeHash(slideindx,B46hash,invert)
+    elsif hashtouse=='B47hash'
+        newslide=scanRangeHash(slideindx,B47hash,invert)
+    elsif hashtouse=='B48to49hash'
+        newslide=scanRangeHash(slideindx,B48to49hash,invert)
     end
     return newslide
 end
