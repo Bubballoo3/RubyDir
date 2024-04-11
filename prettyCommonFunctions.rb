@@ -366,6 +366,9 @@ def generateUniqueFilename(filetype="xls",someTitle)
 end
 
 def generateSortingNumbers(array)
+  if array.class == String
+    array=Array(array)
+  end
   sortingNumbers=Array.new
   array.each do |cat|
     if cat.class == NilClass
