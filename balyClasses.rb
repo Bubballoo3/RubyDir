@@ -3,7 +3,15 @@
 # These constants may need to be updated, and should periodically be checked for accuracy
 # These constants currently are, in order:
 #   AcceptableAlphanumerics
+#   Alphabet
 #   BalyMaxNum
+
+# This is the root file of the Baly Project Code, and is loaded into every more complex file. 
+# Thus any functions or methods added should be fully included here and not loaded into more complex files.
+# The full file dependency is as follows:
+# balyClasses => prettyCommonFunctions => indexConverter => kmlParser => indexOps => autoMethods
+#
+# It should be noted that classificationData.rb is only a data store that is automatically loaded by indexConverter
 
 
 
