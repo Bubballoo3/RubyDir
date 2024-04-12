@@ -34,8 +34,6 @@ BalySorthash={"1000-42200" => 'ConvertHashNorm','43000-50200' => 'BhashRange','9
 #Once the hashes above are complete, they will be moved to their own file
 # Then the real file will start here
 
-#first we load our classes
-require_relative 'balyClasses'
 #we then load some universal functions
 require_relative 'prettyCommonFunctions'
 #Then we load our data 

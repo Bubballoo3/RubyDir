@@ -1,8 +1,6 @@
 #load accessory files
 #make sure you're in the right directory when you run this 
 # or it won't be able to find the file
-load 'balyClasses.rb'
-require_relative 'prettyCommonFunctions'
 require_relative 'indexConverter.rb'
 #a purely original attempt
 
