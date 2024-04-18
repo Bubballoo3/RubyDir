@@ -83,7 +83,26 @@ class String
     end
 end
 
+class Array
+    def includesAtIndex(string)
+        string=string.downcase
+        indexes=Array.new
+        current=0
+        self.each do |el|
+            if el.downcase.include? string
+                indexes.push current
+            end
+            current+=1
+        end
+        return indexes
+    end
+end
 
+class Hash
+    def invertible?
+        return self.invert.size==self.size
+    end
+end
 
 #The slide class is our main class, representing the info for a single slide. The goal is to have automated processes 
 #read some data format, sort the data into the class variables, where it can be easily retrieved by some other form.
@@ -206,11 +225,6 @@ class Slide
     end
 end
 
-class Hash
-    def invertible?
-        return self.invert.size==self.size
-    end
-end
 #the following class parses and stores a classification number.
 # The current class variables are:
 #       input: Whatever input was used in the init function
@@ -393,10 +407,17 @@ class SpecificLocation < Location
         return @title
     end
     def getAttributesFromString(stringin)
-        (precisiondata,angledata)=stringin.split(" at ")
-        print precisiondata,angledata
+        stringin=stringin.downcase
+        if stringin.include?(" at ")
+            (precisiondata,angledata)=stringin.split(" at ")
+            print precisiondata,angledata
+        elsif stringin.include?(" facing ")
+            (precisiondata,angledata)=stringin.split(" facing ")
+        else
+            precisiondata=stringin[0..stringin.index(' location ')]
+        end
         if precisiondata.include? "location"
-            precision=precisiondata.split(" ")[0].downcase
+            precision=precisiondata.split(" ")[0]
         else
             precision="exact"
         end
@@ -405,6 +426,10 @@ class SpecificLocation < Location
         end
         if angledata.include? "degrees"
             angle=angledata
+        elsif angledata.include? "up"
+            angle="up"
+        elsif angledata.include? "down"
+            angle="down"
         else
             raise StandardError.new "No angle information was given, so this location cannot be specific."
         end
@@ -413,10 +438,14 @@ class SpecificLocation < Location
     
     class Angle
         def initialize(stringin)
-            elements=stringin.split(" ")
-            (@degrees,middle,@direction)=elements
-            if middle != "degrees"
-                raise StandardError.new "word \'degrees\' not found/misplaced in angle data"
+            if ["up","down"].include? stringin
+                (@degrees,@direction)=[-1,stringin]
+            else
+                elements=stringin.split(" ")
+                (@degrees,middle,@direction)=elements
+                if middle != "degrees"
+                    raise StandardError.new "word \'degrees\' not found/misplaced in angle data"
+                end
             end
         end
         def degrees()
