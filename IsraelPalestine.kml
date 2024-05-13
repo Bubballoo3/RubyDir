@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>IsraelPalestine</name>
+    <Style id="icon-1899-0288D1-normal">
+      <IconStyle>
+        <color>ffd18802</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-1899-0288D1-highlight">
+      <IconStyle>
+        <color>ffd18802</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-1899-0288D1">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1899-0288D1-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1899-0288D1-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-000000-1200-nodesc-normal">
+      <LineStyle>
+        <color>ff000000</color>
+        <width>1.2</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="line-000000-1200-nodesc-highlight">
+      <LineStyle>
+        <color>ff000000</color>
+        <width>1.8</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="line-000000-1200-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-000000-1200-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-000000-1200-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Placemark>
+      <name>Jerusalem</name>
+      <description>A.001</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          35.21371,31.768319,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>View of Jerusalem from Mt Olivet</name>
+      <description>A.001 Possible location at 240 degrees SW</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          35.2438649,31.7818313,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Dome of the Rock</name>
+      <description>A.02-27</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          35.2352684,31.7779279,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Dome of the Rock from Mt Olivet</name>
+      <description>A.002 likely location at 280 degrees W</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          35.242495,31.7760283,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Dome of the Rock from Omar Mosque</name>
+      <description>A.003 likely location at 90 degrees E</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          35.2298525,31.7778464,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Dome of the Rock from Omar Mosque (detail 1)</name>
+      <description>A.004 likely location at 90 degrees E</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          35.2298525,31.7778464,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Dome of the Rock from Omar Mosque (detail 2)</name>
+      <description>A.005 likely location at 90 degrees E</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          35.2298525,31.7778464,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Dome of the Rock from N</name>
+      <description>A.006 likely location at 160 degrees S</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          35.2349175,31.7788589,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Dome of the Rock from S</name>
+      <description>A.007 likely location at 340 degrees N</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          35.2355917,31.7773416,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Dome of the Rock from SE</name>
+      <description>A.008 likely location at 305 degrees NW</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          35.2362601,31.7773176,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Dome of the Rock Through Northern Arch</name>
+      <description>A.009 likely location at 175 degrees S</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          35.2351282,31.7790391,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Dome of the Rock Through Western Arch</name>
+      <description>A.010 likely location at 70 degrees E</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          35.2346017,31.7778467,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Dome of the Rock South Entrance View 1</name>
+      <description>A.011 estimated location at 55 degrees NE</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          35.235189,31.7776551,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Dome of the Rock South Entrance View 2</name>
+      <description>A.012 possible location at 290 degrees W</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          35.2356614,31.7776594,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Dome of the Rock South Entrance View 3</name>
+      <description>A.013 estimated location at 55 degrees NE. Something Nearby?</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          35.2350606,31.7775819,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Tiles in South Entrance to Dome of the Rock</name>
+      <description>A.014 likely location facing up</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          35.2353342,31.7777848,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Dome of the Rock North Entrance View 1</name>
+      <description>A.015 estimated location at 125 degrees SE</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          35.2351173,31.7782987,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Dome of the Rock North Entrance View 2</name>
+      <description>A.016 estimated location at 220 degrees SW</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          35.2354446,31.7785006,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Dome of the Rock West Entrance</name>
+      <description>A.017 possible location at 25 degrees NE</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          35.2348897,31.7777596,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Renovated W Entrance of Dome of the Rock</name>
+      <description>A.018 estimated location at 95 degrees E </description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          35.2347636,31.7778553,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Tiles on Dome of Dome of the Rock</name>
+      <description>A.019 possible location at 125 degrees SE</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          35.2347475,31.7783387,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Tilework on NE wall of Dome of the Rock</name>
+      <description>A.020 possible location at 205 degrees SW</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          35.2357102,31.7785434,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Tilework on NE wall of Dome of the Rock (detail)</name>
+      <description>A.021 possible location at 205 degrees SW</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          35.235517,31.7783884,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Tilework on SE Wall of Dome of the Rock</name>
+      <description>A.022 possible location at 305 degrees NW</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          35.2357048,31.7776906,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Tilework on West Wall of Dome of the Rock</name>
+      <description>A.023 possible location at 85 degrees E</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          35.2348073,31.7780277,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Tilework Seen Through Western Arch</name>
+      <description>A.024 possible location at 80 degrees E</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          35.2345055,31.7778304,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Marble Panel on SW Wall of Dome of the Rock 1</name>
+      <description>A.025 likely location at 35 degrees NE</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          35.2351579,31.7777619,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Marble Panel on SW Wall of Dome of the Rock 2</name>
+      <description>A.026 likely location at 35 degrees NE</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          35.2351901,31.7777459,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Marble Panel on S wall of Dome of the Rock</name>
+      <description>A.027 estimated location at 350 degrees N</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          35.2352662,31.7776885,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Temple Mount</name>
+      <description>A.028-49</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          35.2353114,31.7783168,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[Prophet's Dome and Dome of Ascension on Temple Mount]]></name>
+      <description>A.028 likely location at 255 degrees W</description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <Point>
+        <coordinates>
+          35.2357879,31.7785328,0
+        </coordinates>
+      </Point>
+    </Placemark>
+  </Document>
+</kml>

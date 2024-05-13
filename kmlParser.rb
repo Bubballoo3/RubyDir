@@ -4,7 +4,24 @@
 require_relative 'indexConverter.rb'
 #a purely original attempt
 
-############### Mapping Functions ################################
+class Slide
+  def addGeodata()
+    require 'geocoder'
+    coords=getCoordinates
+    geodata=Geocoder.address(coords).split(",")
+    if [@city,@region,@country]!=[0,0,0]
+      puts "WARNING: Existing Geodata is being overwritten on slide #{getIndex}"
+    end
+    (@city,@region,@country)=[geodata[-5],geodata[-3],geodata[-1]]
+  end
+end
+class String
+  def hasDirection?()
+    return (self.include?(" degrees") or self.include?(" up") or self.include?(" down"))
+  end
+end
+
+############### M apping Functions ################################
 # The first puts together the two main functions above into a simple mapping function
 # the inputfile is a kml filename that has been downloaded from the google Mymaps.
 # the resultfile can be any filename you like ending in .xls. If you don't pass a 
@@ -153,8 +170,8 @@ def splitLocations (stringLocation)
     return ["there has been an error","like actually"]
   else
     commaSpot=stringLocation.index ","
-    longitude=stringLocation[...commaSpot]
-    latitude=stringLocation[(commaSpot+1)..]
+    latitude=stringLocation[...commaSpot]
+    longitude=stringLocation[(commaSpot+1)..]
     return [longitude,latitude]
   end
 end 
@@ -221,8 +238,9 @@ def writeToXlsWithClass(bigarray, mode="straight", filename="blank")
       desc = bigarray[2][activetitle]
       if desc.class != NilClass
         location=bigarray[3][activetitle]
-        locationTuple=splitLocations location
+        locationTuple=splitLocations location 
         slidesarray = parseSlideRange(desc)[0]
+        puts slidesarray
         slidesarray.each do |cat|
           if cat.class == NilClass
             print "The slide with categorization #{cat} and title #{activetitle} could not be parsed, and has been skipped"
@@ -253,6 +271,7 @@ def writeToXlsWithClass(bigarray, mode="straight", filename="blank")
     formatspreadsheet(mainsheet)
     slides=seenSlides.values.sort_by {|slide| slide.getindex.to_s}
     slides.each do |slide|
+      slide.addGeodata
       slideData=formatSlideData(slide)
       for i in [0..slideData.length]
         mainsheet[lastblock,i]=slideData[i]
@@ -269,6 +288,7 @@ end
 
 
 def addLocationToSlide(slide,locationTuple,title,desc)
+  puts "Description: #{desc}"
   data=stripData(desc)
   if data.class != Array
     notes=data
@@ -280,7 +300,7 @@ def addLocationToSlide(slide,locationTuple,title,desc)
 end
   
 def stripData(desc)
-  if desc.include?("degrees")==false
+  if desc.hasDirection? == false
     lastnum=-1
     if desc.include? ". "
       sentences=desc.split(". ")[1..]
@@ -301,7 +321,7 @@ def stripData(desc)
       notes=desc[lastnum+1..]
     end
     return notes
-  elsif desc.include? "degrees"
+  else
     firstspace=desc.index " "
     while firstspace <= 1
       firstspace=firstspace+desc[firstspace..].index(" ")
@@ -320,7 +340,7 @@ def stripData(desc)
 end
 
 def formatspreadsheet(sheet)
-  fields=["Slide Title","Baly Cat","VRC Cat","General Place Name","General Coordinates","Specific Coordinates","Direction","Notes"]
+  fields=["Slide Title","Baly Cat","VRC Cat","General Place Name","General Coordinates","Specific Coordinates","Direction","Notes","City","Region","Country"]
   for i in [0..fields.length]
     sheet[1,i]=fields[i]
 #    format=Spreadsheet::Format.new :width => fields[i].length
@@ -351,7 +371,7 @@ def formatSlideData(slide)
   resultarray=[title,balyid,vrcid,locationName,genCoords,specCoords,specAngle]
   notes=""
   [generalLoc,specificLoc].each do |loc|
-    if loc.class == Location
+    if loc.class < Location
       eachnote=loc.notes
       if eachnote != 0
         notes += eachnote
@@ -359,6 +379,7 @@ def formatSlideData(slide)
     end
   end
   resultarray.push notes
+  resultarray+=slide.getGeodata
   resultarray.each do |element|
     if element == 0
       element=""

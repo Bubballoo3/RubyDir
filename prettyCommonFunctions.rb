@@ -50,7 +50,7 @@ def parseSlideRange(string)
       
       #B22.222-22
       #^^^
-      if range[0]=="B"
+      if Alphabet.include? range[0]
         lastcollection=range.split('.')[0]
         unless collectionsMentioned.include? lastcollection
           collectionsMentioned.push lastcollection
@@ -88,7 +88,7 @@ def parseSlideRange(string)
           else 
             ending=i.to_s
           end
-          slide=slidestem+ending
+          slide=(slidestem+ending)
           slidesMentioned.push slide
         end
       else 
@@ -96,7 +96,7 @@ def parseSlideRange(string)
             rightside="0"+rightside
         end
         slide=lastcollection+"."+rightside
-        slidesMentioned.push slide
+        slidesMentioned.push slide.split(" ")[0]
       end
     end
   

@@ -130,6 +130,9 @@ class Slide
         @generalLocation=0
         @specificLocation=0
         @descriptionNotes=0
+        @city=0
+        @region=0
+        @country=0
     end
     #accessor methods
     def balyGroup()
@@ -157,7 +160,22 @@ class Slide
     def getSortNum()
         return @Balyid.sortingNumber
     end
+
+    def getCoordinates()
+        if @specificLocation == 0
+            if @generalLocation == 0
+                return "None"
+            else
+                return @generalLocation.coords
+            end
+        else
+            return @specificLocation.coords
+        end
+    end
     
+    def getGeodata
+        return [@city,@region,@country]
+    end
     def title()
         return @title
     end
@@ -455,7 +473,7 @@ class SpecificLocation < Location
             return @direction
         end
         def to_s() 
-            return @degrees.to_s+" degrees "+@direction
+            return @degrees.to_s+" degrees "+@direction.upcase
         end
     end
 end
