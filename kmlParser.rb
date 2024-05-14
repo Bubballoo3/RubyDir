@@ -335,12 +335,12 @@ def stripData(desc)
       end
       return [angledata,notes]
     end
-    return [angledata]
+    return [angledata,0 ]
   end
 end
 
 def formatspreadsheet(sheet)
-  fields=["Slide Title","Baly Cat","VRC Cat","General Place Name","General Coordinates","Specific Coordinates","Direction","Notes","City","Region","Country"]
+  fields=["Slide Title","Baly Cat","VRC Cat","General Place Name","General Coordinates","Specific Coordinates","Direction","Precision","Notes","City","Region","Country"]
   for i in [0..fields.length]
     sheet[1,i]=fields[i]
 #    format=Spreadsheet::Format.new :width => fields[i].length
@@ -363,12 +363,13 @@ def formatSlideData(slide)
     title=specificLoc.title
     specCoords = formatCoords(specificLoc.coords)
     specAngle=specificLoc.angle.to_s
+    precision=specificLoc.precision
   else
     title=""
     specCoords=["",""]
     specAngle=""
   end
-  resultarray=[title,balyid,vrcid,locationName,genCoords,specCoords,specAngle]
+  resultarray=[title,balyid,vrcid,locationName,genCoords,specCoords,specAngle,precision]
   notes=""
   [generalLoc,specificLoc].each do |loc|
     if loc.class < Location

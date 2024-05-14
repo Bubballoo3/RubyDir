@@ -362,6 +362,7 @@ class Location
     end
     #other methods
     def parseLocationArray(input)
+        print input
         tuple=input[0]
         data=input[1]
         arrlength=input.length
