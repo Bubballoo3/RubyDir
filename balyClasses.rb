@@ -413,7 +413,7 @@ class SpecificLocation < Location
         elsif data.class==Array
             attributes=data[0..-1]
         end
-        @angle=Angle.new(attributes[0])
+        @angle=Angle.new(attributes[0],self)
         @precision=attributes[1]
     end
     def precision()
@@ -456,11 +456,15 @@ class SpecificLocation < Location
     end
     
     class Angle
-        def initialize(stringin)
+        def initialize(stringin,parent)
+            @parent=parent
             if ["up","down"].include? stringin
                 (@degrees,@direction)=[-1,stringin]
             else
                 elements=stringin.split(" ")
+                if elements.length < 3 
+                    raise StandardError.new "Attribute missing for location titled: \"#{parent.title}\""
+                end
                 (@degrees,middle,@direction)=elements
                 if middle != "degrees"
                     raise StandardError.new "word \'degrees\' not found/misplaced in angle data"

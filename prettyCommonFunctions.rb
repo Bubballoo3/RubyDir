@@ -358,6 +358,7 @@ while testslide != "n"
 end
 =end
 def generateUniqueFilename(filetype="xls",someTitle)
+  title=cleanTitle(someTitle)
   time=Time.now
   minutes=time.min
   seconds=time.sec
@@ -365,6 +366,14 @@ def generateUniqueFilename(filetype="xls",someTitle)
   return filename
 end
 
+#this function removes/replaces any characters that are not permitted in filenames
+def cleanTitle(title)
+  title.gsub! "/","-"
+  title.gsub! "?",""
+  title.gsub! ":","-"
+  title.gsub! "*",""
+  return title
+end
 def generateSortingNumbers(array)
   if array.class == String
     array=Array(array)

@@ -8,6 +8,7 @@ class Slide
   def addGeodata()
     require 'geocoder'
     coords=getCoordinates
+    puts coords
     geodata=Geocoder.address(coords).split(",")
     if [@city,@region,@country]!=[0,0,0]
       puts "WARNING: Existing Geodata is being overwritten on slide #{getIndex}"
@@ -58,16 +59,16 @@ def addSortingNumbers(inputfile,resultfile="blank",worksheet=0,columnNum=1)
 end
 #filename="UnitedKingdom.kml"
 
-
-                       
+#This function reads a kml file and returns a series of hashes containing all the 
+# relevant information. It indexes each placemark by an integer, which is used as 
+# a key for that info in each hash           
 def stripInfo(kmlFilename)
   collectioninfo=Array.new
 
-  hashkeys=Array.new
-
+  titles=Hash.new
   descriptions=Hash.new
-
   locations=Hash.new
+  lines=Hash.new
 
   #Determine which file to read
   filename=kmlFilename
@@ -76,18 +77,20 @@ def stripInfo(kmlFilename)
   num=0
   header=false
   cordsread=false
+  lineread=false
+  linecords=Array.new
   doctitle="Title Field Blank"
 
 #open file
   file=File.open(filename)
 
-
+  index=0
+  cordnum=0
 #read file one line at a time (master loop)
   File.readlines(file).each do |line|
     #we begin by collecting all the important file and collection info and putting it into an array
 
-
-    #Our next task is to collect the title of each entry
+    #Our first task is to collect the title of each entry
     #every title includes "<name>" and ends with "<\name>"
     if line.include? "<name>" and header==false
       endline=line.rindex "<"
@@ -106,7 +109,7 @@ def stripInfo(kmlFilename)
         splitline=splitline[6...]
       end
       title=splitline
-      hashkeys.push title
+      titles[index] = title
     end
     
     #we now collect the collection name. This will be the first element of the list we return
@@ -121,7 +124,6 @@ def stripInfo(kmlFilename)
     if line.include? "<Document>"
       header=true
     end
-      #with our titles collected, we connect them to descriptions and locations using hashes
 
     #we begin with descriptions
     #search for our keyword
@@ -131,7 +133,7 @@ def stripInfo(kmlFilename)
       splitline=line[19...endline]
       activeDesc=splitline
       #reference our hashkeys list and create an entry in the descriptions hash
-      descriptions[hashkeys[-1]]=activeDesc
+      descriptions[index]=activeDesc
     end
 
     #we then perform a simiilar process with the coordinates
@@ -139,16 +141,42 @@ def stripInfo(kmlFilename)
   
     if cordsread==true
       cords=line[..-4]
-      locations[hashkeys[-1]]=cords.lstrip!
-      cordsread=false
+      if lineread==false
+        locations[index]=cords.lstrip!
+        cordsread=false
+      else
+        if cordnum < 2
+          linecords.push cords.lstrip!
+          cordnum+=1
+        else
+          lines[index] = linecords
+          cordsread=false
+        end
+      end 
     end
 
     if line.include? "<coordinates>"
       cordsread=true
+      cordnum=0
+    end
+    
+    if line.include? "<LineString>"
+      lineread=true
+      linecords=[]
+    end
+
+    #when we reach the end of an entry, we advance the index
+    if line.include? "</Placemark>"
+      if lineread
+        lineread=false
+      else 
+        index=index+1
+      end
+      puts "Working, current index #{index}"
     end
   end
   file.close()
-  return[doctitle,hashkeys,descriptions,locations]
+  return[doctitle,titles,descriptions,locations,lines]
 end
 
 
@@ -213,11 +241,12 @@ def writeToXlsWithClass(bigarray, mode="straight", filename="blank")
     #with our title and disclaimer made, we move into our main loop
     #the writing will take place one row at a time, and will be based on the list of keys (bigarray[1])
 
-    for i in 2..bigarray[1].length
+    bigarray.length.times do |i|
       #gather info
-      title = bigarray[1][i]
-      description=bigarray[2][title]
-      location=bigarray[3][title]
+      index=i
+      title = bigarray[1][index]
+      description=bigarray[2][index]
+      location=bigarray[3][index]
       
       #while most of the data is ready to input, the locations are still a string tuple.
       #we must split this into its parts before entry
@@ -225,37 +254,38 @@ def writeToXlsWithClass(bigarray, mode="straight", filename="blank")
       locationTuple = splitLocations location
 
       #populate info
-      mainsheet[i,0]=title
-      mainsheet[i,1]=description
-      mainsheet[i,2]=locationTuple[0]
-      mainsheet[i,3]=locationTuple[1]
+      mainsheet[i+2,0]=title
+      mainsheet[i+2,1]=description
+      mainsheet[i+2,2]=locationTuple[0]
+      mainsheet[i+2,3]=locationTuple[1]
     end 
   end
 
   if mode == "CatNum"
     seenSlides=Hash.new
-    bigarray[1].each do |activetitle|
-      desc = bigarray[2][activetitle]
+    bigarray[1].length.times do |index|
+      title= bigarray[1][index]
+      desc = bigarray[2][index]
       if desc.class != NilClass
-        location=bigarray[3][activetitle]
+        location=bigarray[3][index]
         locationTuple=splitLocations location 
         slidesarray = parseSlideRange(desc)[0]
         puts slidesarray
         slidesarray.each do |cat|
           if cat.class == NilClass
-            print "The slide with categorization #{cat} and title #{activetitle} could not be parsed, and has been skipped"
+            print "The slide with categorization #{cat} and title #{title} (#{index}) could not be parsed, and has been skipped"
           elsif cat.include? "ERROR"
-            print "The slide with categorization #{cat} and title #{activetitle} could not be parsed, and has been skipped"
+            print "The slide with categorization #{cat} and title #{title} (#{index}) could not be parsed, and has been skipped"
           else
             #puts seenSlides
-            puts activetitle
+            puts index
             puts cat
             if seenSlides.include? cat
               slide=seenSlides[cat]
-              addLocationToSlide(slide,locationTuple,activetitle,desc)
+              addLocationToSlide(slide,locationTuple,title,desc)
             else  
               slide=Slide.new(cat)
-              addLocationToSlide(slide,locationTuple,activetitle,desc)
+              addLocationToSlide(slide,locationTuple,title,desc)
               altId=indexConverter(slide.getindex)
               if altId.class == Classification
                 slide.addAltID(altId)
@@ -271,7 +301,7 @@ def writeToXlsWithClass(bigarray, mode="straight", filename="blank")
     formatspreadsheet(mainsheet)
     slides=seenSlides.values.sort_by {|slide| slide.getindex.to_s}
     slides.each do |slide|
-      slide.addGeodata
+      #slide.addGeodata
       slideData=formatSlideData(slide)
       for i in [0..slideData.length]
         mainsheet[lastblock,i]=slideData[i]
