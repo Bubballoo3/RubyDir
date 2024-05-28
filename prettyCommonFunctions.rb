@@ -35,7 +35,7 @@ def parseSlideRange(string)
   
     #we now loop through the ranges and process them
     ranges.each do |range|
-      
+      range=range.fullstrip
       #the following will be a sample range to indicate which parts the code is handling
       
       #B22.222-22  
@@ -92,8 +92,9 @@ def parseSlideRange(string)
           slidesMentioned.push slide
         end
       else 
+        #print "#{rightside}, #{rightside.length} "
         while rightside.length <3
-            rightside="0"+rightside
+          rightside="0"+rightside
         end
         slide=lastcollection+"."+rightside
         slidesMentioned.push slide.split(" ")[0]

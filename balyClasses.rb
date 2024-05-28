@@ -69,6 +69,19 @@ class String
         end
         return temp
     end
+    def rfullstrip
+        temp=self
+        while temp[-1].codepoints[0]==32 or temp[-1].codepoints[0]==160
+            temp=temp[...-1]
+        end
+        return temp
+    end
+    def fullstrip
+        temp=self
+        temp=temp.lfullstrip
+        temp=temp.rfullstrip
+        return temp
+    end
     def alphValue
         temp=self
         length=temp.length
