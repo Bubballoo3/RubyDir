@@ -130,7 +130,11 @@ def stripInfo(kmlFilename)
     if line.include? "<description>"
       endline=line.rindex "<"
       #split the line
-      splitline=line[19...endline]
+      if line.include? "CDATA" #if the line contains special characters, we need to remove more
+        splitline=line[28...endline-3]
+      else
+        splitline=line[19...endline]
+      end
       activeDesc=splitline
       #reference our hashkeys list and create an entry in the descriptions hash
       descriptions[index]=activeDesc
