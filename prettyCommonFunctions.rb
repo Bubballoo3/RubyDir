@@ -375,11 +375,13 @@ def cleanTitle(title)
   title.gsub! "*",""
   return title
 end
-def generateSortingNumbers(array)
+def generateSortingNumbers(array,altIDs=false)
   if array.class == String
     array=Array(array)
   end
   sortingNumbers=Array.new
+  balyIDs=Array.new
+  vrcIDs=Array.new
   array.each do |cat|
     if cat.class == NilClass
       sortingNumbers.append ""
@@ -387,10 +389,34 @@ def generateSortingNumbers(array)
       sortingNumbers.append ""
     elsif Threeletterclassifications.include? cat
       sortingNumbers.append ""
+    elsif altIDs
+      slide=Slide.new(cat)
+      altid=indexConverter(slide.getindex)
+      if altid.class == Classification
+        slide.addAltID(altid)
+      end
+      vrcIDs.push slide.getindex("VRC").to_s
+      balyid=slide.getindex "Baly"
+      balyIDs.push balyid.to_s
+      sortingNumbers.push balyid.sortingNumber
     else
       classification=Classification.new(cat)
-      sortingNumbers.append classification.sortingNumber
+      if classification.classSystem == "VRC"
+        altId=indexConverter(classification)
+        if altId.class == Classification
+          sortingNumbers.append altId.sortingNumber
+        else
+          sortingNumbers.append 0
+        end
+      else
+        sortingNumbers.append classification.sortingNumber
+      end
     end
   end
-  return sortingNumbers
+  if altIDs
+    return [sortingNumbers,balyIDs,vrcIDs]
+  else
+    return sortingNumbers
+  end
 end
+
