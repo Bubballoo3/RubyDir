@@ -18,7 +18,7 @@ class Slide
 end
 class String
   def hasDirection?()
-    return (self.include?(" degrees") or self.include?(" up") or self.include?(" down"))
+    return (self.include?(" degrees") or self.include?(" facing up") or self.include?(" facing down"))
   end
 end
 
@@ -52,10 +52,14 @@ def mapKMLtoXLS(inputfile,resultfile="blank",mode="CatNum")
   writeToXlsWithClass(allinfo, mode, resultfile)
 end
 
-def addSortingNumbers(inputfile,resultfile="blank",worksheet=0,columnNum=1)
+def addSortingNumbers(inputfile,addAltIDs=false,resultfile="blank",worksheet=0,columnNum=1)
   indexes=readXLScolumn(inputfile,worksheet,columnNum)
-  sortingNumbers=generateSortingNumbers(indexes)
-  writeXLSfromArray(resultfile,[sortingNumbers,indexes],["Sorting Number","Index"])
+  sortingNumbers=generateSortingNumbers(indexes, addAltIDs)
+  if addAltIDs
+    writeXLSfromColArray(resultfile,sortingNumbers,["Sorting Number","Baly Index", "VRC Index"])
+  else
+    writeXLSfromColArray(resultfile,[sortingNumbers,indexes],["Sorting Number","Index"])
+  end
 end
 #filename="UnitedKingdom.kml"
 
@@ -270,11 +274,19 @@ def writeToXlsWithClass(bigarray, mode="straight", filename="blank")
     bigarray[1].length.times do |index|
       title= bigarray[1][index]
       desc = bigarray[2][index]
+      if desc.class==NilClass
+        raise StandardError.new "Kml entry at index #{index} with title #{title} does not have a description"
+      elsif desc.hasDirection? and title.include? "."
+        if title.index(".") < 4
+          (title,desc)=swapSlideIdentifier(title,desc)
+        end
+      end
+      puts title,desc
       if desc.class != NilClass
         location=bigarray[3][index]
         locationTuple=splitLocations location 
         slidesarray = parseSlideRange(desc)[0]
-        puts slidesarray
+        print slidesarray
         slidesarray.each do |cat|
           if cat.class == NilClass
             print "The slide with categorization #{cat} and title #{title} (#{index}) could not be parsed, and has been skipped"
@@ -284,17 +296,18 @@ def writeToXlsWithClass(bigarray, mode="straight", filename="blank")
             #puts seenSlides
             puts index
             puts cat
-            if seenSlides.include? cat
-              slide=seenSlides[cat]
+            classification=Classification.new(cat).to_s
+            if seenSlides.include? classification
+              slide=seenSlides[classification]
               addLocationToSlide(slide,locationTuple,title,desc)
             else  
-              slide=Slide.new(cat)
+              slide=Slide.new(classification)
               addLocationToSlide(slide,locationTuple,title,desc)
               altId=indexConverter(slide.getindex)
               if altId.class == Classification
                 slide.addAltID(altId)
               end
-              seenSlides[cat]=slide
+              seenSlides[classification]=slide
             end
           end
         end
@@ -320,6 +333,15 @@ def writeToXlsWithClass(bigarray, mode="straight", filename="blank")
   end
 end
 
+def swapSlideIdentifier(title,description)
+  slideID=title.split(" ")[0]
+  if slideID.include? "-"
+    slideID=slideID.split("-")[0]
+  end
+  title=title.split("-")[1].fullstrip
+  description=slideID+" "+description
+  return [title,description]
+end
 
 def addLocationToSlide(slide,locationTuple,title,desc)
   puts "Description: #{desc}"
@@ -327,6 +349,7 @@ def addLocationToSlide(slide,locationTuple,title,desc)
   if data.class != Array
     notes=data
     slide.addLocation([locationTuple,title,notes],false,false)
+    puts "worked! added loc. #{title}"
   elsif data[0].class != NilClass
     slide.addLocation([locationTuple,data[0],data[1],title],true,false)
   end
@@ -374,7 +397,7 @@ def stripData(desc)
 end
 
 def formatspreadsheet(sheet)
-  fields=["Slide Title","Baly Cat","VRC Cat","General Place Name","General Coordinates","Specific Coordinates","Direction","Precision","Notes","City","Region","Country"]
+  fields=["Sorting Number","Slide Title","Baly Cat","VRC Cat","General Place Name","General Coordinates","Specific Coordinates","Direction","Precision","Notes","City","Region","Country"]
   for i in [0..fields.length]
     sheet[1,i]=fields[i]
 #    format=Spreadsheet::Format.new :width => fields[i].length
@@ -384,6 +407,7 @@ end
 def formatSlideData(slide)
   balyid=slide.getindex("Baly").to_s
   vrcid=slide.getindex("VRC").to_s
+  sortingNumber=slide.getSortNum
   generalLoc=slide.generalLocation
   if generalLoc != 0
     locationName= generalLoc.name
@@ -403,7 +427,7 @@ def formatSlideData(slide)
     specCoords=["",""]
     specAngle=""
   end
-  resultarray=[title,balyid,vrcid,locationName,genCoords,specCoords,specAngle,precision]
+  resultarray=[sortingNumber,title,balyid,vrcid,locationName,genCoords,specCoords,specAngle,precision]
   notes=""
   [generalLoc,specificLoc].each do |loc|
     if loc.class < Location
@@ -564,7 +588,7 @@ end
 #then we take that input and write it to a newfile. 
 #These inputs are a string filename, an Array of Arrays representing each column to write,
 # plus an optional array input containing the headers
-def writeXLSfromArray(newfile,data,headers=[])
+def writeXLSfromColArray(newfile,data,headers=[])
   Spreadsheet.client_encoding = 'UTF-8'
   book = Spreadsheet::Workbook.new
   sheet = book.create_worksheet
@@ -591,5 +615,5 @@ def writeXLSfromArray(newfile,data,headers=[])
 end
 =begin testing
 A sample input
-writeXLSfromArray("test.xls",[["col1","r1","r2","r3","r4","r5"],["col2",1,2,3,4,5]],["sampleHeader1","sampleheader2"])
+writeXLSfromColArray("test.xls",[["col1","r1","r2","r3","r4","r5"],["col2",1,2,3,4,5]],["sampleHeader1","sampleheader2"])
 =end
