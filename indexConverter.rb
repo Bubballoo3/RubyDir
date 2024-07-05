@@ -12,12 +12,12 @@
 
 #Bsorthash allows us to sort a VRC number into the appropriate hash for conversion.
 #one day we will have one that reverses this.
-Bsorthash={"B01-41" => "BHashNorm", "B42.0-43.9" => "BhashRange", "B44.0-44.1" => "B44to45hash",
+Bsorthash={"B01-41" => "BHashNorm", "B42.0-43.9" => "BhashRange", "B44.0-44.1" => "EKtoENhash",
            "B44.2-44.8"=>"BhashRange", "B44.9" => "B44to45hash","B45.0-45.9" => "B44to45hash",
            "B46.0-46.9" => "B46hash","B47.0-47.9" => 'B47hash',
            "B48.0-49.3"=> 'B48to49hash'}
 #then we make a similar hash for Baly numbers, but we use the sorting numbers so we can capture the ranges
-BalySorthash={"1000-42200" => 'ConvertHashNorm','43000-50200' => 'BhashRange','99000-103084' => 'BhashRange','104000-124200' => 'BhashRange',
+BalySorthash={"1000-42200" => 'ConvertHashNorm','43000-50200' => 'BhashRange','99000-103084' => 'BhashRange','104000-111200' => 'BhashRange','121000-124200' => 'BhashRange',
               '135000-135200' => 'BhashRange','51000-62015' => 'B44to45hash','62016-74066' => 'B46hash', 
               '26056-26100' => 'B47hash', '74000-83200' => 'B47hash',
               '85000-98200' => 'B48to49hash',
@@ -30,6 +30,9 @@ BalySorthash={"1000-42200" => 'ConvertHashNorm','43000-50200' => 'BhashRange','9
             '168101-168105'=>'B46hash','184000-184200'=>'B46hash',
             '629000-629001'=>'B47hash', '168000-168088'=>'B47hash', '3642001-3642002'=> 'B47hash',
             '168089-168100'=> 'B48to49hash'
+            #######################
+            #ADD EKtoENhash!!!!!!!
+            #######################
         }
 #Once the hashes above are complete, they will be moved to their own file
 # Then the real file will start here
@@ -304,6 +307,8 @@ def indexConverter(slide,outputform='String')
         newslide=Classification.new([newleftside,slideindx.number])
     elsif hashtouse=='BhashRange'
         newslide=scanRangeHash(slideindx,BhashRange,invert)
+    elsif hashtouse=='EKtoENhash'
+        newslide=scanRangeHash(slideindx,EKtoENhash,invert)
     elsif hashtouse=='B44to45hash'
         newslide=scanRangeHash(slideindx,B44to45hash,invert)
     elsif hashtouse=='B46hash'
