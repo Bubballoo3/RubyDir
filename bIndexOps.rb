@@ -287,6 +287,36 @@ def fillImageNotes(indexfile,overwrite=false)
   writeXLSfromRowArray(newfilename,newdata[1..],fields)
 end
 
+def assembleKeywords(indexfile, worksheet=0, includeOrigins=true)
+  iDSpreadsheetTag="Image ID"
+  keywordSpreadsheetTag="Keywords"
+  data=readIndexData(indexfile, worksheet, [iDSpreadsheetTag,keywordSpreadsheetTag])
+  keywords=Hash.new
+  keylist=Array.new
+  data.each do |row|
+    (id,wordblock)=[row[iDSpreadsheetTag],row[keywordSpreadsheetTag]]
+    if wordblock.class==String and id.class==String
+      words=wordblock.split ", "
+      words.each do |item|
+        if item.length > 1
+          word=item.fullstrip
+          if keywords.include? word
+            keywords[word].push id
+          else
+            keywords[word]=[id]
+            keylist.push word
+          end
+        end
+      end
+    end
+  end
+  if includeOrigins
+    return keywords.sort_by{|key,value| -value.length}.to_h
+  else
+    return keylist.sort
+  end   
+end
+
 def readIndexData(indexfile,worksheet=0,fields=DefaultFields,rowform="Hash")
   require 'spreadsheet'
   Spreadsheet.client_encoding = 'UTF-8'
