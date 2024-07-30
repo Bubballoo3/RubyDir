@@ -14,6 +14,35 @@ class Slide
   end
 end
 
+class Hash 
+  def addUnlessEmpty(key,value,removeEmpty=true)
+    if value.length > 0 or removeEmpty == false
+      self[key]=value
+    end
+  end
+end
+
+class Array
+  def addUnlessEmpty(value,removeEmpty=true)
+    if value.length > 0 or removeEmpty == false
+      self.push value
+    end
+  end
+  def cleanDash()
+    if self[0].class==String
+      if self[0].fullstrip == "-"
+        self.delete(self[0])
+      end
+    end
+  end
+  def cleanWhitespace
+    cleaned=Array.new
+    self.each do |raw|
+      cleaned.addUnlessEmpty(raw.fullstrip,true)
+    end
+    return cleaned    
+  end
+end
 class InputError < StandardError
 end
 #First a hash of metadata fields and how to find them in the spreadsheet.
@@ -44,9 +73,9 @@ SampleRowHash={"Image ID"=>"A.002","Written Date"=>"June 1970",
 "Precision"=>"likely","Direction"=>"70 degrees E","Object Latitude"=>"35.2354 E","Object Longitude"=>"31.7780 N",
 "written on the slide"=>"Isfahan, Friday Mosque ","written on Baly Index"=>"Friday Mosque "
 }                
-def fillJSON(indexfile,overwrite=true)
+def fillJSON(indexfile,removeEmpty=false,overwrite=true)
   #we begin by collecting all of the endpoints we will need
-  sheetfields=["Written Date","Printed Date","old identification numbers","Keywords"]
+  sheetfields=["Written Date","Printed Date","old identification numbers","Keywords","Search Terms"]
   overfillerror=InputError.new "metadata nesting exceeded 3 levels and could not be parsed. Check MetaFields hash in bIndexOps.rb"
   addedFields=parseNestedEndpoints(MetaFields,overfillerror)
   finalfields=["Image ID"]+sheetfields+addedFields+["JSON"]
@@ -57,7 +86,7 @@ def fillJSON(indexfile,overwrite=true)
     if row[-1].to_s.length < 3 and overwrite==false
       json=row[-1]
     else
-      json=writeJSON(row)
+      json=writeJSON(row,removeEmpty)
     end
     newrow[-1]=json
     newdata.push newrow
@@ -66,45 +95,46 @@ def fillJSON(indexfile,overwrite=true)
   writeXLSfromRowArray(newfilename,newdata[1..],finalfields)
 end
 
-def writeJSON(rowHash)
+def writeJSON(rowHash,removeEmpty)
   require 'json'
-  required=generateReqHash(rowHash)
-  optional=generateOptHash(rowHash)
+  required=generateReqHash(rowHash,removeEmpty)
+  optional=generateOptHash(rowHash,removeEmpty)
   assembled=required.merge optional
   return JSON.generate assembled
 end
 
-def generateOptHash(rowHash)
+def generateOptHash(rowHash, removeEmpty=false, fields=MetaFields)
   optHash=Hash.new
-  MetaFields.each do |bigkey,value|
+  fields.each do |bigkey,value|
     if value.class == Array
-      optHash[bigkey]=Array.new
+      bigarray=Array.new
       value.each do |value2|
         if value2.class == Array
           vals2=Array.new
           value2.each do |value3|
             if fillable?(value3)
-              aahResult = fillHashfromRow(value3,rowHash)
-              vals2.push aahResult
+              aahResult = fillHashfromRow(value3,rowHash,removeEmpty)
+              vals2.addUnlessEmpty(aahResult,removeEmpty)
             end
           end
-          optHash[bigkey].push vals2
+          bigarray.addUnlessEmpty(vals2,removeEmpty)
         elsif value2.class == Hash
           unless fillable?(value2)
             hvals2=Hash.new
             value2.each do |smkey,value3|
               if fillable?(value3)
-                ahhResult=fillHashfromRow(value3,rowHash)
-                hvals2[smkey]=ahhResult
+                ahhResult=fillHashfromRow(value3,rowHash,removeEmpty)
+                hvals2.addUnlessEmpty(smkey,ahhResult,removeEmpty)
               end
             end
-            optHash[bigkey].push hvals2
+            bigarray.addUnlessEmpty(hvals2,removeEmpty)
           else
-            ahResult=fillHashfromRow(value2,rowHash)
-            optHash[bigkey].push ahResult
+            ahResult=fillHashfromRow(value2,rowHash,removeEmpty)
+            bigarray.addUnlessEmpty(ahResult,removeEmpty)
           end
         end
       end
+      optHash.addUnlessEmpty(bigkey,bigarray,removeEmpty)
     elsif value.class==Hash
       unless fillable?(value)
         hvals=Hash.new
@@ -113,31 +143,31 @@ def generateOptHash(rowHash)
             vals2=Array.new
             value2.each do |value3|
               if fillable?(value3)
-                hahResult = fillHashfromRow(value3,rowHash)
-                vals2.push hahResult
+                hahResult = fillHashfromRow(value3,rowHash,removeEmpty)
+                vals2.addUnlessEmpty(hahResult,removeEmpty)
               end
             end
-            hvals[key] = vals2
+            hvals.addUnlessEmpty(key,vals2,removeEmpty)
           elsif value2.class == Hash
             unless fillable?(value2)
               hvals2=Hash.new
               value2.each do |smkey,value3|
                 if fillable?(value3)
-                  hhhResult=fillHashfromRow(value3,rowHash)
-                  hvals2[smkey]=hhhResult
+                  hhhResult=fillHashfromRow(value3,rowHash,removeEmpty)
+                  hvals2.addUnlessEmpty(smkey,hhhResult,removeEmpty)
                 end
               end
-              hvals[key]=hvals2
+              hvals.addUnlessEmpty(key,hvals2,removeEmpty)
             else
-              hhResult=fillHashfromRow(value2,rowHash)
-              hvals[key]=hhResult
+              hhResult=fillHashfromRow(value2,rowHash,removeEmpty)
+              hvals.addUnlessEmpty(key,hhResult,removeEmpty)
             end
-            optHash[bigkey]=hvals
           end
         end
+        optHash.addUnlessEmpty(bigkey,hvals,removeEmpty)
       else
-        hResult=fillHashfromRow(value,rowHash)
-        optHash[bigkey]=hResult
+        hResult=fillHashfromRow(value,rowHash,removeEmpty)
+        optHash.addUnlessEmpty(bigkey,hResult,removeEmpty)
       end
     end
   end
@@ -148,39 +178,87 @@ def fillable?(item)
   return (item.class==Hash and item.values[0].class == String)
 end
 
-def fillHashfromRow(structure,rowHash)
+def fillHashfromRow(structure,rowHash,removeEmpty=false)
   filled=Hash.new
+  autofilled=0
   structure.each do |key,value|
     if value[0]=="="
+      autofilled+=1
       filled[key]=value[1..]
-    elsif rowHash[value].class == String
-      puts rowHash[value].class
-      filled[key]=rowHash[value]
-    else
-      filled[key]="-"
+    elsif (rowHash[value].to_s.length > 0 and rowHash[value].to_s.fullstrip!="-") or removeEmpty==false 
+      if rowHash[value].class == String
+        filled[key]=rowHash[value]
+      else
+        filled[key]="-"
+      end
     end
   end
-  return filled
+  if filled.length == autofilled and removeEmpty
+    return {}
+  else 
+    return filled
+  end
 end
-def generateReqHash(rowHash)
+def generateReqHash(rowHash,removeEmpty=false)
   reqHash=Hash.new
   writtenDate=parseWrittenDates(rowHash["Written Date"].to_s,"Array")
   printedDate=parsePrintedDates(rowHash["Printed Date"].to_s,"Array")
   topkey="dates"
-  writeHash = {"type"=>"written",
-               "day"=>"#{writtenDate[0]}",
-               "month"=>"#{writtenDate[1]}",
-               "year"=>"#{writtenDate[2]}"}
-  printHash={"type"=>"printed",
-             "month"=>"#{printedDate[0]}",
-             "year"=>"#{printedDate[1]}"}
-  reqHash[topkey]=[writeHash,printHash]
+  if writtenDate==["-","-","-"] and removeEmpty
+    writeHash={}
+  else
+    writeHash = {"type"=>"written",
+                "day"=>"#{writtenDate[0]}",
+                "month"=>"#{writtenDate[1]}",
+                "year"=>"#{writtenDate[2]}"}
+  end
+  if printedDate == ["-","-"] and removeEmpty
+    printHash={}
+  else
+    printHash={"type"=>"printed",
+              "month"=>"#{printedDate[0]}",
+              "year"=>"#{printedDate[1]}"}
+  end
+  [writeHash,printHash].each do |hash|
+    hash.each do |key,value|
+      if (value.to_s.length < 1 or value=="-") and removeEmpty
+        hash.delete(key)
+      end
+    end
+  end
+  dateArray=Array.new
+  dateArray.addUnlessEmpty(writeHash, removeEmpty)
+  dateArray.addUnlessEmpty(printHash, removeEmpty)
+  reqHash.addUnlessEmpty(topkey,dateArray,removeEmpty)
 
-  oldIds=rowHash["old identification numbers"].split(",")
-  reqHash["old_ids"]=oldIds
+  oldIds=rowHash["old identification numbers"].split(",").cleanWhitespace
+  if removeEmpty
+    oldIds.cleanDash
+  end
+  reqHash.addUnlessEmpty("old_ids",oldIds,removeEmpty)
 
-  keywords=rowHash["Keywords"].split(",")
-  reqHash["Keywords"]=keywords
+  rawwords=rowHash["Keywords"].split(",")
+  keywords=rawwords.cleanWhitespace
+# The following line removes general location names from the keyword list
+  genLocName=rowHash["General Location Name"]
+  revwords=keywords[0..].reverse
+  revwords.each do |word|
+    if word.include? genLocName
+      keywords.delete word
+    end
+  end
+##
+  if removeEmpty
+    keywords.cleanDash
+  end
+  reqHash.addUnlessEmpty("Keywords",keywords,removeEmpty)
+
+  addtlTerms=rowHash["Search Terms"].split(",").cleanWhitespace
+  if removeEmpty
+    addtlTerms.cleanDash
+  end
+  reqHash.addUnlessEmpty("search_terms",addtlTerms,removeEmpty)
+
   return reqHash
 end
 #THIS NEEDS TO BE WELL TESTED SOON
@@ -296,8 +374,12 @@ def assembleKeywords(indexfile, worksheet=0, includeOrigins=true)
   data.each do |row|
     (id,wordblock)=[row[iDSpreadsheetTag],row[keywordSpreadsheetTag]]
     if wordblock.class==String and id.class==String
-      words=wordblock.split ", "
-      words.each do |item|
+      if wordblock.include? "."
+        wordblock=wordblock.split(".")[0]
+      end
+      words=wordblock.split ","
+      words.each do |newitem|
+        item=newitem.lstrip
         if item.length > 1
           word=item.fullstrip
           if keywords.include? word
@@ -315,6 +397,82 @@ def assembleKeywords(indexfile, worksheet=0, includeOrigins=true)
   else
     return keylist.sort
   end   
+end
+
+RequiredJSON={"context_key"=>"9847662",
+    "url"=>"http://digital.kenyon.edu/baly/744",
+    "peer_reviewed"=>false,
+    "parent_key"=>"5047491",
+    "parent_link"=>"http://digital.kenyon.edu/baly",
+    "site_key"=>"4580553",
+    "site_link"=>"http://digital.kenyon.edu",
+    "is_digital_commons"=>true,
+    "institution_title"=>"Kenyon College",
+    "fulltext_url"=>"https://digital.kenyon.edu/context/baly/article/1748/viewcontent",
+    "download_format"=>"picture",
+    "download_link"=>"https://digital.kenyon.edu/context/baly/article/1748/type/native/viewcontent",
+    "publication_key"=>"5047491",
+    "publication_title"=>"Denis Baly Image Collection",
+    "publication_link"=>"http://digital.kenyon.edu/baly",
+    "dc_or_paid_sw"=>true,
+    "include_in_network"=>false,
+    "embargo_date"=>"1970-01-01T00:00:01Z",
+    "mtime"=>"2024-07-23T21:05:17Z",
+    "exclude_from_oai"=>false,
+    "fields_digest"=>"4f75f61fc87b5b86e647ef93d9877f6ae476bcba",
+    "discipline_terminal_key"=>[510],
+    "document_type"=>["35mm_slide", "35 mm slide", "35 mm slides"],
+    "author"=>["Denis Baly"],
+    "ancestor_key"=>["9847662", "5047491", "4580553", "1"],
+    "virtual_ancestor_link"=>
+    ["http://digitalcommons.bepress.com",
+     "http://researchnow.bepress.com",
+     "http://digital.kenyon.edu",
+     "http://digital.kenyon.edu/depts",
+     "http://digital.kenyon.edu/arthistory",
+     "http://digital.kenyon.edu/baly",
+     "http://teachingcommons.us",
+     "http://teachingcommons.us/arts_humanities",
+     "http://ohio.researchcommons.org",
+     "http://liberalarts.researchcommons.org"],
+    "configured_field_t_rights_statements"=>["In Copyright - Non-Commercial Use Permitted", "http://rightsstatements.org/vocab/InC-NC/1.0/"],
+    "author_display_lname"=>["Baly"],
+    "discipline"=>["Arts and Humanities", "History of Art, Architecture, and Archaeology"],
+    "author_display"=>["Denis Baly"],
+    "configured_field_t_dpla_type"=>["Image", "Images", "image"],
+    "discipline_key_1"=>[510],
+    "discipline_key_0"=>[438],
+    "virtual_ancestor_key"=>["81989", "82034", "5025010", "7148337", "4580553", "7639796", "7561783", "5047491", "7127169", "5025132"],
+    "discipline_1"=>["History of Art, Architecture, and Archaeology"],
+    "discipline_0"=>["Arts and Humanities"],
+    "ancestor_link"=>["http://digital.kenyon.edu/baly/744", "http://digital.kenyon.edu/baly", "http://digital.kenyon.edu", "http:/"]
+}
+OptAPIfields={
+  "title"=>"Title",
+  "abstract"=>"Abstract",
+  "publication_date"=>"Creation Year",
+  "configured_field_t_sorting_numbers"=>["JSON"],
+  "configured_field_t_image_notes"=>["Image Notes"],
+  "configured_field_t_sorting_number"=>["Sorting Number"],
+  "configured_field_t_city"=>["City"],
+  "configured_field_t_country"=>["Country"],
+  "configured_field_t_coverage_spatial"=>["Geographic Reference"],
+  "configured_field_t_alternate_identifier"=>["VRC slide number"],
+  "configured_field_t_creation_year"=>["Creation Date"],
+  "configured_field_t_identifier"=>["Image ID"],
+  "configured_field_t_subcollection"=>["Subcollection"],
+  "configured_field_t_curator_notes"=>["Curator Notes"]
+}
+def generateAPIoutput(indexfile)
+  fields=parseNestedEndpoints(OptAPIfields,StandardError.new)
+  data=readIndexData(indexfile,0,fields,"Hash")
+  newdata=Array.new
+  data.each do |row|
+    optHash=generateOptHash(row,OptAPIfields)
+    finalHash=RequiredJSON.merge optHash 
+    newdata.push finalHash
+  end
+  return finalHash
 end
 
 def readIndexData(indexfile,worksheet=0,fields=DefaultFields,rowform="Hash")
@@ -432,9 +590,12 @@ Months=["January","February","March","April","May","June","July","August","Septe
 #This function parses the "Written Dates" section of the index, converting an abbreviated or partial date to an acceptable string.
 def parseWrittenDates(stringin, mode="String")
   #we check if the date is just the year, if it is we return it.
-  if stringin.fullstrip.is_integer?
-    return stringin.fullstrip
-  end
+  if stringin.to_f.to_s == stringin
+    stringin=stringin.to_f.round.to_s
+    if stringin.fullstrip.is_integer?
+      return stringin.fullstrip
+    end
+  end 
   begin
     date=Date.parse(stringin)
   rescue
@@ -482,7 +643,11 @@ end
 def parsePrintedDates(stringin,mode="String")
   input=stringin.fullstrip
   if input=="-" or input == ""
-    return "-"
+    if mode=="String"
+      return "-"
+    elsif mode == "Array"
+      return ["-","-"]
+    end
   end
   begin
     date=Date.parse(stringin)

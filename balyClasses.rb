@@ -28,6 +28,7 @@ AcceptableAlphanumerics=[
     "FL", #created to categorize the 88 slides at the end of B47 (stands for Fill)
     "XE", #created to allow production of trivial results for numbers VRC index skips. (stands for Non-Existent)
    "GB", # an unnumbered collection starting at B46.561
+   "LK",
    "UC", # a collection for slides that were never assigned Baly numbers
    #tests
    "ZZ",
@@ -57,22 +58,32 @@ end
 
 class String
     def is_integer?
-    self.to_i.to_s == self
+        self.to_i.to_s == self
     end
     def to_s
         return self
     end
     def lfullstrip
         temp=self
-        while temp[0].codepoints[0]==32 or temp[0].codepoints[0]==160
-            temp=temp[1..-1]
+        if temp.length > 0
+            while temp[0].codepoints[0]==32 or temp[0].codepoints[0]==160
+                temp=temp[1..-1]
+                if temp.length < 1
+                    return temp  
+                end
+            end
         end
         return temp
     end
     def rfullstrip
         temp=self
-        while temp[-1].codepoints[0]==32 or temp[-1].codepoints[0]==160
-            temp=temp[...-1]
+        if temp.length > 0
+            while temp[-1].codepoints[0]==32 or temp[-1].codepoints[0]==160
+                temp=temp[...-1]
+                if temp.length < 1
+                    return temp  
+                end
+            end
         end
         return temp
     end
@@ -272,14 +283,13 @@ class Classification
             @input=classnumber
             (@group,rightside)=classnumber.split(".")
             @number=rightside.to_i
-            stringnum=rightside.split(" ")[0]
         elsif classnumber.class == Array and classnumber.length == 2
             @input=classnumber
             (@group,@number) = classnumber
-            stringnum=@number.to_s
         else #if the input is not readable, we print a warning, and raise an error
             raise ClassificationError.new "#{classnumber} is not a valid Classification object"
         end
+        stringnum=@number.to_s
         while stringnum.length < 3
             stringnum = '0'+stringnum
         end
@@ -446,7 +456,8 @@ class SpecificLocation < Location
         elsif stringin.include?(" facing ")
             (precisiondata,angledata)=stringin.split(" facing ")
         else
-            precisiondata=stringin[0..stringin.index(' location ')]
+            precisiondata=""
+            angledata=stringin
         end
         if precisiondata.include? "location"
             precision=precisiondata.split(" ")[0]
@@ -470,7 +481,7 @@ class SpecificLocation < Location
     
     class Angle
         def initialize(stringin,parent)
-            @parent=parent
+            #@parent=parent
             if ["up","down"].include? stringin
                 (@degrees,@direction)=[-1,stringin]
             else
@@ -480,7 +491,7 @@ class SpecificLocation < Location
                 end
                 (@degrees,middle,@direction)=elements
                 if middle != "degrees"
-                    raise StandardError.new "word \'degrees\' not found/misplaced in angle data"
+                    raise StandardError.new "word \'degrees\' not found/misplaced in angle data for location titled: \"#{parent.title}\""
                 end
             end
         end
