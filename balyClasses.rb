@@ -120,6 +120,17 @@ class Array
         end
         return indexes
     end
+    def includesCaseAtIndex(string)
+        indexes=Array.new
+        current=0
+        self.each do |el|
+            if el.include? string
+                indexes.push current
+            end
+            current+=1
+        end
+        return indexes
+    end
 end
 
 class Hash
