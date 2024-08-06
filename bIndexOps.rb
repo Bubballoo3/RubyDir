@@ -2,6 +2,7 @@
 
 #load necessary files
 require_relative 'kmlParser.rb'
+require 'json'
 
 DefaultFields=["Title","Image ID","Written Date","Printed Date","VRC slide number","References",
 "Other old identification numbers","Words written on the slide","Words written on the Baly index",
@@ -19,6 +20,9 @@ class Hash
     if value.length > 0 or removeEmpty == false
       self[key]=value
     end
+  end
+  def fillable?
+    return (self.values.fillable? and self.keys.fillable?)
   end
 end
 
@@ -42,12 +46,33 @@ class Array
     end
     return cleaned    
   end
+  def fillable?
+    onlystrings=true
+    if self.length > 0
+      self.each do |item|
+        if item.class != String
+          onlystrings=false
+        end
+      end
+    end
+    return onlystrings
+  end
+end
+
+class String
+  def fillable?
+    return false
+  end
 end
 class InputError < StandardError
 end
 #First a hash of metadata fields and how to find them in the spreadsheet.
 #Dates, old numbers, and keywords are fixed since they require parsing. 
 #Fields listed below are pulled from the spreadsheet with no modification.
+#It is very important that once objects are "fillable" there is no further nesting.
+#Both hashes and forms can be filled, but a hash/array must be fully fillable or fully structure.
+#Overlooking this will cause swaths of the structure to drop out. See the testingData file for examples.
+#  NOTE: The references to the spreadsheet headers are case sensitive
 MetaFields={"locations"=> [{"title"=>"General Location Name",
                             "type"=>"=general",
                             "coordinates"=>"General Coordinates"
@@ -75,7 +100,7 @@ SampleRowHash={"Image ID"=>"A.002","Written Date"=>"June 1970",
 }                
 def fillJSON(indexfile,removeEmpty=false,overwrite=true)
   #we begin by collecting all of the endpoints we will need
-  sheetfields=["Written Date","Printed Date","old identification numbers","Keywords","Search Terms"]
+  sheetfields=["Written Date","Printed Date","old identification numbers","Keywords","Search Terms","Internal Links"]
   overfillerror=InputError.new "metadata nesting exceeded 3 levels and could not be parsed. Check MetaFields hash in bIndexOps.rb"
   addedFields=parseNestedEndpoints(MetaFields,overfillerror)
   finalfields=["Image ID"]+sheetfields+addedFields+["JSON"]
@@ -103,89 +128,91 @@ def writeJSON(rowHash,removeEmpty)
   return JSON.generate assembled
 end
 
-def generateOptHash(rowHash, removeEmpty=false, fields=MetaFields)
+#the following function allows filling in an arbitrary structure form up to three levels deep.
+#  In the function, value refers to the hash value or array element at a given level (value1,value2)
+#  Corresponding to these are val(1..3) and vals(1..3) which refer to the filled object at each level
+def generateOptHash(rowHash, removeEmpty=false, structure=MetaFields)
   optHash=Hash.new
-  fields.each do |bigkey,value|
-    if value.class == Array
-      bigarray=Array.new
-      value.each do |value2|
-        if value2.class == Array
-          vals2=Array.new
+  structure.each do |bigkey,value1|
+    if value1.fillable?
+      xVal1=fillFromRow(value1,rowHash,removeEmpty)
+      optHash.addUnlessEmpty(bigkey,xVal1,removeEmpty)
+    elsif value1.class == Array
+      aVals1=Array.new
+      value1.each do |value2|
+        if value2.fillable?
+          axVal2=fillFromRow(value2,rowHash,removeEmpty)
+          aVals1.addUnlessEmpty(axVal2,removeEmpty)
+        elsif value2.class == Array
+          aaVals2=Array.new
           value2.each do |value3|
-            if fillable?(value3)
-              aahResult = fillHashfromRow(value3,rowHash,removeEmpty)
-              vals2.addUnlessEmpty(aahResult,removeEmpty)
+            if value3.fillable?
+              aaxVal3 = fillHashFromRow(value3,rowHash,removeEmpty)
+              aaVals2.addUnlessEmpty(aaxVal3,removeEmpty)
             end
           end
-          bigarray.addUnlessEmpty(vals2,removeEmpty)
+          aVals1.addUnlessEmpty(aaVals2,removeEmpty)
         elsif value2.class == Hash
-          unless fillable?(value2)
-            hvals2=Hash.new
-            value2.each do |smkey,value3|
-              if fillable?(value3)
-                ahhResult=fillHashfromRow(value3,rowHash,removeEmpty)
-                hvals2.addUnlessEmpty(smkey,ahhResult,removeEmpty)
-              end
-            end
-            bigarray.addUnlessEmpty(hvals2,removeEmpty)
-          else
-            ahResult=fillHashfromRow(value2,rowHash,removeEmpty)
-            bigarray.addUnlessEmpty(ahResult,removeEmpty)
-          end
-        end
-      end
-      optHash.addUnlessEmpty(bigkey,bigarray,removeEmpty)
-    elsif value.class==Hash
-      unless fillable?(value)
-        hvals=Hash.new
-        value.each do |key,value2|
-          if value2.class == Array
-            vals2=Array.new
-            value2.each do |value3|
-              if fillable?(value3)
-                hahResult = fillHashfromRow(value3,rowHash,removeEmpty)
-                vals2.addUnlessEmpty(hahResult,removeEmpty)
-              end
-            end
-            hvals.addUnlessEmpty(key,vals2,removeEmpty)
-          elsif value2.class == Hash
-            unless fillable?(value2)
-              hvals2=Hash.new
-              value2.each do |smkey,value3|
-                if fillable?(value3)
-                  hhhResult=fillHashfromRow(value3,rowHash,removeEmpty)
-                  hvals2.addUnlessEmpty(smkey,hhhResult,removeEmpty)
-                end
-              end
-              hvals.addUnlessEmpty(key,hvals2,removeEmpty)
-            else
-              hhResult=fillHashfromRow(value2,rowHash,removeEmpty)
-              hvals.addUnlessEmpty(key,hhResult,removeEmpty)
+          ahVals2=Hash.new
+          value2.each do |smkey,value3|
+            if value3.fillable?
+              ahxVal3=fillFromRow(value3,rowHash,removeEmpty)
+              ahVals2.addUnlessEmpty(smkey,ahxVal3,removeEmpty)
             end
           end
+          aVals1.addUnlessEmpty(ahVals2,removeEmpty)
         end
-        optHash.addUnlessEmpty(bigkey,hvals,removeEmpty)
-      else
-        hResult=fillHashfromRow(value,rowHash,removeEmpty)
-        optHash.addUnlessEmpty(bigkey,hResult,removeEmpty)
       end
+      optHash.addUnlessEmpty(bigkey,aVals1,removeEmpty)
+    elsif value1.class==Hash
+      hVals1=Hash.new
+      value1.each do |key,value2|
+        if value2.fillable?
+          hxVal2=fillFromRow(value2,rowHash,removeEmpty)
+          hVals1.addUnlessEmpty(key,hxVal2,removeEmpty)
+        elsif value2.class == Array
+          haVals2=Array.new
+          value2.each do |value3|
+            if value3.fillable?
+              haxVal3=fillFromRow(value3,rowHash,removeEmpty)
+              haVals2.addUnlessEmpty(haxVal3,removeEmpty)
+            end
+          end
+          hVals1.addUnlessEmpty(key,haVals2,removeEmpty)
+        elsif value2.class == Hash
+          hhVals2=Hash.new
+          value2.each do |smkey, value3|
+            if value3.fillable?
+              hhxVal3=fillFromRow(value3,rowHash,removeEmpty)
+              hhVals2.addUnlessEmpty(smkey,hhxVal3,removeEmpty)
+            end
+          end
+          hVals1.addUnlessEmpty(key,hhVals2,removeEmpty)
+        end
+      end
+      optHash.addUnlessEmpty(bigkey,hVals1,removeEmpty)
     end
   end
   return optHash
 end
 
-def fillable?(item)
-  return (item.class==Hash and item.values[0].class == String)
+def fillFromRow(object,rowHash,removeEmpty=false)
+  if object.class == Hash
+    return fillHashFromRow(object,rowHash,removeEmpty)
+  elsif object.class == Array
+    return fillArrayFromRow(object,rowHash,removeEmpty)
+  end
 end
 
-def fillHashfromRow(structure,rowHash,removeEmpty=false)
+def fillHashFromRow(structure,rowHash,removeEmpty=false)
   filled=Hash.new
   autofilled=0
   structure.each do |key,value|
+    nonempty=(rowHash[value].to_s.length > 0 and rowHash[value].to_s.fullstrip!="-")
     if value[0]=="="
       autofilled+=1
       filled[key]=value[1..]
-    elsif (rowHash[value].to_s.length > 0 and rowHash[value].to_s.fullstrip!="-") or removeEmpty==false 
+    elsif nonempty or removeEmpty==false 
       if rowHash[value].class == String
         filled[key]=rowHash[value]
       else
@@ -196,6 +223,28 @@ def fillHashfromRow(structure,rowHash,removeEmpty=false)
   if filled.length == autofilled and removeEmpty
     return {}
   else 
+    return filled
+  end
+end
+def fillArrayFromRow(structure,rowHash,removeEmpty=false)
+  filled=Array.new
+  autofilled=0
+  structure.each do |value|
+    nonempty=(rowHash[value].to_s.length > 0 and rowHash[value].to_s.fullstrip!="-")
+    if value[0]=="="
+      autofilled+=1
+      filled.push value[1..]
+    elsif nonempty or removeEmpty==false
+        if rowHash[value].class == String
+        filled.push rowHash[value]
+      else
+        filled[key]="-"
+      end
+    end
+  end
+  if filled.length == autofilled and removeEmpty
+    return []
+  else
     return filled
   end
 end
@@ -231,9 +280,25 @@ def generateReqHash(rowHash,removeEmpty=false)
   dateArray.addUnlessEmpty(printHash, removeEmpty)
   reqHash.addUnlessEmpty(topkey,dateArray,removeEmpty)
 
+  intLinks=rowHash["Internal Links"].split(",").cleanWhitespace
   oldIds=rowHash["old identification numbers"].split(",").cleanWhitespace
   if removeEmpty
+    intLinks.cleanDash
     oldIds.cleanDash
+  end
+  reqHash.addUnlessEmpty("internal_links",intLinks,removeEmpty)
+  needsparsing=false
+  oldIds.each do |id|
+    if id.is_integer?
+      needsparsing=true
+    end
+  end
+  if needsparsing
+    begin
+      oldIds=parseSlideRange(rowHash["old identification numbers"])[0]
+    rescue => e
+      puts "A #{e.class} has occurred with message '#{e.message}'. Review 'Old IDs' quality for #{rowHash["Image ID"]}."  
+    end
   end
   reqHash.addUnlessEmpty("old_ids",oldIds,removeEmpty)
 
@@ -243,7 +308,7 @@ def generateReqHash(rowHash,removeEmpty=false)
   genLocName=rowHash["General Location Name"]
   revwords=keywords[0..].reverse
   revwords.each do |word|
-    if word.include? genLocName
+    if word == genLocName.fullstrip
       keywords.delete word
     end
   end
@@ -447,40 +512,78 @@ RequiredJSON={"context_key"=>"9847662",
     "discipline_0"=>["Arts and Humanities"],
     "ancestor_link"=>["http://digital.kenyon.edu/baly/744", "http://digital.kenyon.edu/baly", "http://digital.kenyon.edu", "http:/"]
 }
-OptAPIfields={
-  "title"=>"Title",
-  "abstract"=>"Abstract",
-  "publication_date"=>"Creation Year",
-  "configured_field_t_sorting_numbers"=>["JSON"],
-  "configured_field_t_image_notes"=>["Image Notes"],
+OptAPIfields={ #This hash is the order the info displays, not how it is delivered by the api.
+  "title"=>["Title"], ####### This is also a good reference for filling out batch spreadsheets
+  "publication_date"=>["Creation Year"],
+  "configured_field_t_documented_date" => ["Creation Date"],
   "configured_field_t_sorting_number"=>["Sorting Number"],
+  "configured_field_t_identifier"=>["Image ID"],
+  "configured_field_t_alternate_identifier"=>["VRC slide number"],
+  "configured_field_t_subcollection"=>["Baly Subcollection"],
+  "configured_field_t_alt_subcollection"=>["VRC (Alternate) Subcollection"],
+  "configured_field_t_batch_stamp"=>["Batch Stamp"],
+  "abstract"=>["Abstract"],
+  "configured_field_t_description"=>["Description"],
+  "configured_field_t_references"=>["References"],
+  "configured_field_t_image_notes"=>["Image Notes"],
   "configured_field_t_city"=>["City"],
+  "configured_field_t_region"=>["Region"],
   "configured_field_t_country"=>["Country"],
   "configured_field_t_coverage_spatial"=>["Geographic Reference"],
-  "configured_field_t_alternate_identifier"=>["VRC slide number"],
-  "configured_field_t_creation_year"=>["Creation Date"],
-  "configured_field_t_identifier"=>["Image ID"],
-  "configured_field_t_subcollection"=>["Subcollection"],
-  "configured_field_t_curator_notes"=>["Curator Notes"]
+  "configured_field_t_curator_notes"=>["Curator Notes"],
+  "configured_field_t_object_notation"=>["JSON"]
 }
 def generateAPIoutput(indexfile)
   fields=parseNestedEndpoints(OptAPIfields,StandardError.new)
-  data=readIndexData(indexfile,0,fields,"Hash")
+  data=readIndexData(indexfile,0,fields,"Hash","casesensitive")
+  puts data
   newdata=Array.new
   data.each do |row|
-    optHash=generateOptHash(row,OptAPIfields)
-    finalHash=RequiredJSON.merge optHash 
-    newdata.push finalHash
+    optHash=generateOptHash(row,true,OptAPIfields)
+    puts "Custom Hash=#{optHash}"
+    finalHash=RequiredJSON.merge optHash
+    unless finalHash["title"] == ["Title"]
+      newdata.push(fixApiDiscrepancies(finalHash))
+    end
   end
-  return finalHash
+  finaloutput=Hash.new
+  finaloutput["results"]=newdata
+  return finaloutput
+end
+def fixApiDiscrepancies(apiHash)
+  keystopullout=["title","abstract","publication_date"]
+  keystopullout.each do |key|
+    if apiHash[key].to_s.length > 0
+      #puts apiHash[key]
+      apiHash[key]=apiHash[key][0]
+      #puts apiHash[key]
+    end
+    #puts apiHash[key]
+  end
+  pubDate=apiHash["publication_date"]
+  if pubDate.fullstrip.is_integer?
+    newDate=pubDate+"-01-01T08:00:00Z"
+    apiHash["publication_date"]=newDate
+  end
+  return apiHash
+end
+def saveAPIsample(inputfile,outputfile="none")
+  if outputfile=="none"
+    outputfile=generateUniqueFilename("json","sampleAPIdata")
+  end
+  apidata=generateAPIoutput(inputfile)
+  
+  IO.write(outputfile,apidata.to_json)
+  puts "Generated API data written to #{outputfile}"
+  return apidata[0]
 end
 
-def readIndexData(indexfile,worksheet=0,fields=DefaultFields,rowform="Hash")
+def readIndexData(indexfile,worksheet=0,fields=DefaultFields,rowform="Hash",mode="none")
   require 'spreadsheet'
   Spreadsheet.client_encoding = 'UTF-8'
   book = Spreadsheet.open indexfile
   sheet=book.worksheet worksheet
-  fieldLocs=getFieldLocs(sheet.row(0),fields)
+  fieldLocs=getFieldLocs(sheet.row(0),fields,mode)
   sheetData=Array.new
   sheet.each do |row|
     rowdataHash=Hash.new
@@ -505,10 +608,14 @@ def readIndexData(indexfile,worksheet=0,fields=DefaultFields,rowform="Hash")
   return sheetData
 end
 
-def getFieldLocs(headerRow,fields)
+def getFieldLocs(headerRow,fields,mode=nil)
   rtnHash=Hash.new
   fields.each do |f|
-    indexes=headerRow.includesAtIndex(f)
+    unless mode.downcase=="casesensitive"
+      indexes=headerRow.includesAtIndex(f)
+    else
+      indexes=headerRow.includesCaseAtIndex(f)
+    end
     puts indexes
     if indexes.length == 1
       index=indexes[0]
@@ -590,10 +697,14 @@ Months=["January","February","March","April","May","June","July","August","Septe
 #This function parses the "Written Dates" section of the index, converting an abbreviated or partial date to an acceptable string.
 def parseWrittenDates(stringin, mode="String")
   #we check if the date is just the year, if it is we return it.
-  if stringin.to_f.to_s == stringin
+  if stringin.to_i.to_s == stringin or stringin.to_f.to_s == stringin
     stringin=stringin.to_f.round.to_s
     if stringin.fullstrip.is_integer?
-      return stringin.fullstrip
+      if mode == "String"
+        return stringin.fullstrip
+      elsif mode == "Array"
+          return ["-","-",stringin.fullstrip]
+      end
     end
   end 
   begin
