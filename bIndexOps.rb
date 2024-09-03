@@ -98,7 +98,7 @@ SampleRowHash={"Image ID"=>"A.002","Written Date"=>"June 1970",
 "Precision"=>"likely","Direction"=>"70 degrees E","Object Latitude"=>"35.2354 E","Object Longitude"=>"31.7780 N",
 "written on the slide"=>"Isfahan, Friday Mosque ","written on Baly Index"=>"Friday Mosque "
 }                
-def fillJSON(indexfile,removeEmpty=false,overwrite=true)
+def fillJSON(indexfile,removeEmpty=true,overwrite=true)
   #we begin by collecting all of the endpoints we will need
   sheetfields=["Written Date","Printed Date","old identification numbers","Keywords","Search Terms","Internal Links"]
   overfillerror=InputError.new "metadata nesting exceeded 3 levels and could not be parsed. Check MetaFields hash in bIndexOps.rb"
@@ -208,15 +208,15 @@ def fillHashFromRow(structure,rowHash,removeEmpty=false)
   filled=Hash.new
   autofilled=0
   structure.each do |key,value|
-    nonempty=(rowHash[value].to_s.length > 0 and rowHash[value].to_s.fullstrip!="-")
-    if value[0]=="="
+    nonempty=(rowHash[value].to_s.length > 0 and rowHash[value].to_s.fullstrip!= "-")
+    if value[0]== "= "
       autofilled+=1
       filled[key]=value[1..]
     elsif nonempty or removeEmpty==false 
       if rowHash[value].class == String
         filled[key]=rowHash[value]
       else
-        filled[key]="-"
+        filled[key]= "-"
       end
     end
   end
@@ -230,15 +230,15 @@ def fillArrayFromRow(structure,rowHash,removeEmpty=false)
   filled=Array.new
   autofilled=0
   structure.each do |value|
-    nonempty=(rowHash[value].to_s.length > 0 and rowHash[value].to_s.fullstrip!="-")
-    if value[0]=="="
+    nonempty=(rowHash[value].to_s.length > 0 and rowHash[value].to_s.fullstrip!= "-")
+    if value[0]== "= "
       autofilled+=1
       filled.push value[1..]
     elsif nonempty or removeEmpty==false
         if rowHash[value].class == String
         filled.push rowHash[value]
       else
-        filled[key]="-"
+        filled.push "-"
       end
     end
   end
@@ -252,7 +252,7 @@ def generateReqHash(rowHash,removeEmpty=false)
   reqHash=Hash.new
   writtenDate=parseWrittenDates(rowHash["Written Date"].to_s,"Array")
   printedDate=parsePrintedDates(rowHash["Printed Date"].to_s,"Array")
-  topkey="dates"
+  topkey= "dates"
   if writtenDate==["-","-","-"] and removeEmpty
     writeHash={}
   else
@@ -270,7 +270,7 @@ def generateReqHash(rowHash,removeEmpty=false)
   end
   [writeHash,printHash].each do |hash|
     hash.each do |key,value|
-      if (value.to_s.length < 1 or value=="-") and removeEmpty
+      if (value.to_s.length < 1 or value== "-") and removeEmpty
         hash.delete(key)
       end
     end
@@ -340,9 +340,9 @@ def parseNestedEndpoints(nest, errormsg)
               raise errormsg
             else
               value3.each do |lilkey,value4|
-                if value4.class == String and value4[0] != "="
+                if value4.class == String and value4[0] != "= "
                   fieldsarray.push value4
-                elsif value4[0] != "="
+                elsif value4[0] != "= "
                   raise overfillerror        
                 end
               end
@@ -352,19 +352,19 @@ def parseNestedEndpoints(nest, errormsg)
           value2.each do |key,value3|
             if value3.class == Hash
               value3.each do |key,value4|
-                if value4.class==String and value4[0] != "="
+                if value4.class==String and value4[0] != "= "
                   fieldsarray.push value4
-                elsif value4[0] != "="
+                elsif value4[0] != "= "
                   raise errormsg
                 end
               end
-            elsif value3.class == String and value3[0] != "="
+            elsif value3.class == String and value3[0] != "= "
               fieldsarray.push value3
-            elsif value3[0] != "="
+            elsif value3[0] != "= "
               raise errormsg
             end
           end
-        elsif value2.class==String and value2[0] != "="
+        elsif value2.class==String and value2[0] != "= "
           fieldsarray.push value2
         end
       end
@@ -376,9 +376,9 @@ def parseNestedEndpoints(nest, errormsg)
               raise errormsg
             else
               value3.each do |lilkey,value4|
-                if value4.class == String and value4[0] != "="
+                if value4.class == String and value4[0] != "= "
                   fieldsarray.push value4
-                elsif value4[0] != "="
+                elsif value4[0] != "= "
                   raise errormsg
                 end
               end
@@ -388,23 +388,23 @@ def parseNestedEndpoints(nest, errormsg)
           value2.each do |key,value3|
             if value3.class == Hash
               value3.each do |key,value4|
-                if value4.class==String and value4[0] != "="
+                if value4.class==String and value4[0] != "= "
                   fieldsarray.push value4
-                elsif value4[0] != "="
+                elsif value4[0] != "= "
                   raise errormsg
                 end
               end
-            elsif value3.class == String and value3[0] != "="
+            elsif value3.class == String and value3[0] != "= "
               fieldsarray.push value3
-            elsif value3[0] != "="
+            elsif value3[0] != "= "
               raise errormsg
             end
           end
-        elsif value2.class==String and value2[0] != "="
+        elsif value2.class==String and value2[0] != "= "
           fieldsarray.push value2
         end
       end
-    elsif value.class == String and value[0] != "="
+    elsif value.class == String and value[0] != "= "
       fieldsarray.push value
     end
   end
@@ -431,8 +431,8 @@ def fillImageNotes(indexfile,overwrite=false)
 end
 
 def assembleKeywords(indexfile, worksheet=0, includeOrigins=true)
-  iDSpreadsheetTag="Image ID"
-  keywordSpreadsheetTag="Keywords"
+  iDSpreadsheetTag= "Image ID"
+  keywordSpreadsheetTag= "Keywords"
   data=readIndexData(indexfile, worksheet, [iDSpreadsheetTag,keywordSpreadsheetTag])
   keywords=Hash.new
   keylist=Array.new
@@ -567,8 +567,8 @@ def fixApiDiscrepancies(apiHash)
   end
   return apiHash
 end
-def saveAPIsample(inputfile,outputfile="none")
-  if outputfile=="none"
+def saveAPIsample(inputfile,outputfile= "none")
+  if outputfile== "none"
     outputfile=generateUniqueFilename("json","sampleAPIdata")
   end
   apidata=generateAPIoutput(inputfile)
@@ -578,7 +578,7 @@ def saveAPIsample(inputfile,outputfile="none")
   return apidata[0]
 end
 
-def readIndexData(indexfile,worksheet=0,fields=DefaultFields,rowform="Hash",mode="none")
+def readIndexData(indexfile,worksheet=0,fields=DefaultFields,rowform= "Hash",mode= "none")
   require 'spreadsheet'
   Spreadsheet.client_encoding = 'UTF-8'
   book = Spreadsheet.open indexfile
@@ -591,7 +591,7 @@ def readIndexData(indexfile,worksheet=0,fields=DefaultFields,rowform="Hash",mode
     fieldLocs.each do |key,value|
       data=row[value]
       if data.class == NilClass
-        data=""
+        data= ""
       end
       if rowform.downcase == "hash"
         rowdataHash[key]=data.to_s
@@ -611,7 +611,7 @@ end
 def getFieldLocs(headerRow,fields,mode=nil)
   rtnHash=Hash.new
   fields.each do |f|
-    unless mode.downcase=="casesensitive"
+    unless mode.downcase== "casesensitive"
       indexes=headerRow.includesAtIndex(f)
     else
       indexes=headerRow.includesCaseAtIndex(f)
@@ -647,55 +647,75 @@ end
 def writeImageNotes(writtenDate,printedDate,vrcNum,oldNums,slideWords,indexWords)
   if writtenDate.length > 1
     creationDate=parseWrittenDates writtenDate
-    creationSentence="Photograph created #{creationDate}. "
+    creationSentence= "Photograph created #{creationDate}. "
   else
-    creationSentence="Creation date unknown. "
+    creationSentence= "Creation date unknown. "
   end
   if printedDate.length > 4
     printingDate=parsePrintedDates printedDate
-    printingSentence="Photograph processed #{printingDate}. "
+    printingSentence= "Photograph processed #{printingDate}. "
   else
-    printingSentence="Processing date unknown. "
+    printingSentence= "Processing date unknown. "
   end
   if vrcNum.length > 3 or oldNums.length > 2
     if vrcNum.length > 3
       vrcCat=Classification.new(vrcNum)
       vrcstring=vrcCat.to_s
     else
-      vrcstring=""
+      vrcstring= ""
     end
-    cleanNums=""
+    cleanNums= ""
     oldNums.split(",").each do |num|
       begin
         oldcat=Classification.new(num.fullstrip)
-        cleanNums+=", "+oldcat.to_s
+        cleanNums+= ", "+oldcat.to_s
+      rescue
+        if num != "-"
+          puts "Old Classification #{num} could not be read"
+        end
       end
     end
-    assembledNums=vrcstring+cleanNums
+    if vrcstring.length > 3
+      assembledNums=vrcstring+cleanNums            
+    else
+      assembledNums=cleanNums[2..-1]
+    end
     if assembledNums[0] == ","
       assembledNums=assembledNums[2..]
     end
-    altIdSentence="Formerly catalogued as #{assembledNums}. "
+    altIdSentence= "Formerly catalogued as #{assembledNums}. "
   else
-    altIdSentence=""
+    altIdSentence= ""
   end
-  if slideWords.length > 3
-    slideWriting=slideWords.fullstrip
+  if slideWords.length > 3 or indexWords.length > 3
+    if slideWords.length > 3
+      slideWriting=slideWords.fullstrip
+    else
+      slideWriting= ""
+    end
+    if indexWords.length > 3
+      indexWriting=indexWords.fullstrip
+    else
+      indexWriting= ""
+    end
+    if slideWriting.length > 0 and indexWriting.length > 0
+      if slideWriting == indexWriting
+        writingSentence= "Notes written on the slide or index: "+indexWriting+"."        
+      else
+        writingSentence= "Notes written on the slide or index: "+slideWriting+", "+indexWriting+"."
+      end
+    else
+      writingSentence= "Notes written on the slide or index: "+slideWriting+indexWriting+"."
+    end
   else
-    slideWriting=""
+    writingSentence= "No notes written on the slide or index."
   end
-  if indexWords.length > 3
-    indexWriting=indexWords.fullstrip
-  else
-    indexWriting=""
-  end
-  writingSentence="Notes written on the slide or index: #{slideWriting}, #{indexWriting}."
   return creationSentence+printingSentence+altIdSentence+writingSentence
 end
 
 Months=["January","February","March","April","May","June","July","August","September","October","November","December"]
 #This function parses the "Written Dates" section of the index, converting an abbreviated or partial date to an acceptable string.
-def parseWrittenDates(stringin, mode="String")
+def parseWrittenDates(stringin, mode= "String")
   #we check if the date is just the year, if it is we return it.
   if stringin.to_i.to_s == stringin or stringin.to_f.to_s == stringin
     stringin=stringin.to_f.round.to_s
@@ -721,14 +741,14 @@ def parseWrittenDates(stringin, mode="String")
   daynum=date.day
   if daynum == 1
     if stringin.include?(" 1,") or stringin.include?(" 1 ")
-      day="1st"
+      day= "1st"
     else
       day=0
     end
   elsif daynum == 2
-    day="2nd"
+    day= "2nd"
   elsif daynum == 3
-    day="3rd"
+    day= "3rd"
   else
     day=daynum.to_s+"th"
   end
@@ -736,13 +756,13 @@ def parseWrittenDates(stringin, mode="String")
   if year > 2000
     year=year-100
   end
-  if mode=="String"
+  if mode== "String"
     if day == 0
       return month+" "+year.to_s
     else
       return month+" "+day+", "+year.to_s
     end
-  elsif mode=="Array"
+  elsif mode== "Array"
     if day == 0
       return ["-",month,year]
     else
@@ -751,10 +771,10 @@ def parseWrittenDates(stringin, mode="String")
   end
 end
 
-def parsePrintedDates(stringin,mode="String")
+def parsePrintedDates(stringin,mode= "String")
   input=stringin.fullstrip
-  if input=="-" or input == ""
-    if mode=="String"
+  if input== "-" or input == ""
+    if mode== "String"
       return "-"
     elsif mode == "Array"
       return ["-","-"]
@@ -765,7 +785,7 @@ def parsePrintedDates(stringin,mode="String")
   rescue
     halves=input.split " "
     if halves[0].fullstrip == "ENE"
-      monthin="JAN"
+      monthin= "JAN"
     else
       monthin=halves[0]
     end
@@ -776,7 +796,7 @@ def parsePrintedDates(stringin,mode="String")
   if year > 2000
     year=year-100
   end
-  if mode=="String"
+  if mode== "String"
     return Months[date.month-1]+" "+year.to_s
   elsif mode == "Array"
     return [Months[date.month-1],year]
