@@ -154,7 +154,7 @@ class Slide
         if id.classSystem == "Baly"
             @Balyid=id
             @VRCid=0
-        elsif id.classSystem=="VRC"
+        elsif id.classSystem== "VRC"
             @Balyid=0
             @VRCid=id
         end
@@ -179,9 +179,9 @@ class Slide
     #For this accessor, we accept the choice of which indexing is returned.
     #if a choice is not made, we default to the non-zero one or Baly ID 
     def getindex(system=0)
-        if system=="Baly"
+        if system== "Baly"
             return @Balyid
-        elsif system=="VRC"
+        elsif system== "VRC"
             return @VRCid
         else
             [@Balyid,@VRCid].each do |id|
@@ -242,7 +242,7 @@ class Slide
             else
                 raise StandardError.new "This slide has already been given a Baly ID. Once identification numbers are given, they cannot be changed."
             end
-        elsif id.classSystem=="VRC"
+        elsif id.classSystem== "VRC"
             if @VRCid==0
                 @VRCid=id
             else
@@ -309,9 +309,9 @@ class Classification
         # we already have a function that will do this, getCatType, but this is too bulky to be 
         # automatically called each time. This version is weaker, but quicker.
         if @group[0] == "B" and @group[-1].is_integer?
-            @classSystem='VRC'
+            @classSystem= 'VRC'
         elsif AcceptableAlphanumerics.include? @group
-            @classSystem="Baly"
+            @classSystem= "Baly"
         else
             raise PrefixError.new "The Prefix #{@group} does not match any recorded collection. 
             Check for typos in your entry or amend AcceptableAlphanumerics"
@@ -345,7 +345,7 @@ class Classification
     def stringNum()
         num=@number.to_s
         while num.length < 3
-            num="0"+num
+            num= "0"+num
         end
         return num
     end
@@ -365,7 +365,7 @@ class Classification
             (leftside,rightside)=range.split("-")
             (rgroup,lownum)=leftside.split(".")
             if lownum.length<3
-                hundreds='0'
+                hundreds= '0'
             else
                 hundreds=lownum[0]
             end
@@ -467,13 +467,13 @@ class SpecificLocation < Location
         elsif stringin.include?(" facing ")
             (precisiondata,angledata)=stringin.split(" facing ")
         else
-            precisiondata=""
+            precisiondata= ""
             angledata=stringin
         end
         if precisiondata.include? "location"
             precision=precisiondata.split(" ")[0]
         else
-            precision="exact"
+            precision= "exact"
         end
         if angledata.class == NilClass
             raise StandardError.new "input #{stringin} could not be parsed"
@@ -481,9 +481,9 @@ class SpecificLocation < Location
         if angledata.include? "degrees"
             angle=angledata
         elsif angledata.include? "up"
-            angle="up"
+            angle= "up"
         elsif angledata.include? "down"
-            angle="down"
+            angle= "down"
         else
             raise StandardError.new "No angle information was given, so this location cannot be specific."
         end
@@ -570,8 +570,8 @@ class Subcollection
                 group=@group
                 groupnumber=group[1..].to_i
                 groupnumber+=1
-                @group="B"+groupnumber.to_s
-                @subgroup="0"
+                @group= "B"+groupnumber.to_s
+                @subgroup= "0"
             end
         else
             subgroup=@subgroup.to_i
@@ -583,7 +583,7 @@ class Subcollection
         end
     end
     def isVRC?()
-        if @group[0]=="B" and @group[-1].is_integer?
+        if @group[0]== "B" and @group[-1].is_integer?
             return true
         else
             return false

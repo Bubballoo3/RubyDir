@@ -23,7 +23,13 @@ def parseSlideRange(string)
     if string.include? ". "
         n=string.index ". "
         string=string[...n]
+    elsif string.include? ". "
+        n=string.index ". "
+        string=string[...n]
+    elsif string[-1]=="."
+        string=string[...-1]
     end
+  
   
     ranges=string.split(",",-1)
     
@@ -31,7 +37,7 @@ def parseSlideRange(string)
       ranges[i] = ranges[i].lfullstrip
     end
     #next we store each B-collection in case the next one reuses it
-    lastcollection="ERROR"
+    lastcollection= "ERROR"
   
     #we now loop through the ranges and process them
     ranges.each do |range|
@@ -63,9 +69,9 @@ def parseSlideRange(string)
         dashplace=rightside.index "-"
       
         if dashplace < 3
-          rightside="0" + rightside
+          rightside= "0" + rightside
           if dashplace < 2
-            rightside="0"+rightside
+            rightside= "0"+rightside
           end
         end
         dashplace=4
@@ -84,7 +90,7 @@ def parseSlideRange(string)
                 i=i%100
             end
           if i.to_s.length < 2
-            ending="0"+i.to_s
+            ending= "0"+i.to_s
           else 
             ending=i.to_s
           end
@@ -94,7 +100,7 @@ def parseSlideRange(string)
       else 
         #print "#{rightside}, #{rightside.length} "
         while rightside.length <3
-          rightside="0"+rightside
+          rightside= "0"+rightside
         end
         slide=lastcollection+"."+rightside
         slidesMentioned.push slide.split(" ")[0]
@@ -118,10 +124,10 @@ end
 
 
 =begin #The following is a debug routine that allows you to repeatedly test ranges
-s=""
+s= ""
 puts "a debug session has started. enter \"n\" at any time to end it"
 while s != "n"
-  unless s==""
+  unless s== ""
     puts parseSlideRange(s)
   end
   s=gets
@@ -144,8 +150,8 @@ def parseSlideRangeAttempt(string)
   #"B27.012-15, B45.905-06, B47.654-63, 716-18"
   ranges=prepareRanges(string)
   #next we store each B-collection in case the next one reuses it
-  lastcollection="ERROR"
-  thousandslide="NONE"
+  lastcollection= "ERROR"
+  thousandslide= "NONE"
   #we now loop through the ranges and process them
   ranges.each do |range|
     
@@ -158,7 +164,7 @@ def parseSlideRangeAttempt(string)
     else
       #in case it is only 222-22 
       rightside=range
-      leftside="NONE"
+      leftside= "NONE"
     end
     
     #B22.222-22
@@ -166,7 +172,7 @@ def parseSlideRangeAttempt(string)
     
     #B22.222-22
     #       ^
-    unless leftside=="NONE"
+    unless leftside== "NONE"
       lastcollection = getSubcollection(leftside,rightside)
     end
 
@@ -264,7 +270,7 @@ def regularizeRightside(rightside)
   endplace=findendplace(rightside)
   while endplace < 3
     puts endplace
-    rightside="0"+rightside
+    rightside= "0"+rightside
     endplace+=1
   end
   if rightside.include? "-"
@@ -297,11 +303,11 @@ def getCatType(catnum)
   #first we use the prefix of the classification number (the bit before the decimal point) and make 
   # a first guess about the sort. This will allow us to check some more specific conventions for each
   if catnum[0] != "B"
-    hypothesis="Baly"
+    hypothesis= "Baly"
   elsif catnum[1] == "."
-    hypothesis="Baly"
+    hypothesis= "Baly"
   elsif [0,1,2,3,4,5,6,7,8,9].include? catnum.split('.')[1][-1]
-    hypothesis="VRC"
+    hypothesis= "VRC"
   end
   (prefix,suffix)=catnum.split(".")
   
@@ -352,13 +358,13 @@ def getCatType(catnum)
   puts "If its made it this far the slide cannot be sorted"
 end
 =begin #testing code
-testslide="B12.045"
+testslide= "B12.045"
 while testslide != "n"
     testslide=gets
     puts getCatType(testslide)
 end
 =end
-def generateUniqueFilename(filetype="xls",someTitle)
+def generateUniqueFilename(filetype= "xls",someTitle)
   title=cleanTitle(someTitle)
   time=Time.now
   minutes=time.min

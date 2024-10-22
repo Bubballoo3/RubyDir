@@ -22,7 +22,7 @@ class String
   end
 end
 
-############### M apping Functions ################################
+############### Mapping Functions ################################
 # The first puts together the two main functions above into a simple mapping function
 # the inputfile is a kml filename that has been downloaded from the google Mymaps.
 # the resultfile can be any filename you like ending in .xls. If you don't pass a 
@@ -83,7 +83,7 @@ def stripInfo(kmlFilename)
   cordsread=false
   lineread=false
   linecords=Array.new
-  doctitle="Title Field Blank"
+  doctitle= "Title Field Blank"
 
 #open file
   file=File.open(filename)
@@ -98,7 +98,11 @@ def stripInfo(kmlFilename)
     #every title includes "<name>" and ends with "<\name>"
     if line.include? "<name>" and header==false
       endline=line.rindex "<"
-
+      if line.include? "</name>"
+        endline=line.rindex "<"
+      else 
+        endline=line.rindex "\n"
+      end
       #titles including special characters have additional identifiers that must be removed 
       if line.include? "CDATA"
         splitline=line[21...endline-3]
@@ -235,7 +239,7 @@ def writeToXlsWithClass(bigarray, mode="straight", filename="blank")
   mainsheet.name = collectionTitle
 
   #we define a disclaimer to populate the top left cell, identifying that it was produced by code
-  disclaimer="This is an automatically generated spreadsheet titled \'#{collectionTitle}\' Please review the information before copying into permanent data storage."
+  disclaimer= "This is an automatically generated spreadsheet titled \'#{collectionTitle}\' Please review the information before copying into permanent data storage."
   mainsheet[0,0] = disclaimer
   
   if mode=="straight"

@@ -209,7 +209,7 @@ def fillHashFromRow(structure,rowHash,removeEmpty=false)
   autofilled=0
   structure.each do |key,value|
     nonempty=(rowHash[value].to_s.length > 0 and rowHash[value].to_s.fullstrip!= "-")
-    if value[0]== "= "
+    if value[0]== "="
       autofilled+=1
       filled[key]=value[1..]
     elsif nonempty or removeEmpty==false 
@@ -231,7 +231,7 @@ def fillArrayFromRow(structure,rowHash,removeEmpty=false)
   autofilled=0
   structure.each do |value|
     nonempty=(rowHash[value].to_s.length > 0 and rowHash[value].to_s.fullstrip!= "-")
-    if value[0]== "= "
+    if value[0]== "="
       autofilled+=1
       filled.push value[1..]
     elsif nonempty or removeEmpty==false
@@ -340,9 +340,9 @@ def parseNestedEndpoints(nest, errormsg)
               raise errormsg
             else
               value3.each do |lilkey,value4|
-                if value4.class == String and value4[0] != "= "
+                if value4.class == String and value4[0] != "="
                   fieldsarray.push value4
-                elsif value4[0] != "= "
+                elsif value4[0] != "="
                   raise overfillerror        
                 end
               end
@@ -352,19 +352,19 @@ def parseNestedEndpoints(nest, errormsg)
           value2.each do |key,value3|
             if value3.class == Hash
               value3.each do |key,value4|
-                if value4.class==String and value4[0] != "= "
+                if value4.class==String and value4[0] != "="
                   fieldsarray.push value4
-                elsif value4[0] != "= "
+                elsif value4[0] != "="
                   raise errormsg
                 end
               end
-            elsif value3.class == String and value3[0] != "= "
+            elsif value3.class == String and value3[0] != "="
               fieldsarray.push value3
-            elsif value3[0] != "= "
+            elsif value3[0] != "="
               raise errormsg
             end
           end
-        elsif value2.class==String and value2[0] != "= "
+        elsif value2.class==String and value2[0] != "="
           fieldsarray.push value2
         end
       end
@@ -376,9 +376,9 @@ def parseNestedEndpoints(nest, errormsg)
               raise errormsg
             else
               value3.each do |lilkey,value4|
-                if value4.class == String and value4[0] != "= "
+                if value4.class == String and value4[0] != "="
                   fieldsarray.push value4
-                elsif value4[0] != "= "
+                elsif value4[0] != "="
                   raise errormsg
                 end
               end
@@ -388,23 +388,23 @@ def parseNestedEndpoints(nest, errormsg)
           value2.each do |key,value3|
             if value3.class == Hash
               value3.each do |key,value4|
-                if value4.class==String and value4[0] != "= "
+                if value4.class==String and value4[0] != "="
                   fieldsarray.push value4
-                elsif value4[0] != "= "
+                elsif value4[0] != "="
                   raise errormsg
                 end
               end
-            elsif value3.class == String and value3[0] != "= "
+            elsif value3.class == String and value3[0] != "="
               fieldsarray.push value3
-            elsif value3[0] != "= "
+            elsif value3[0] != "="
               raise errormsg
             end
           end
-        elsif value2.class==String and value2[0] != "= "
+        elsif value2.class==String and value2[0] != "="
           fieldsarray.push value2
         end
       end
-    elsif value.class == String and value[0] != "= "
+    elsif value.class == String and value[0] != "="
       fieldsarray.push value
     end
   end
@@ -538,12 +538,17 @@ def generateAPIoutput(indexfile)
   data=readIndexData(indexfile,0,fields,"Hash","casesensitive")
   puts data
   newdata=Array.new
+
   data.each do |row|
     optHash=generateOptHash(row,true,OptAPIfields)
     puts "Custom Hash=#{optHash}"
     finalHash=RequiredJSON.merge optHash
     unless finalHash["title"] == ["Title"]
-      newdata.push(fixApiDiscrepancies(finalHash))
+      if finalHash["title"].to_s.length > 0
+        newdata.push(fixApiDiscrepancies(finalHash))
+      else
+        break
+      end
     end
   end
   finaloutput=Hash.new
@@ -554,13 +559,13 @@ def fixApiDiscrepancies(apiHash)
   keystopullout=["title","abstract","publication_date"]
   keystopullout.each do |key|
     if apiHash[key].to_s.length > 0
-      #puts apiHash[key]
+      puts apiHash[key]
       apiHash[key]=apiHash[key][0]
-      #puts apiHash[key]
     end
     #puts apiHash[key]
   end
   pubDate=apiHash["publication_date"]
+  puts pubDate
   if pubDate.fullstrip.is_integer?
     newDate=pubDate+"-01-01T08:00:00Z"
     apiHash["publication_date"]=newDate

@@ -67,7 +67,7 @@ def expandBhashRange(brange,includeLeadingZeros=true)
             unscaledNum=i.to_s
             #to scale it back, we insert it back in its place
             scaledNum=unscaledNum.insert(2,".")
-            subcollection="B"+scaledNum
+            subcollection= "B"+scaledNum
             #we finally push the range element into our return array
             expandedRange.push subcollection
         end
@@ -81,11 +81,11 @@ def expandBhashRange(brange,includeLeadingZeros=true)
                 if includeLeadingZeros==true
                     expandedRange.push "B"+i.to_s
                 end
-                catnum="0"+i.to_s
+                catnum= "0"+i.to_s
             else
                 catnum=i.to_s
             end
-            subcollection="B"+catnum
+            subcollection= "B"+catnum
             expandedRange.push subcollection
         end
     end
@@ -103,7 +103,7 @@ end
 #Our next function uses these expanded ranges to sort a slide into one of them
 def getBsorthashkey(slide)
     if slide.include? "."
-        ans=""
+        ans= ""
         (leftside,rightside)=slide.split "."
         if leftside[1..].to_i > 41 #41 is the last VRC collection of 100
             unless rightside [-2..] == "00" and rightside != '000'
@@ -130,7 +130,7 @@ end
 
 def getBalySorthashkey(classification)
     sortingNumber=classification.sortingNumber
-    ans=""
+    ans= ""
     BalySorthash.keys.each do |key|
         if intRangeIncludes?(key,sortingNumber)
             ans=key
@@ -235,7 +235,7 @@ def scanRangeHash(slideindx,activehash,invert=false)
     if activehash.keys.include? slidestring
         newslide=Classification.new(activehash[slidestring])
     else
-        rng=""
+        rng= ""
         activehash.keys.each do |key|
             if slideindx.inRange? key
                 rng=key
@@ -258,7 +258,7 @@ puts scanB47hash('B47.005')
 =end
 
 #this function currently has been tested on all slides mentioned in classificationData
-def indexConverter(slide,outputform='String')
+def indexConverter(slide,outputform= 'String')
     if slide.class == String
         slideindx=Classification.new(slide)
         slidestring=slide
@@ -280,49 +280,49 @@ def indexConverter(slide,outputform='String')
         if Bsorthash.keys.include? hashkey
             hashtouse=Bsorthash[hashkey]
         else
-            hashtouse='None'
+            hashtouse= 'None'
         end
         #puts [hashtouse,slidestring]
     elsif slideindx.classSystem == "Baly"
         hashkey=getBalySorthashkey(slideindx)
         invert=true
-        if hashkey==""
-            hashtouse='None'
+        if hashkey== ""
+            hashtouse= 'None'
         else 
             hashtouse=BalySorthash[hashkey]
         end
     end
-    if hashtouse=="BHashNorm"
+    if hashtouse== "BHashNorm"
         ##############################################################################    
         #this is where we will eventually check an index of inconsistencies in the normal hash.
         ##############################################################################
         newleftside=BHashNorm[slideindx.group]
         newslide=Classification.new([newleftside,slideindx.number])
         print newslide.class
-    elsif hashtouse=='None'
-        newslide=""
-    elsif hashtouse=='ConvertHashNorm'
+    elsif hashtouse== 'None'
+        newslide= ""
+    elsif hashtouse== 'ConvertHashNorm'
         # we will also check the inconsistencies here
         newleftside=ConvertHashNorm[slideindx.group]
         newslide=Classification.new([newleftside,slideindx.number])
-    elsif hashtouse=='BhashRange'
+    elsif hashtouse== 'BhashRange'
         newslide=scanRangeHash(slideindx,BhashRange,invert)
-    elsif hashtouse=='EKtoENhash'
+    elsif hashtouse== 'EKtoENhash'
         newslide=scanRangeHash(slideindx,EKtoENhash,invert)
-    elsif hashtouse=='B44to45hash'
+    elsif hashtouse== 'B44to45hash'
         newslide=scanRangeHash(slideindx,B44to45hash,invert)
-    elsif hashtouse=='B46hash'
+    elsif hashtouse== 'B46hash'
         newslide=scanRangeHash(slideindx,B46hash,invert)
-    elsif hashtouse=='B47hash'
+    elsif hashtouse== 'B47hash'
         newslide=scanRangeHash(slideindx,B47hash,invert)
-    elsif hashtouse=='B48to49hash'
+    elsif hashtouse== 'B48to49hash'
         newslide=scanRangeHash(slideindx,B48to49hash,invert)
     end
     return newslide
 end
 
 =begin #testing code
-testslide="B12.045"
+testslide= "B12.045"
 while testslide != "n"
     testslide=gets[0...-1]
     unless testslide == 'n'
